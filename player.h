@@ -14,6 +14,7 @@ typedef struct{
 }Input;
 
 /**
+ * @file
  * @brief Inicializálja a játékost.
  * 
  * 
@@ -37,6 +38,7 @@ Player init_player(int x , int y, int health , SDL_Renderer *renderer , char* pa
 }
 
 /**
+ * @file
  * @brief Játékos mozgatásáért felelõs függvény
  * 
  * @param player inicializált, mozgatandó játékosra mutató pointer
@@ -62,6 +64,7 @@ void move_player(Player* player , Input input){
     
 }
 /**
+ * @file
  * @brief Kezeli a billentyûk lenyomását
  * 
  * @param input 
@@ -92,6 +95,7 @@ void keyDown(Input* input , SDL_KeyboardEvent* event){
 }
 
 /**
+ * @file
  * @brief Kezeli a billentyûk felengedését
  * 
  * @param input 

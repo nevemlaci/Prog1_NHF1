@@ -17,6 +17,7 @@ typedef struct node{
 }node;
 
 /**
+ * @file
  * @brief A meteorokat tartalmazó láncolt lista végére illeszt be egy új elemet(meteort)
  * 
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
@@ -33,6 +34,7 @@ void insertNode(node* head , Meteor newMeteor){
 }
 
 /**
+ * @file
  * @brief Inicializálja az elsõ meteort
  * 
  * @return node* visszatér az inicializált meteorral
@@ -53,6 +55,7 @@ node* init_meteor_list(void){
 }
 
 /**
+ * @file
  * @brief Meteorokat teremt.
  * 
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
@@ -70,6 +73,7 @@ void spawnMeteors(node* head){
 }
 
 /**
+ * @file
  * @brief Rendereli a láncolt listában lévõ meteorokat
  * 
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
