@@ -61,7 +61,12 @@ void move_player(Player* player , Input input){
 		}
     
 }
-
+/**
+ * @brief Kezeli a billentyûk lenyomását
+ * 
+ * @param input 
+ * @param event 
+ */
 void keyDown(Input* input , SDL_KeyboardEvent* event){
     
 				switch ( event->keysym.scancode ){
@@ -86,7 +91,12 @@ void keyDown(Input* input , SDL_KeyboardEvent* event){
                 }
 }
 
-
+/**
+ * @brief Kezeli a billentyûk felengedését
+ * 
+ * @param input 
+ * @param event 
+ */
 void keyUp(Input* input , SDL_KeyboardEvent* event){
     
 				switch ( event->keysym.scancode ){

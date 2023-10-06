@@ -16,6 +16,12 @@ typedef struct node{
     struct node *next;
 }node;
 
+/**
+ * @brief A meteorokat tartalmazó láncolt lista végére illeszt be egy új elemet(meteort)
+ * 
+ * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
+ * @param newMeteor az új meteort leíro Meteor típusú változót veszi át
+ */
 void insertNode(node* head , Meteor newMeteor){
     struct node* current = head;
     while(current->next!=NULL){
@@ -26,9 +32,11 @@ void insertNode(node* head , Meteor newMeteor){
     current->next->next = NULL;
 }
 
-
-
-
+/**
+ * @brief Inicializálja az elsõ meteort
+ * 
+ * @return node* visszatér az inicializált meteorral
+ */
 node* init_meteor_list(void){
     Meteor kezdo_meteor;
     kezdo_meteor.meret=0;
@@ -61,6 +69,13 @@ void spawnMeteors(node* head){
     insertNode(head , meteor);
 }
 
+/**
+ * @brief Rendereli a láncolt listában lévõ meteorokat
+ * 
+ * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
+ * @param renderer a játék SDL_Renderer -jére mutató pointer
+ * @param texture a meteorokhoz használt textúrára mutató pointer
+ */
 void renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
     node* current = head;
     while(current!=NULL){
