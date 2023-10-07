@@ -91,6 +91,11 @@ void renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
     }
 }
 
+/**
+ * @brief Kitörli az utolsó elemet a lista végérõl
+ * 
+ * @param head láncolt lista elsõ elemére mutató pointer
+ */
 void deleteLastFromList(node* head){
     node* current = head;
     while(current->next->next!=NULL){
@@ -100,6 +105,12 @@ void deleteLastFromList(node* head){
     current->next = NULL;
 }
 
+/**
+ * @brief Egy adott indexû elemet töröl ki a listából
+ * 
+ * @param head láncolt lista elsõ elemére mutató pointer
+ * @param index kitörlendõ elem(meteor) indexe
+ */
 void deleteFromListIndex(node* head , int index){
     if(index==0){
         node * next_node = head->next;
