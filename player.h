@@ -1,5 +1,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
+#include "aszteroida.h"
+#include <stdbool.h>
 #define PLAYER_SPEED 3
 
 
@@ -125,4 +127,16 @@ void keyUp(Input* input , SDL_KeyboardEvent* event){
                 }
 }
 
+void utkozes_ellenorzese(node* head , Player *player){
+    struct node* current = head;
+    while(current!=NULL){
+        if(SDL_HasIntersection(&player->position , &current->meteor.position)){
+            player->health--;
+            printf("Collision\n");
+            deleteFromListIndex(head , current->meteor.index);
+            return;
+        }
 
+        current = current->next;
+    }
+}

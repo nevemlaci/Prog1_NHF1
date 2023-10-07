@@ -9,6 +9,7 @@
 typedef struct{
     SDL_Rect position;
     int meret;
+    int index;
 }Meteor;
 
 typedef struct node{
@@ -42,10 +43,11 @@ void insertNode(node* head , Meteor newMeteor){
 node* init_meteor_list(void){
     Meteor kezdo_meteor;
     kezdo_meteor.meret=0;
-    kezdo_meteor.position.x = 10;
-    kezdo_meteor.position.y = 10;
-    kezdo_meteor.position.w = 32;
-    kezdo_meteor.position.h = 32;
+    kezdo_meteor.position.x = 3000;
+    kezdo_meteor.position.y = 3000;
+    kezdo_meteor.position.w = 0;
+    kezdo_meteor.position.h = 0;
+    kezdo_meteor.index = 0;
     node* head = (node*) malloc(sizeof(node));
     head->meteor = kezdo_meteor;
     head->next = NULL;
@@ -61,13 +63,14 @@ node* init_meteor_list(void){
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * \todo ne teremjen két meteor egymáson + a játékoson(while + collision check)
  */
-void spawnMeteors(node* head){
+void spawnMeteors(node* head , int index){
     Meteor meteor;
     meteor.position.x = rand() % (816-0+1) + 0;
     meteor.position.y = rand() % (480-0+1) + 0;
     meteor.meret = rand() % (2-0+1) + 0;
     meteor.position.h = 32*pow(2 , meteor.meret);
     meteor.position.w = 32*pow(2 , meteor.meret);
+    meteor.index=index;
     
     insertNode(head , meteor);
 }
@@ -87,4 +90,44 @@ void renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
         current = current->next;
     }
 }
+
+void deleteLastFromList(node* head){
+    node* current = head;
+    while(current->next->next!=NULL){
+        current = current->next;
+    }
+    free(current->next);
+    current->next = NULL;
+}
+
+void deleteFromListIndex(node* head , int index){
+    if(index==0){
+        node * next_node = head->next;
+        free(head);
+        head = next_node;
+        return;
+    }
+    node* current = head;
+    node* temp = NULL;
+
+    while(current->next->meteor.index!=index){
+        if(current->next==NULL){
+            break;
+        }
+        current=current->next;
+        
+    }
+    if (current->next == NULL) {
+        deleteLastFromList(head);
+        printf("Deleted item with index(last):%d\n" , index);
+        return;
+    }
+    temp = current->next;
+    current->next = temp->next;
+
+    free(temp);
+    printf("Deleted item with index:%d\n" , index);
+}
+
+
 

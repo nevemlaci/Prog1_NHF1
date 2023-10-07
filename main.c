@@ -10,7 +10,7 @@
 int main(int argc , char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_Window *window = SDL_CreateWindow("" , 50 , 50 , 816 , 480 , 0);
+    SDL_Window *window = SDL_CreateWindow("" , 50 , 50 , 816 , 480 , 0); //SDL_WINDOW_FULLSCREEN_DESKTOP
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     SDL_Renderer *renderer = SDL_CreateRenderer(window , -1 , SDL_RENDERER_ACCELERATED);
     Player player = init_player(100 , 100 , 10 , renderer , "player.png");
@@ -24,14 +24,17 @@ int main(int argc , char* argv[])
     srand( time(0) );
 
     int frames = 0;
+    int meteorIndex = 0;
     
 
     SDL_Event e;
     bool isRunning = true;
     while(isRunning){
         if(frames>= 140){
-            spawnMeteors(meteor_lista_head);
+            meteorIndex++;
+            spawnMeteors(meteor_lista_head , meteorIndex);
             frames=0;
+            
         }
 
         while (SDL_PollEvent(&e)){
@@ -52,10 +55,14 @@ int main(int argc , char* argv[])
         move_player( &player , input);
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer , backround , NULL , NULL);
-        SDL_RenderCopy(renderer , player.texture , NULL , &player.position);  
-        renderMeteors(meteor_lista_head , renderer, meteor_texture);   
-        SDL_RenderPresent(renderer);
+        SDL_RenderCopy(renderer , player.texture , NULL , &player.position); 
+        utkozes_ellenorzese(meteor_lista_head , &player); 
+        renderMeteors(meteor_lista_head , renderer, meteor_texture);
         
+        SDL_RenderPresent(renderer);
+        if(player.health<=0){
+            ;
+        }
 
         SDL_Delay(16);
         frames++;
