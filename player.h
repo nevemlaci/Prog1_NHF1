@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
-#include "aszteroida.h"
 #include <stdbool.h>
+#include "aszteroida.h"
 #define PLAYER_SPEED 3
 
 
@@ -27,16 +27,15 @@ typedef struct{
  * @param path a játékos textúrájának elérési útja(char array)
  * @return Player visszatér player-el, értékak inicializálva.
  */
-Player init_player(int x , int y, int health , SDL_Renderer *renderer , char* path){
-    Player player;
-    player.health = health;
-    player.position.x = x;
-    player.position.y = y;
+void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player){
+
+    player->health = health;
+    player->position.x = x;
+    player->position.y = y;
     SDL_Texture *texture = IMG_LoadTexture(renderer , path);
-    player.texture = texture;
-    player.position.h=32;
-    player.position.w=32;
-    return player;
+    player->texture = texture;
+    player->position.h=32;
+    player->position.w=32;
 }
 
 /**
@@ -46,20 +45,20 @@ Player init_player(int x , int y, int health , SDL_Renderer *renderer , char* pa
  * @param player inicializált, mozgatandó játékosra mutató pointer
  * @param input bemeneteket kezelõ struct
  */
-void move_player(Player* player , Input input){
-    if (input.up == 1) {
+void move_player(Player* player , Input* input){
+    if (input->up == 1) {
 			player->position.y -= PLAYER_SPEED;
 			
 		}
-		if (input.down == 1) {
+		if (input->down == 1) {
 			player->position.y += PLAYER_SPEED;
 			
 		}
-		if (input.left == 1) {
+		if (input->left == 1) {
 			player->position.x -= PLAYER_SPEED;
 			
 		}
-		if (input.right == 1) {
+		if (input->right == 1) {
 			player->position.x += PLAYER_SPEED;
 			
 		}
