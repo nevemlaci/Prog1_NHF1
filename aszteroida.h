@@ -1,19 +1,20 @@
+#ifndef ASZTEROIDA_H
+#define ASZTEROIDA_H
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <time.h>
 #include <math.h>
 
+struct node;
 
-typedef struct{
+typedef struct Meteor{
     SDL_Rect position;
     int meret;
     int index;
 }Meteor;
 
-typedef struct node{
-    Meteor meteor;
-    struct node *next;
-}node;
+
 
 /**
  * @file
@@ -38,7 +39,7 @@ void insertNode(node* head , Meteor newMeteor){
  * 
  * @return node* visszatér az inicializált meteorral
  */
-node* init_meteor_list(void){
+struct node* init_meteor_list(void){
     Meteor kezdo_meteor;
     kezdo_meteor.meret=0;
     kezdo_meteor.position.x = 3000;
@@ -46,7 +47,7 @@ node* init_meteor_list(void){
     kezdo_meteor.position.w = 0;
     kezdo_meteor.position.h = 0;
     kezdo_meteor.index = 0;
-    node* head = (node*) malloc(sizeof(node));
+    struct node* head = (struct node*) malloc(sizeof(node));
     head->meteor = kezdo_meteor;
     head->next = NULL;
 
@@ -61,7 +62,7 @@ node* init_meteor_list(void){
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * \todo ne teremjen két meteor egymáson + a játékoson(while + collision check)
  */
-void spawnMeteors(node* head , int index){
+void spawnMeteors(struct node* head , int index){
     Meteor meteor;
     meteor.position.x = rand() % (816-0+1) + 0;
     meteor.position.y = rand() % (480-0+1) + 0;
@@ -94,7 +95,7 @@ void renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
  * 
  * @param head láncolt lista elsõ elemére mutató pointer
  */
-void deleteLastFromList(node* head){
+void deleteLastFromList(struct node* head){
     node* current = head;
     while(current->next->next!=NULL){
         current = current->next;
@@ -109,7 +110,7 @@ void deleteLastFromList(node* head){
  * @param head láncolt lista elsõ elemére mutató pointer
  * @param index kitörlendõ elem(meteor) indexe
  */
-void deleteFromListIndex(node* head , int index){
+void deleteFromListIndex(struct node* head , int index){
     if(index==0){
         node * next_node = head->next;
         free(head);
@@ -138,5 +139,5 @@ void deleteFromListIndex(node* head , int index){
     printf("Deleted item with index:%d\n" , index);
 }
 
-
+#endif
 

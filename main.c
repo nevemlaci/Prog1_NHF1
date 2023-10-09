@@ -5,6 +5,8 @@
 #include <SDL_main.h>
 #include <SDL_image.h>
 #include "player.h"
+#include "lista.h"
+
 
 typedef struct{
             SDL_Window *menuWindow;
@@ -18,7 +20,7 @@ typedef struct{
             SDL_Texture *backround;
             node* meteor_lista_head;
             SDL_Texture* meteor_texture;
-        }App;
+}App;
 
 
 
@@ -31,13 +33,17 @@ int main(int argc , char* argv[])
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
-    
+    SDL_DisplayMode dm; //https://stackoverflow.com/questions/33393528/how-to-get-screen-size-in-sdl
+    SDL_GetDesktopDisplayMode(0 , &dm);
+    int desktopW , desktopH;
+    desktopW = dm.w;
+    desktopH = dm.h;
 
     App app;
 
     app.menuWindow = SDL_CreateWindow("Menu" , 600 , 300 , 400 , 400, 0);
     app.menuRenderer = SDL_CreateRenderer(app.menuWindow , -1 , SDL_RENDERER_ACCELERATED);
-    app.gameWindow = SDL_CreateWindow("" , 50 , 50 , 816 , 480 , 0); //SDL_WINDOW_FULLSCREEN_DESKTOP
+    app.gameWindow = SDL_CreateWindow("" , desktopW/2 - 816/2 , desktopH/2 - 480/2 , 816 , 480 , 0); //SDL_WINDOW_FULLSCREEN_DESKTOP
     app.gameRenderer = SDL_CreateRenderer(app.gameWindow , -1 , SDL_RENDERER_ACCELERATED);
     app.isGame = false , 
     app.isMenu = true;
