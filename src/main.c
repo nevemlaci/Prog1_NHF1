@@ -47,13 +47,13 @@ int main(int argc , char* argv[])
     app.menuRenderer = SDL_CreateRenderer(app.menuWindow , -1 , SDL_RENDERER_ACCELERATED);
     app.gameWindow = SDL_CreateWindow("" , screenW/2 - 816/2 , screenH/2 - 480/2 , 816 , 480 , 0); //SDL_WINDOW_FULLSCREEN_DESKTOP
     app.gameRenderer = SDL_CreateRenderer(app.gameWindow , -1 , SDL_RENDERER_ACCELERATED);
-    app.font = TTF_OpenFont("comic.ttf" , 13);
+    app.font = TTF_OpenFont("../materials/font/comic.ttf" , 13);
     app.isGame = false , 
     app.isMenu = true;
-    init_player(100 , 100 , 1 , app.gameRenderer , "player.png" , &app.player);
-    app.backround = IMG_LoadTexture(app.gameRenderer , "background.jpeg");
+    init_player(100 , 100 , 1 , app.gameRenderer , "../materials/images/player.png" , &app.player);
+    app.backround = IMG_LoadTexture(app.gameRenderer , "../materials/images/background.jpeg");
     app.meteor_lista_head = init_meteor_list();
-    app.meteor_texture = IMG_LoadTexture(app.gameRenderer , "meteor_1.png");
+    app.meteor_texture = IMG_LoadTexture(app.gameRenderer , "../materials/images/meteor_1.png");
 
     srand( time(0) );
     SDL_HideWindow(app.gameWindow);
