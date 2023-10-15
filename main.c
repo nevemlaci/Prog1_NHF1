@@ -4,15 +4,16 @@
 #include <SDL.h>
 #include <SDL_main.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include "player.h"
-#include "lista.h"
-
+#include "aszteroida.c"
 
 typedef struct{
             SDL_Window *menuWindow;
             SDL_Renderer *menuRenderer;
             SDL_Window *gameWindow;
-            SDL_Renderer *gameRenderer;;
+            SDL_Renderer *gameRenderer;
+            TTF_Font* font;
             bool isGame;
             bool isMenu;
             Player player;
@@ -20,7 +21,7 @@ typedef struct{
             SDL_Texture *backround;
             node* meteor_lista_head;
             SDL_Texture* meteor_texture;
-}App;
+        }App;
 
 
 
@@ -33,21 +34,23 @@ int main(int argc , char* argv[])
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
-    SDL_DisplayMode dm; //https://stackoverflow.com/questions/33393528/how-to-get-screen-size-in-sdl
+    SDL_DisplayMode dm;
     SDL_GetDesktopDisplayMode(0 , &dm);
-    int desktopW , desktopH;
-    desktopW = dm.w;
-    desktopH = dm.h;
+
+    int screenW , screenH;
+    screenW = dm.w;
+    screenH = dm.h;
 
     App app;
 
     app.menuWindow = SDL_CreateWindow("Menu" , 600 , 300 , 400 , 400, 0);
     app.menuRenderer = SDL_CreateRenderer(app.menuWindow , -1 , SDL_RENDERER_ACCELERATED);
-    app.gameWindow = SDL_CreateWindow("" , desktopW/2 - 816/2 , desktopH/2 - 480/2 , 816 , 480 , 0); //SDL_WINDOW_FULLSCREEN_DESKTOP
+    app.gameWindow = SDL_CreateWindow("" , screenW/2 - 816/2 , screenH/2 - 480/2 , 816 , 480 , 0); //SDL_WINDOW_FULLSCREEN_DESKTOP
     app.gameRenderer = SDL_CreateRenderer(app.gameWindow , -1 , SDL_RENDERER_ACCELERATED);
+    app.font = TTF_OpenFont("comic.ttf" , 13);
     app.isGame = false , 
     app.isMenu = true;
-    init_player(100 , 100 , 10 , app.gameRenderer , "player.png" , &app.player);
+    init_player(100 , 100 , 1 , app.gameRenderer , "player.png" , &app.player);
     app.backround = IMG_LoadTexture(app.gameRenderer , "background.jpeg");
     app.meteor_lista_head = init_meteor_list();
     app.meteor_texture = IMG_LoadTexture(app.gameRenderer , "meteor_1.png");
@@ -55,31 +58,32 @@ int main(int argc , char* argv[])
     srand( time(0) );
     SDL_HideWindow(app.gameWindow);
     runMenu(&app);
-    
     SDL_Quit();
     return 0;
 }
 
+/**
+ * @brief Futtatja a menüt. Meghívja runGame() -t, ha a játékos a játékot indító jelet adja.
+ * 
+ * @param app a játék törzsét alkotó struktúrára mutató pointer
+ */
 void runMenu(App* app){
     SDL_ShowWindow(app->menuWindow);
     SDL_Event e;
-    while(app->isMenu){
+    while(true){
         while (SDL_PollEvent(&e)){
             switch (e.type) {
                 case SDL_WINDOWEVENT:
                 if(e.window.event == SDL_WINDOWEVENT_CLOSE){
-                    SDL_DestroyWindow(app->gameWindow);
-                    SDL_DestroyWindow(app->menuWindow);
                     return;
                 }
                 case SDL_KEYDOWN:
                     if(e.key.keysym.scancode == SDL_SCANCODE_T){
                         app->isGame = true;
                         app->isMenu = false;
-                        app->gameWindow!=NULL ? SDL_ShowWindow(app->gameWindow) : NULL;
+                        SDL_ShowWindow(app->gameWindow);
                         SDL_HideWindow(app->menuWindow);
                         runGame(app);
-                        
                     }
             }
         }
@@ -87,12 +91,16 @@ void runMenu(App* app){
         SDL_SetRenderDrawColor(app->menuRenderer , 252, 111, 68, 0);
         SDL_RenderPresent(app->menuRenderer);
     }
+    
 }
-
+/**
+ * @brief A játék futtatásáért felelõs. ha a játékos bezárja, visszatérés után a menüben folytatódik a játék.
+ * 
+ * @param app a játék törzsét alkotó struktúrára mutató pointer
+ */
 void runGame(App* app){
     int frames = 0;
     int meteorIndex = 0;
-     
     SDL_Event e;
     while(app->isGame){
         if(frames>= 140){
@@ -106,13 +114,12 @@ void runGame(App* app){
             switch (e.type) {
                 case SDL_WINDOWEVENT:
                     if(e.window.event == SDL_WINDOWEVENT_CLOSE){
-                        SDL_HideWindow(app->gameWindow);
                         app->isGame=false;
                         app->isMenu=true;
+                        SDL_HideWindow(app->gameWindow);
                         SDL_ShowWindow(app->menuWindow);
                         return;
                     }
-                    break;
                 case SDL_KEYDOWN:
                     keyDown(&app->input , &e.key);
                     break;
@@ -123,7 +130,7 @@ void runGame(App* app){
             }
         }
 
-        move_player( &app->player , &app->input);
+        move_player( &app->player , app->input);
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
         SDL_RenderCopy(app->gameRenderer , app->player.texture , NULL , &app->player.position); 
@@ -131,8 +138,15 @@ void runGame(App* app){
         renderMeteors(app->meteor_lista_head , app->gameRenderer, app->meteor_texture);
         
         SDL_RenderPresent(app->gameRenderer);
-
+        if(app->player.health<=0){
+            app->isGame=false;
+            app->isMenu=true;
+            SDL_HideWindow(app->gameWindow);
+            SDL_ShowWindow(app->menuWindow);
+            return;
+        }
         SDL_Delay(16);
         frames++;
     }
 }
+

@@ -10,6 +10,7 @@
 #include "aszteroida.h"
 
 
+
 typedef struct node{
     Meteor meteor;
     struct node *next;

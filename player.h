@@ -2,6 +2,7 @@
 #include <SDL_image.h>
 #include <stdbool.h>
 #include "lista.h"
+
 #define PLAYER_SPEED 3
 
 
@@ -28,7 +29,6 @@ typedef struct{
  * @return Player visszatér player-el, értékak inicializálva.
  */
 void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player){
-
     player->health = health;
     player->position.x = x;
     player->position.y = y;
@@ -45,20 +45,20 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
  * @param player inicializált, mozgatandó játékosra mutató pointer
  * @param input bemeneteket kezelõ struct
  */
-void move_player(Player* player , Input* input){
-    if (input->up == 1) {
+void move_player(Player* player , Input input){
+    if (input.up == 1) {
 			player->position.y -= PLAYER_SPEED;
 			
 		}
-		if (input->down == 1) {
+		if (input.down == 1) {
 			player->position.y += PLAYER_SPEED;
 			
 		}
-		if (input->left == 1) {
+		if (input.left == 1) {
 			player->position.x -= PLAYER_SPEED;
 			
 		}
-		if (input->right == 1) {
+		if (input.right == 1) {
 			player->position.x += PLAYER_SPEED;
 			
 		}
@@ -126,7 +126,7 @@ void keyUp(Input* input , SDL_KeyboardEvent* event){
                 }
 }
 
-void utkozes_ellenorzese(node* head , Player *player){
+void utkozes_ellenorzese(struct node* head , Player *player){
     struct node* current = head;
     while(current!=NULL){
         if(SDL_HasIntersection(&player->position , &current->meteor.position)){

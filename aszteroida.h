@@ -16,6 +16,7 @@ typedef struct Meteor{
 
 
 
+
 /**
  * @file
  * @brief A meteorokat tartalmazó láncolt lista végére illeszt be egy új elemet(meteort)
@@ -23,15 +24,7 @@ typedef struct Meteor{
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * @param newMeteor az új meteort leíro Meteor típusú változót veszi át
  */
-void insertNode(node* head , Meteor newMeteor){
-    struct node* current = head;
-    while(current->next!=NULL){
-        current = current->next;
-    }
-    current->next = (node*) malloc(sizeof(node));
-    current->next->meteor = newMeteor;
-    current->next->next = NULL;
-}
+void insertNode(struct node* head , Meteor newMeteor);
 
 /**
  * @file
@@ -39,21 +32,7 @@ void insertNode(node* head , Meteor newMeteor){
  * 
  * @return node* visszatér az inicializált meteorral
  */
-struct node* init_meteor_list(void){
-    Meteor kezdo_meteor;
-    kezdo_meteor.meret=0;
-    kezdo_meteor.position.x = 3000;
-    kezdo_meteor.position.y = 3000;
-    kezdo_meteor.position.w = 0;
-    kezdo_meteor.position.h = 0;
-    kezdo_meteor.index = 0;
-    struct node* head = (struct node*) malloc(sizeof(node));
-    head->meteor = kezdo_meteor;
-    head->next = NULL;
-
-    return head;
-    
-}
+struct node* init_meteor_list(void);
 
 /**
  * @file
@@ -62,17 +41,7 @@ struct node* init_meteor_list(void){
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * \todo ne teremjen két meteor egymáson + a játékoson(while + collision check)
  */
-void spawnMeteors(struct node* head , int index){
-    Meteor meteor;
-    meteor.position.x = rand() % (816-0+1) + 0;
-    meteor.position.y = rand() % (480-0+1) + 0;
-    meteor.meret = rand() % (2-0+1) + 0;
-    meteor.position.h = 32*pow(2 , meteor.meret);
-    meteor.position.w = 32*pow(2 , meteor.meret);
-    meteor.index=index;
-    
-    insertNode(head , meteor);
-}
+void spawnMeteors(struct node* head , int index);
 
 /**
  * @file
@@ -82,27 +51,14 @@ void spawnMeteors(struct node* head , int index){
  * @param renderer a játék SDL_Renderer -jére mutató pointer
  * @param texture a meteorokhoz használt textúrára mutató pointer
  */
-void renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
-    node* current = head;
-    while(current!=NULL){
-        SDL_RenderCopy(renderer , texture , NULL , &current->meteor.position);
-        current = current->next;
-    }
-}
+void renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* texture);
 
 /**
  * @brief Kitörli az utolsó elemet a lista végérõl
  * 
  * @param head láncolt lista elsõ elemére mutató pointer
  */
-void deleteLastFromList(struct node* head){
-    node* current = head;
-    while(current->next->next!=NULL){
-        current = current->next;
-    }
-    free(current->next);
-    current->next = NULL;
-}
+void deleteLastFromList(struct node* head);
 
 /**
  * @brief Egy adott indexû elemet töröl ki a listából
@@ -110,34 +66,7 @@ void deleteLastFromList(struct node* head){
  * @param head láncolt lista elsõ elemére mutató pointer
  * @param index kitörlendõ elem(meteor) indexe
  */
-void deleteFromListIndex(struct node* head , int index){
-    if(index==0){
-        node * next_node = head->next;
-        free(head);
-        head = next_node;
-        return;
-    }
-    node* current = head;
-    node* temp = NULL;
-
-    while(current->next->meteor.index!=index){
-        if(current->next==NULL){
-            break;
-        }
-        current=current->next;
-        
-    }
-    if (current->next == NULL) {
-        deleteLastFromList(head);
-        printf("Deleted item with index(last):%d\n" , index);
-        return;
-    }
-    temp = current->next;
-    current->next = temp->next;
-
-    free(temp);
-    printf("Deleted item with index:%d\n" , index);
-}
+void deleteFromListIndex(struct node* head , int index);
 
 #endif
 
