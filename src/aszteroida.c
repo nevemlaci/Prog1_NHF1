@@ -1,7 +1,21 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdbool.h>
-#include "lista.h"
+#include <math.h>
+#include <stdio.h>
+#include "aszteroida.h"
+
+
+
+void insertNode(node* head , Meteor newMeteor){
+    struct node* current = head;
+    while(current->next!=NULL){
+        current = current->next;
+    }
+    current->next = (node*) malloc(sizeof(node));
+    current->next->meteor = newMeteor;
+    current->next->next = NULL;
+}
 
 void spawnMeteors(struct node* head , int index){
     Meteor meteor;
@@ -61,15 +75,6 @@ void deleteFromListIndex(struct node* head , int index){
     printf("Deleted item with index:%d\n" , index);
 }
 
-void insertNode(node* head , Meteor newMeteor){
-    struct node* current = head;
-    while(current->next!=NULL){
-        current = current->next;
-    }
-    current->next = (node*) malloc(sizeof(node));
-    current->next->meteor = newMeteor;
-    current->next->next = NULL;
-}
 
 struct node* init_meteor_list(void){
     Meteor kezdo_meteor;

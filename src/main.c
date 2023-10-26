@@ -5,8 +5,10 @@
 #include <SDL_main.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <time.h>
 #include "player.h"
-#include "aszteroida.c"
+#include "aszteroida.h"
+#include "../lib/debugmalloc.h"
 
 typedef struct{
             SDL_Window *menuWindow;

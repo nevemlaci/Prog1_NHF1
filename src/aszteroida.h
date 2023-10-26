@@ -1,12 +1,6 @@
 #ifndef ASZTEROIDA_H
 #define ASZTEROIDA_H
 
-#include <SDL.h>
-#include <SDL_image.h>
-#include <time.h>
-#include <math.h>
-
-struct node;
 
 typedef struct Meteor{
     SDL_Rect position;
@@ -14,8 +8,10 @@ typedef struct Meteor{
     int index;
 }Meteor;
 
-
-
+typedef struct node{
+    Meteor meteor;
+    struct node *next;
+}node;
 
 /**
  * @file

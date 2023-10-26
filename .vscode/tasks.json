@@ -5,8 +5,7 @@
             "label": "C/C++: gcc.exe build active file",
             "command": "gcc",
             "args": [
-                "-g",
-                "${file}",
+                "*.c",
                 "-o",
                 "${workspaceFolder}\\Build\\${fileBasenameNoExtension}.exe",
                 "-Wall",

@@ -1,10 +1,9 @@
-#include <SDL.h>
-#include <SDL_image.h>
-#include <stdbool.h>
-#include "lista.h"
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #define PLAYER_SPEED 3
 
+struct node;
 
 typedef struct{
     SDL_Rect position;
@@ -15,7 +14,6 @@ typedef struct{
 typedef struct{
     int up , down , left , right;
 }Input;
-
 /**
  * @file
  * @brief Inicializálja a játékost.
@@ -28,15 +26,7 @@ typedef struct{
  * @param path a játékos textúrájának elérési útja(char array)
  * @return Player visszatér player-el, értékak inicializálva.
  */
-void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player){
-    player->health = health;
-    player->position.x = x;
-    player->position.y = y;
-    SDL_Texture *texture = IMG_LoadTexture(renderer , path);
-    player->texture = texture;
-    player->position.h=32;
-    player->position.w=32;
-}
+void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player);
 
 /**
  * @file
@@ -45,25 +35,7 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
  * @param player inicializált, mozgatandó játékosra mutató pointer
  * @param input bemeneteket kezelõ struct
  */
-void move_player(Player* player , Input input){
-    if (input.up == 1) {
-			player->position.y -= PLAYER_SPEED;
-			
-		}
-		if (input.down == 1) {
-			player->position.y += PLAYER_SPEED;
-			
-		}
-		if (input.left == 1) {
-			player->position.x -= PLAYER_SPEED;
-			
-		}
-		if (input.right == 1) {
-			player->position.x += PLAYER_SPEED;
-			
-		}
-    
-}
+void move_player(Player* player , Input input);
 /**
  * @file
  * @brief Kezeli a billentyûk lenyomását
@@ -71,29 +43,7 @@ void move_player(Player* player , Input input){
  * @param input 
  * @param event 
  */
-void keyDown(Input* input , SDL_KeyboardEvent* event){
-    
-				switch ( event->keysym.scancode ){
-                    case SDL_SCANCODE_W:
-                        input->up = 1;
-                        break;
-                       
-                    case SDL_SCANCODE_S:
-                        input->down = 1;
-                        break;
-                       
-                    case SDL_SCANCODE_A:
-                        input->left = 1;
-                        break;
-                       
-                    case SDL_SCANCODE_D:
-                        input->right = 1;
-                        break;
-                       
-                    default:
-                        break;
-                }
-}
+void keyDown(Input* input , SDL_KeyboardEvent* event);
 
 /**
  * @file
@@ -102,40 +52,7 @@ void keyDown(Input* input , SDL_KeyboardEvent* event){
  * @param input 
  * @param event 
  */
-void keyUp(Input* input , SDL_KeyboardEvent* event){
-    
-				switch ( event->keysym.scancode ){
-                    case SDL_SCANCODE_W:
-                        input->up=0;
-                        break;
-                       
-                    case SDL_SCANCODE_S:
-                        input->down=0;
-                        break;
-                       
-                    case SDL_SCANCODE_A:
-                        input->left=0;
-                        break;
-                       
-                    case SDL_SCANCODE_D:
-                        input->right=0;
-                        break;
-                       
-                    default:
-                        break;
-                }
-}
+void keyUp(Input* input , SDL_KeyboardEvent* event);
 
-void utkozes_ellenorzese(struct node* head , Player *player){
-    struct node* current = head;
-    while(current!=NULL){
-        if(SDL_HasIntersection(&player->position , &current->meteor.position)){
-            player->health--;
-            printf("Collision\n");
-            deleteFromListIndex(head , current->meteor.index);
-            return;
-        }
-
-        current = current->next;
-    }
-}
+void utkozes_ellenorzese(struct node* head , Player *player);
+#endif
