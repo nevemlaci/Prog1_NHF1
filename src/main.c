@@ -17,6 +17,7 @@ int main(int argc , char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+    debugmalloc_log_file("../log/log.txt");
 
     SDL_DisplayMode dm;
     SDL_GetDesktopDisplayMode(0 , &dm);
@@ -32,8 +33,8 @@ int main(int argc , char* argv[])
     runMenu(&app);
 
     if(write_latest_score("../saves/latestscores.txt" , app.latest_score)==-1) return -1;
-
     SDL_Quit();
+    debugmalloc_dump();
     return 0;
 }
 

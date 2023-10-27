@@ -2,6 +2,10 @@
 #define PLAYER_H
 
 #define PLAYER_SPEED 3
+#include <SDL.h>
+#include <SDL_image.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 struct node;
 

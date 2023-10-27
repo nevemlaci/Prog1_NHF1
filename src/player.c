@@ -1,8 +1,5 @@
 
-#include <SDL.h>
-#include <SDL_image.h>
-#include <stdbool.h>
-#include <stdio.h>
+
 #include "aszteroida.h"
 #include "player.h"
 

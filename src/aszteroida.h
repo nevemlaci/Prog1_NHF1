@@ -1,6 +1,12 @@
 #ifndef ASZTEROIDA_H
 #define ASZTEROIDA_H
 
+#include <SDL.h>
+#include <SDL_image.h>
+#include <stdbool.h>
+#include <math.h>
+#include <stdio.h>
+
 
 typedef struct Meteor{
     SDL_Rect position;
