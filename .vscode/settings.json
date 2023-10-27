@@ -20,6 +20,8 @@
         "sdl_version.h": "c",
         "player.h": "c",
         "debugmalloc.h": "c",
-        "lista.h": "c"
+        "lista.h": "c",
+        "app.h": "c",
+        "random": "cpp"
     }
 }
