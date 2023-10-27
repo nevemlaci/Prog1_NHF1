@@ -41,7 +41,7 @@ void runMenu(App* app);
  * 
  * @param app a játék törzsét alkotó struktúrára mutató pointer
  */
-void runGame(App* app);
+int runGame(App* app);
 
 
 #endif

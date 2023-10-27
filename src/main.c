@@ -10,6 +10,7 @@
 #include "player.h"
 #include "aszteroida.h"
 #include "app.h"
+#include "file.h"
 #include "../lib/debugmalloc.h"
 
 int main(int argc , char* argv[])
@@ -23,12 +24,15 @@ int main(int argc , char* argv[])
     int screenW , screenH;
     screenW = dm.w;
     screenH = dm.h;
-
+    
     App app = init_App(screenW , screenH);
-
+    app.latest_score = load_latest_score("../saves/latestscores.txt");
     srand(time(0));
     SDL_HideWindow(app.gameWindow);
     runMenu(&app);
+
+    if(write_latest_score("../saves/latestscores.txt" , app.latest_score)==-1) return 0;
+
     SDL_Quit();
     return 0;
 }

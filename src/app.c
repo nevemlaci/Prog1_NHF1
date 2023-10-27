@@ -33,7 +33,9 @@ void runMenu(App* app){
                         app->isMenu = false;
                         SDL_ShowWindow(app->gameWindow);
                         SDL_HideWindow(app->menuWindow);
-                        runGame(app);
+                        app->latest_score=runGame(app);
+                        delete_meteor_list(app->meteor_lista_head);
+                        init_player(100 , 100 , 1 , app->gameRenderer , "../materials/images/player.png" , &app->player);
                     }
             }
         }
@@ -41,14 +43,16 @@ void runMenu(App* app){
         SDL_SetRenderDrawColor(app->menuRenderer , 252, 111, 68, 0);
         SDL_RenderPresent(app->menuRenderer);
     }
-    
+    return;
 }
 
-void runGame(App* app){
+int runGame(App* app){
     int frames = 0;
     int meteorIndex = 0;
+    int score = 0;
     SDL_Event e;
     while(app->isGame){
+        score++;
         if(frames>= 140){
             meteorIndex++;
             spawnMeteors(app->meteor_lista_head , meteorIndex);
@@ -64,7 +68,7 @@ void runGame(App* app){
                         app->isMenu=true;
                         SDL_HideWindow(app->gameWindow);
                         SDL_ShowWindow(app->menuWindow);
-                        return;
+                        return score;
                     }
                 case SDL_KEYDOWN:
                     keyDown(&app->input , &e.key);
@@ -75,7 +79,7 @@ void runGame(App* app){
                     break;
             }
         }
-
+        
         move_player( &app->player , app->input);
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
@@ -89,9 +93,10 @@ void runGame(App* app){
             app->isMenu=true;
             SDL_HideWindow(app->gameWindow);
             SDL_ShowWindow(app->menuWindow);
-            return;
+            return score;
         }
         SDL_Delay(16);
         frames++;
     }
+    return score;
 }

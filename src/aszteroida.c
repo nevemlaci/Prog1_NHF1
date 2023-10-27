@@ -90,3 +90,14 @@ struct node* init_meteor_list(void){
 
     return head;
 }
+
+void delete_meteor_list(node* head){
+    node* current = head;
+    node* temp;
+    while(current->next != NULL){
+        temp = current;
+        current = current->next;
+        free(temp);
+    }
+    free(current);
+}

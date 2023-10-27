@@ -64,5 +64,7 @@ void deleteLastFromList(struct node* head);
  */
 void deleteFromListIndex(struct node* head , int index);
 
+void delete_meteor_list(node* head);
+
 #endif
 
