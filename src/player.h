@@ -12,7 +12,7 @@ typedef struct{
 }Player;
 
 typedef struct{
-    int up , down , left , right;
+    int up , down , left , right , menu;
 }Input;
 /**
  * @file
@@ -53,6 +53,8 @@ void keyDown(Input* input , SDL_KeyboardEvent* event);
  * @param event 
  */
 void keyUp(Input* input , SDL_KeyboardEvent* event);
+
+void reset_input(Input* input);
 
 void utkozes_ellenorzese(struct node* head , Player *player);
 #endif

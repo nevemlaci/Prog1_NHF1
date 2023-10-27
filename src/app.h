@@ -7,9 +7,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "aszteroida.h"
-#include "player.h"
-
-
+#include "player.h" 
 
 typedef struct{
             SDL_Window *menuWindow;

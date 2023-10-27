@@ -31,7 +31,7 @@ int main(int argc , char* argv[])
     SDL_HideWindow(app.gameWindow);
     runMenu(&app);
 
-    if(write_latest_score("../saves/latestscores.txt" , app.latest_score)==-1) return 0;
+    if(write_latest_score("../saves/latestscores.txt" , app.latest_score)==-1) return -1;
 
     SDL_Quit();
     return 0;

@@ -8,9 +8,6 @@
 
 #define PLAYER_SPEED 3
 
-
-
-
 void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player){
     player->health = health;
     player->position.x = x;
@@ -20,7 +17,6 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
     player->position.h=32;
     player->position.w=32;
 }
-
 
 void move_player(Player* player , Input input){
     if (input.up == 1) {
@@ -39,11 +35,9 @@ void move_player(Player* player , Input input){
 			player->position.x += PLAYER_SPEED;
 			
 		}
-    
 }
 
 void keyDown(Input* input , SDL_KeyboardEvent* event){
-    
 				switch ( event->keysym.scancode ){
                     case SDL_SCANCODE_W:
                         input->up = 1;
@@ -60,7 +54,11 @@ void keyDown(Input* input , SDL_KeyboardEvent* event){
                     case SDL_SCANCODE_D:
                         input->right = 1;
                         break;
-                       
+                    
+                    case SDL_SCANCODE_M:
+                        input->menu=1;
+                        break;
+
                     default:
                         break;
                 }
@@ -84,10 +82,21 @@ void keyUp(Input* input , SDL_KeyboardEvent* event){
                     case SDL_SCANCODE_D:
                         input->right=0;
                         break;
-                       
+                    
+                    case SDL_SCANCODE_M:
+                        input->menu=0;
+                        break;
                     default:
                         break;
                 }
+}
+
+void reset_input(Input* input){
+    input->up = 0;
+    input->down = 0;
+    input->left = 0;
+    input->right = 0;
+    input->menu = 0;
 }
 
 void utkozes_ellenorzese(struct node* head , Player *player){

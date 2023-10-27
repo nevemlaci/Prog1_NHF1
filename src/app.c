@@ -1,5 +1,14 @@
 #include "app.h"
 
+/**
+ * @brief Inicializálja a játék fõ struktúráját, létrehozza a renderereket,
+ *ablakokat, megnyitja a textúrákat és a fontot. Inicializálja a láncolt listák fejét és
+ *a legutóbbi pontszámot 0-ra állítja.
+ * 
+ * @param screenW a képernyõ szélessége (nem fullscreen mûködéshez szükséges)
+ * @param screenH a képernyõ magassága (nem fullscreen mûködéshez szükséges)
+ * @return App 
+ */
 App init_App(int screenW , int screenH){
     App app;
     app.menuWindow = SDL_CreateWindow("Menu" , 600 , 300 , 400 , 400, 0);
@@ -23,19 +32,24 @@ void runMenu(App* app){
     while(true){
         while (SDL_PollEvent(&e)){
             switch (e.type){
+                //Az egész játék bezárása
                 case SDL_WINDOWEVENT:
                 if(e.window.event == SDL_WINDOWEVENT_CLOSE){
                     return;
                 }
                 case SDL_KEYDOWN:
                     if(e.key.keysym.scancode == SDL_SCANCODE_T){
+                        //Menübõl játékba váltás
                         app->isGame = true;
                         app->isMenu = false;
                         SDL_ShowWindow(app->gameWindow);
                         SDL_HideWindow(app->menuWindow);
                         app->latest_score=runGame(app);
+                        //Ez a játék vége után fut már le.
+                        reset_input(&app->input);
                         delete_meteor_list(app->meteor_lista_head);
                         init_player(100 , 100 , 1 , app->gameRenderer , "../materials/images/player.png" , &app->player);
+                        app->meteor_lista_head = init_meteor_list();
                     }
             }
         }
@@ -53,6 +67,13 @@ int runGame(App* app){
     SDL_Event e;
     while(app->isGame){
         score++;
+        if(app->input.menu == 1){
+            app->isGame=false;
+            app->isMenu=true;
+            SDL_HideWindow(app->gameWindow);
+            SDL_ShowWindow(app->menuWindow);
+            return score;
+        }
         if(frames>= 140){
             meteorIndex++;
             spawnMeteors(app->meteor_lista_head , meteorIndex);

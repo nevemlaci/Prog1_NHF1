@@ -7,7 +7,7 @@
             "args": [
                 "*.c",
                 "-o",
-                "${workspaceFolder}\\Build\\${fileBasenameNoExtension}.exe",
+                "${workspaceFolder}\\Build\\game.exe",
                 "-Wall",
                 "-Werror",
                 "-I../lib/SDL2/include/SDL2",
