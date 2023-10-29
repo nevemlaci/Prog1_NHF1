@@ -74,12 +74,8 @@ int runGame(App* app){
             SDL_ShowWindow(app->menuWindow);
             return score;
         }
-        if(frames>= 140){
-            meteorIndex++;
-            spawnMeteors(app->meteor_lista_head , meteorIndex);
-            frames=0;
-            
-        }
+        
+        
 
         while (SDL_PollEvent(&e)){
             switch (e.type) {
@@ -104,8 +100,10 @@ int runGame(App* app){
         move_player( &app->player , app->input);
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
-        SDL_RenderCopy(app->gameRenderer , app->player.texture , NULL , &app->player.position); 
-        utkozes_ellenorzese(app->meteor_lista_head , &app->player); 
+        SDL_RenderCopy(app->gameRenderer , app->player.texture , NULL , &app->player.position);
+        if(frames%2==0){
+            utkozes_ellenorzese(app->meteor_lista_head , &app->player);     
+        }
         renderMeteors(app->meteor_lista_head , app->gameRenderer, app->meteor_texture);
         
         SDL_RenderPresent(app->gameRenderer);
@@ -115,6 +113,11 @@ int runGame(App* app){
             SDL_HideWindow(app->gameWindow);
             SDL_ShowWindow(app->menuWindow);
             return score;
+        }
+        if(frames >= BASE_SPAWN_RATE){
+            meteorIndex++;
+            spawnMeteors(app->meteor_lista_head , meteorIndex);
+            frames=0;       
         }
         SDL_Delay(16);
         frames++;

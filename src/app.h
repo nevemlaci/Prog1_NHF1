@@ -7,7 +7,9 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "aszteroida.h"
-#include "player.h" 
+#include "player.h"
+
+#define BASE_SPAWN_RATE 140
 
 typedef struct{
             SDL_Window *menuWindow;
@@ -22,6 +24,7 @@ typedef struct{
             SDL_Texture *backround;
             node* meteor_lista_head;
             SDL_Texture* meteor_texture;
+
             int latest_score;
         }App;
 
