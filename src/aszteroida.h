@@ -9,7 +9,7 @@
 
 
 typedef struct Meteor{
-    SDL_Rect position;
+    SDL_FRect position;
     int meret;
     int index;
 }Meteor;

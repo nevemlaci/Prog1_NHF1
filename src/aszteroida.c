@@ -27,7 +27,7 @@ void spawnMeteors(struct node* head , int index){
 void renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
     node* current = head;
     while(current!=NULL){
-        SDL_RenderCopy(renderer , texture , NULL , &current->meteor.position);
+        SDL_RenderCopyF(renderer , texture , NULL , &current->meteor.position);
         current = current->next;
     }
 }

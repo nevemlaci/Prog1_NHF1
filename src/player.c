@@ -99,7 +99,7 @@ void reset_input(Input* input){
 void utkozes_ellenorzese(struct node* head , Player *player){
     struct node* current = head;
     while(current!=NULL){
-        if(SDL_HasIntersection(&player->position , &current->meteor.position)){
+        if(SDL_HasIntersectionF(&player->position , &current->meteor.position)){
             player->health--;
             printf("Collision\n");
             deleteFromListIndex(head , current->meteor.index);

@@ -100,7 +100,7 @@ int runGame(App* app){
         move_player( &app->player , app->input);
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
-        SDL_RenderCopy(app->gameRenderer , app->player.texture , NULL , &app->player.position);
+        SDL_RenderCopyF(app->gameRenderer , app->player.texture , NULL , &app->player.position);
         if(frames%2==0){
             utkozes_ellenorzese(app->meteor_lista_head , &app->player);     
         }

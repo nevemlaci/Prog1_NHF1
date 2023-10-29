@@ -10,7 +10,7 @@
 struct node;
 
 typedef struct{
-    SDL_Rect position;
+    SDL_FRect position;
     SDL_Texture *texture;
     int health;
 }Player;
