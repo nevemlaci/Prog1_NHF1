@@ -16,21 +16,17 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
 }
 
 void move_player(Player* player , Input input){
-    if (input.up == 1) {
-			player->position.y -= PLAYER_SPEED;
-			
+        if (input.up == 1) {
+			player->position.y -= PLAYER_SPEED;		
 		}
 		if (input.down == 1) {
-			player->position.y += PLAYER_SPEED;
-			
+			player->position.y += PLAYER_SPEED;			
 		}
 		if (input.left == 1) {
-			player->position.x -= PLAYER_SPEED;
-			
+			player->position.x -= PLAYER_SPEED;			
 		}
 		if (input.right == 1) {
 			player->position.x += PLAYER_SPEED;
-			
 		}
 }
 
@@ -96,12 +92,17 @@ void reset_input(Input* input){
     input->menu = 0;
 }
 
-void utkozes_ellenorzese(struct node* head , Player *player){
+void utkozes_ellenorzese(struct node* head , Player *player , int* meteorindex){
     struct node* current = head;
     while(current!=NULL){
         if(SDL_HasIntersectionF(&player->position , &current->meteor.position)){
             player->health--;
             printf("Collision\n");
+            if(current->meteor.meret!=0){
+                spawnMeteors_pos(head , *meteorindex, current->meteor.position.x+50 , current->meteor.position.y+50, current->meteor.meret-1);
+                *meteorindex++;
+                spawnMeteors_pos(head , *meteorindex, current->meteor.position.x-50 , current->meteor.position.y-50, current->meteor.meret-1);
+            }
             deleteFromListIndex(head , current->meteor.index);
             return;
         }

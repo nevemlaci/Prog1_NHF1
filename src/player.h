@@ -60,5 +60,5 @@ void keyUp(Input* input , SDL_KeyboardEvent* event);
 
 void reset_input(Input* input);
 
-void utkozes_ellenorzese(struct node* head , Player *player);
+void utkozes_ellenorzese(struct node* head , Player *player , int* meteorindex);
 #endif

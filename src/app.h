@@ -24,7 +24,6 @@ typedef struct{
             SDL_Texture *backround;
             node* meteor_lista_head;
             SDL_Texture* meteor_texture;
-
             int latest_score;
         }App;
 

@@ -1,4 +1,5 @@
 #include "app.h"
+#define DIE 0
 
 /**
  * @brief Inicializálja a játék fõ struktúráját, létrehozza a renderereket,
@@ -18,6 +19,7 @@ App init_App(int screenW , int screenH){
     app.font = TTF_OpenFont("../materials/font/comic.ttf" , 13);
     app.isGame = false , 
     app.isMenu = true;
+    reset_input(&app.input);
     init_player(100 , 100 , 1 , app.gameRenderer , "../materials/images/player.png" , &app.player);
     app.backround = IMG_LoadTexture(app.gameRenderer , "../materials/images/background.jpeg");
     app.meteor_lista_head = init_meteor_list();
@@ -34,9 +36,9 @@ void runMenu(App* app){
             switch (e.type){
                 //Az egész játék bezárása
                 case SDL_WINDOWEVENT:
-                if(e.window.event == SDL_WINDOWEVENT_CLOSE){
-                    return;
-                }
+                    if(e.window.event == SDL_WINDOWEVENT_CLOSE){
+                        return;
+                    }
                 case SDL_KEYDOWN:
                     if(e.key.keysym.scancode == SDL_SCANCODE_T){
                         //Menübõl játékba váltás
@@ -74,9 +76,6 @@ int runGame(App* app){
             SDL_ShowWindow(app->menuWindow);
             return score;
         }
-        
-        
-
         while (SDL_PollEvent(&e)){
             switch (e.type) {
                 case SDL_WINDOWEVENT:
@@ -97,17 +96,17 @@ int runGame(App* app){
             }
         }
         
-        move_player( &app->player , app->input);
+        move_player(&app->player , app->input);
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
         SDL_RenderCopyF(app->gameRenderer , app->player.texture , NULL , &app->player.position);
         if(frames%2==0){
-            utkozes_ellenorzese(app->meteor_lista_head , &app->player);     
+            utkozes_ellenorzese(app->meteor_lista_head , &app->player, &meteorIndex);     
         }
         renderMeteors(app->meteor_lista_head , app->gameRenderer, app->meteor_texture);
         
         SDL_RenderPresent(app->gameRenderer);
-        if(app->player.health<=0){
+        if(app->player.health<=0 && DIE != 0){
             app->isGame=false;
             app->isMenu=true;
             SDL_HideWindow(app->gameWindow);
@@ -116,7 +115,7 @@ int runGame(App* app){
         }
         if(frames >= BASE_SPAWN_RATE){
             meteorIndex++;
-            spawnMeteors(app->meteor_lista_head , meteorIndex);
+            spawnMeteors(app->meteor_lista_head , &meteorIndex);
             frames=0;       
         }
         SDL_Delay(16);
