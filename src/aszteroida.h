@@ -43,7 +43,7 @@ struct node* init_meteor_list(void);
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * \todo ne teremjen két meteor egymáson + a játékoson(while + collision check)
  */
-void spawnMeteors(struct node* head , int* index);
+void spawnMeteors(struct node* head , int* index , int maxX , int maxY);
 
 void spawnMeteors_pos(struct node* head , int index , int x , int y , int meret);
 

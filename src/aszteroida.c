@@ -12,10 +12,10 @@ void insertNode(node* head , Meteor newMeteor){
     current->next->next = NULL;
 }
 
-void spawnMeteors(struct node* head , int* index){
+void spawnMeteors(struct node* head , int* index , int maxX , int maxY){
     Meteor meteor;
-    meteor.position.x = rand() % (816-0+1) + 0;
-    meteor.position.y = rand() % (480-0+1) + 0;
+    meteor.position.x = rand() % (maxX-0+1) + 0;
+    meteor.position.y = rand() % (maxY-0+1) + 0;
     meteor.meret = rand() % (2-0+1) + 0;
     meteor.position.h = 32*pow(2 , meteor.meret);
     meteor.position.w = 32*pow(2 , meteor.meret);
