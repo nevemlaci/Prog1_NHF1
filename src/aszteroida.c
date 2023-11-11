@@ -13,6 +13,7 @@ void insertNode(node* head , Meteor newMeteor){
 }
 
 void spawnMeteors(struct node* head , int* index , int maxX , int maxY){
+    (*index)++;
     Meteor meteor;
     meteor.position.x = rand() % (maxX-0+1) + 0;
     meteor.position.y = rand() % (maxY-0+1) + 0;
@@ -24,14 +25,15 @@ void spawnMeteors(struct node* head , int* index , int maxX , int maxY){
     insertNode(head , meteor);
 }
 
-void spawnMeteors_pos(struct node* head , int index , int x , int y , int meret){
+void spawnMeteors_pos(struct node* head , int* index , int x , int y , int meret){
+    (*index)++;
     Meteor meteor;
     meteor.position.x = x;
     meteor.position.y = y;
     meteor.meret = meret;
     meteor.position.h = 32*pow(2 , meteor.meret);
     meteor.position.w = 32*pow(2 , meteor.meret);
-    meteor.index=index;
+    meteor.index=*index;
     
     insertNode(head , meteor);
 }

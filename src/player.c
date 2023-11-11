@@ -99,9 +99,9 @@ void utkozes_ellenorzese(struct node* head , Player *player , int* meteorindex){
             player->health--;
             printf("Collision\n");
             if(current->meteor.meret!=0){
-                spawnMeteors_pos(head , *meteorindex, current->meteor.position.x+50 , current->meteor.position.y+50, current->meteor.meret-1);
+                spawnMeteors_pos(head , meteorindex, current->meteor.position.x+50 , current->meteor.position.y+50, current->meteor.meret-1);
                 *meteorindex++;
-                spawnMeteors_pos(head , *meteorindex, current->meteor.position.x-50 , current->meteor.position.y-50, current->meteor.meret-1);
+                spawnMeteors_pos(head , meteorindex, current->meteor.position.x-50 , current->meteor.position.y-50, current->meteor.meret-1);
             }
             deleteFromListIndex(head , current->meteor.index);
             return;

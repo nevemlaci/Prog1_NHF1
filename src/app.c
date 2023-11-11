@@ -75,7 +75,7 @@ int runGame(App* app){
     // @brief lövés timer spammelés ellen
     int shot_timer=SHOT_TIME+1;
     // @brief meteorok indexét tárolja(új létrehozásakor növekszik)
-    int meteorIndex = 0;
+    int meteorIndex = 1;
     // @brief pontszám
     int score = 0;
     SDL_Event e;
@@ -141,7 +141,6 @@ int runGame(App* app){
         }
         //Meteor spawnolás
         if(frames >= BASE_SPAWN_RATE){
-            meteorIndex++;
             spawnMeteors(app->meteor_lista_head , &meteorIndex , app->screenW , app->screenH);
             frames=0;       
         }

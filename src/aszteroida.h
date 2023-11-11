@@ -53,15 +53,14 @@ void spawnMeteors(struct node* head , int* index , int maxX , int maxY);
  * @brief Meteorokat hoz létre megadott pozíción
  * 
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
- * @param index 
- * @param x 
- * @param y 
- * @param meret 
+ * @param index meteorok indexét tároló int pointere
+ * @param x X pozíció
+ * @param y Y pozíció
+ * @param meret meteor mérete
  */
-void spawnMeteors_pos(struct node* head , int index , int x , int y , int meret);
+void spawnMeteors_pos(struct node* head , int* index , int x , int y , int meret);
 
 /**
- * @file
  * @brief Rendereli a láncolt listában lévõ meteorokat
  * 
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
