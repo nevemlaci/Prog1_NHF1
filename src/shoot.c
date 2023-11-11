@@ -50,7 +50,7 @@ int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* te
 }
 
 
-//int check_hits(struct shot_node* head, node* meteor_head);
+
 
 int move_shots(struct shot_node* head){
     if(head==NULL) return -1;

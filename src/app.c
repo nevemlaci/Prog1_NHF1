@@ -1,6 +1,6 @@
 #include "app.h"
 #include "shoot.h"
-#define DIE 0
+#include "defines.h"
 
 /**
  * @brief Inicializálja a játék fõ struktúráját, létrehozza a renderereket,
@@ -9,13 +9,13 @@
  * 
  * @param screenW a képernyõ szélessége (nem fullscreen mûködéshez szükséges)
  * @param screenH a képernyõ magassága (nem fullscreen mûködéshez szükséges)
- * @return App 
+ * @return App visszatér az inicializált struktúrával
  */
 App init_App(int screenW , int screenH){
     App app;
     app.menuWindow = SDL_CreateWindow("Menu" , 600 , 300 , 400 , 400, 0);
     app.menuRenderer = SDL_CreateRenderer(app.menuWindow , -1 , SDL_RENDERER_ACCELERATED);
-    app.gameWindow = SDL_CreateWindow("" , screenW/2 - 816/2 , screenH/2 - 480/2 , 816 , 480 , 0); 
+    app.gameWindow = SDL_CreateWindow("" , screenW/2 - 816/2 , screenH/2 - 480/2 , 816 , 480 , SDL_WINDOW_FULLSCREEN_DESKTOP); 
     app.gameRenderer = SDL_CreateRenderer(app.gameWindow , -1 , SDL_RENDERER_ACCELERATED);
     app.screenW = screenW;
     app.screenH = screenH;
@@ -72,6 +72,8 @@ int runGame(App* app){
     double angle;
     // @brief frame számláló
     int frames = 0;
+    // @brief lövés timer spammelés ellen
+    int shot_timer=SHOT_TIME+1;
     // @brief meteorok indexét tárolja(új létrehozásakor növekszik)
     int meteorIndex = 0;
     // @brief pontszám
@@ -80,6 +82,8 @@ int runGame(App* app){
     while(app->isGame){
         //minden framen 1 pont
         score++;
+        //shot timer léptetése ha szükséges
+        if(shot_timer<=SHOT_TIME) shot_timer++;
         //ha az elõzõ framen menü parancsot ad a játékos akkor kilép a menübe
         if(app->input.menu == 1){
             app->isGame=false;
@@ -107,18 +111,19 @@ int runGame(App* app){
                     keyUp(&app->input , &e.key);
                     break;
                 case SDL_MOUSEBUTTONDOWN:
+                if(shot_timer>SHOT_TIME){
                     angle = calculate_angle_for_shot(app->player.position.x , app->player.position.y);
                     app->shot_lista_head=add_new_shot(app->shot_lista_head , angle , app->player.position.x , app->player.position.y);
+                    shot_timer=0;
                     break;                   
+                }
             }
         }
         //mozgató függvények       
         move_player(&app->player , app->input);
         move_shots(app->shot_lista_head);
         //collision checkek
-        if(frames%2==0){
-            utkozes_ellenorzese(app->meteor_lista_head , &app->player, &meteorIndex);     
-        }
+        utkozes_ellenorzese(app->meteor_lista_head , &app->player, &meteorIndex);
         //renderelés
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);

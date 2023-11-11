@@ -10,8 +10,6 @@
 #include "player.h"
 #include "shoot.h"
 
-#define BASE_SPAWN_RATE 150
-
 typedef struct{
             SDL_Window *menuWindow;
             SDL_Renderer *menuRenderer;

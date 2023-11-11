@@ -31,6 +31,7 @@ void insertNode(struct node* head , Meteor newMeteor);
 /**
  * @file
  * @brief Inicializálja az elsõ meteort
+ * @todo átírni úgy a programot, hogy ne kelljen ez a függvény
  * 
  * @return node* visszatér az inicializált meteorral
  */
@@ -38,13 +39,25 @@ struct node* init_meteor_list(void);
 
 /**
  * @file
- * @brief Meteorokat teremt.
+ * @brief Meteorokat hoz létre.
  * 
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
+ * @param index meteorok indexét tároló int pointere
+ * @param maxX maximum x koordináta
+ * @param maximum Y koordináta
  * \todo ne teremjen két meteor egymáson + a játékoson(while + collision check)
  */
 void spawnMeteors(struct node* head , int* index , int maxX , int maxY);
 
+/**
+ * @brief Meteorokat hoz létre megadott pozíción
+ * 
+ * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
+ * @param index 
+ * @param x 
+ * @param y 
+ * @param meret 
+ */
 void spawnMeteors_pos(struct node* head , int index , int x , int y , int meret);
 
 /**
@@ -59,7 +72,7 @@ void renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* tex
 
 /**
  * @brief Kitörli az utolsó elemet a lista végérõl
- * 
+ * @todo átírni úgy, hogy ne kelljen ez a fgv
  * @param head láncolt lista elsõ elemére mutató pointer
  */
 void deleteLastFromList(struct node* head);
@@ -72,6 +85,11 @@ void deleteLastFromList(struct node* head);
  */
 void deleteFromListIndex(struct node* head , int index);
 
+/**
+ * @brief kitörli az egész meteorlistát
+ * 
+ * @param head láncolt lista elsõ elemére mutató pointer
+ */
 void delete_meteor_list(node* head);
 
 #endif

@@ -20,24 +20,52 @@ struct shot_node{
     struct shot_node* next;
 };
 
+/**
+ * @brief kiszámolja egy kattintás és a játékos közti vektor hajlásszögét
+ * 
+ * @param shipX játékos X pozíció
+ * @param shipY játékos Y pozíció
+ * @return double hajlászög radiánban x: [-pi/2 ; 3pi/2]
+ */
 double calculate_angle_for_shot(int shipX , int shipY);
 
+/**
+ * @brief lövések másolása rendererre
+ * 
+ * @param head lövések listájának head-jére mutató pointer
+ * @param renderer gameRenderer
+ * @param texture lövések textúrája
+ * @return int hibajelzésre: 0 ha sikeres | -1 ha sikertelen
+ */
 int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* texture);
 
+/**
+ * @brief hozzáad egy lövést a lista elejéhez
+ * 
+ * @param head lövések listájának head-jére mutató pointer
+ * @param angle lövés szöge
+ * @param shipX játékos X pozíció
+ * @param shipY játékos Y pozíció
+ * @return struct shot_node* 
+ */
 struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX , int shipY);
-
-int move_shots(struct shot_node* head);
 
 /**
  * @brief 
  * @todo megcsinálni
- * 
- * @param head 
- * @param meteor_head 
- * @return int 
+ * @note ez jelenleg nem mûködik de elfelejtettem elõtte mergelni szóval ez most bent marad de nem hívjuk meg
+ * @param head lövések listájának head-jére mutató pointer pointere(változtatni kell head-et a függvényen belül)
+ * @param meteor_head meteorok listájának head-jére mutató pointer 
+ * @return int hibajelzésre(nem 100% implementált)
  */
-int check_hits(struct shot_node* head, node* meteor_head);
+int check_hits(struct shot_node** head, node* meteor_head);
 
+/**
+ * @brief lövések mozgatása
+ * 
+ * @param head lövések listájának head-jére mutató pointer
+ * @return int hibajelzéshez: -1 ha head==NULL | 0 ha sikeres
+ */
 int move_shots(struct shot_node* head);
 
 #endif
