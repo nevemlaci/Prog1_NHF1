@@ -34,7 +34,7 @@ int main(int argc , char* argv[])
 
     if(write_latest_score("../saves/latestscores.txt" , app.latest_score)==-1) return -1;
     SDL_Quit();
-    debugmalloc_dump();
+    debugmalloc_dump(); //elvileg 0 foglalas(?)
     return 0;
 }
 
