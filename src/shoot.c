@@ -39,16 +39,51 @@ struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX 
 int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* texture){
     struct shot_node* current = head;
     if(head!=NULL){
-        while(current->next != NULL){
-            SDL_RenderCopyF(renderer , texture, NULL, &current->shot.position);
+        while(current!=NULL && current->next != NULL){
+            SDL_SetRenderDrawColor(renderer ,255 , 0 , 0 , 255);
+            SDL_RenderFillRectF(renderer , &current->shot.position);
+            //SDL_RenderCopyF(renderer , texture, NULL, &current->shot.position);
             current=current->next;
         }
         SDL_RenderCopyF(renderer , texture, NULL, &current->shot.position);
         return 0;
     }
+
     return -1;
 }
 
+int check_hits(struct shot_node** head, node* meteor_head){
+    if(*head==NULL || meteor_head==NULL) return -1;
+
+    struct shot_node* current_shot;
+    struct shot_node* iw=NULL;
+    //struct shot_node* temp;
+    node* current_meteor;
+
+    for(current_shot= *head ; current_shot!=NULL ; current_shot=current_shot->next){
+        for(current_meteor = meteor_head ; current_meteor!=NULL ; current_meteor=current_meteor->next){
+            if(SDL_HasIntersectionF(&current_meteor->meteor.position , &current_shot->shot.position)){
+                if(iw==NULL){
+                    *head = current_shot->next;
+                    free(current_shot);
+                    current_shot=*head;
+                    deleteFromListIndex(meteor_head , current_meteor->meteor.index);
+                    return 0;
+                }else{
+                    iw->next = current_shot->next;
+                    free(current_shot);
+                    current_shot=iw;
+                    deleteFromListIndex(meteor_head , current_meteor->meteor.index);
+                    return 0;
+                }
+            }
+        }
+        current_meteor=meteor_head;
+        iw=current_shot;
+    }
+    return 0;
+
+}
 
 
 
