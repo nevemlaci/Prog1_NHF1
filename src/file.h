@@ -10,5 +10,12 @@
  */
 int load_latest_score(char* path);
 
+/**
+ * @brief kiírja a legutóbbi sessionben lért pontszámot fájlba
+ * 
+ * @param path 
+ * @param latest_score 
+ * @return int 
+ */
 int write_latest_score(char* path, int latest_score);
 #endif
