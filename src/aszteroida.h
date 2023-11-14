@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <stdio.h>
+#include "../lib/debugmalloc.h"
 
 
 typedef struct Meteor{

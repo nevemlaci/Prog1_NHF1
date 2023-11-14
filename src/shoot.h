@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "aszteroida.h"
+#include "../lib/debugmalloc.h"
 
 #define SHOT_SPEED 10.0
 
@@ -67,5 +68,7 @@ int check_hits(struct shot_node** head, node* meteor_head);
  * @return int hibajelzéshez: -1 ha head==NULL | 0 ha sikeres
  */
 int move_shots(struct shot_node* head);
+
+int delete_shot_list(struct shot_node* head);
 
 #endif

@@ -30,6 +30,15 @@ typedef struct{
             SDL_Texture* shot_texture;
         }App;
 
+/**
+ * @brief Inicializálja a játék fõ struktúráját, létrehozza a renderereket,
+ *ablakokat, megnyitja a textúrákat és a fontot. Inicializálja a láncolt listák fejét és
+ *a legutóbbi pontszámot 0-ra állítja.
+ * 
+ * @param screenW a képernyõ szélessége (nem fullscreen mûködéshez szükséges)
+ * @param screenH a képernyõ magassága (nem fullscreen mûködéshez szükséges)
+ * @return App visszatér az inicializált struktúrával
+ */
 App init_App(int screenW , int screenH);
 
 /**

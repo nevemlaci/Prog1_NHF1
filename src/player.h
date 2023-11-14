@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "../lib/debugmalloc.h"
 
 struct node;
 
