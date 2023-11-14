@@ -1,4 +1,5 @@
 #include "shoot.h"
+#include "../lib/debugmalloc.h"
 #define PI 3.14159265358
 
 double calculate_angle_for_shot(int shipX , int shipY){
@@ -100,3 +101,15 @@ int move_shots(struct shot_node* head){
     return 0;
 }
 
+int delete_shot_list(struct shot_node* head){
+    if(head==NULL) return -1;
+    struct shot_node* current = head;
+    struct shot_node* temp;
+    while(current->next != NULL){
+        temp = current;
+        current = current->next;
+        free(temp);
+    }
+    free(current);
+    return 0;
+}

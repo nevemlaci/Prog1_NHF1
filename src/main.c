@@ -31,10 +31,10 @@ int main(int argc , char* argv[])
     srand(time(0));
     SDL_HideWindow(app.gameWindow);
     runMenu(&app);
-
+    delete_meteor_list(app.meteor_lista_head);
+    delete_shot_list(app.shot_lista_head);
     if(write_latest_score("../saves/latestscores.txt" , app.latest_score)==-1) return -1;
     SDL_Quit();
-    debugmalloc_dump(); //elvileg 0 foglalas(?)
     return 0;
 }
 
