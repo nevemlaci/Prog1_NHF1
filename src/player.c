@@ -92,21 +92,26 @@ void reset_input(Input* input){
     input->menu = 0;
 }
 
-void utkozes_ellenorzese(struct node* head , Player *player , int* meteorindex){
-    struct node* current = head;
+void utkozes_ellenorzese(struct node** head , Player *player){
+    struct node* current = *head;
+    struct node* prev = NULL;
     while(current!=NULL){
         if(SDL_HasIntersectionF(&player->position , &current->meteor.position)){
             player->health--;
             printf("Collision\n");
-            if(current->meteor.meret!=0){
-                spawnMeteors_pos(head , meteorindex, current->meteor.position.x+50 , current->meteor.position.y+50, current->meteor.meret-1);
-                *meteorindex++;
-                spawnMeteors_pos(head , meteorindex, current->meteor.position.x-50 , current->meteor.position.y-50, current->meteor.meret-1);
+            if(prev==NULL){
+                *head = current->next;
+            }else{
+                prev->next = current->next;
             }
-            deleteFromListIndex(head , current->meteor.index);
+            if(current->meteor.meret!=0){
+                *head=spawnMeteors_pos(*head , current->meteor.position.x+50 , current->meteor.position.y+50, current->meteor.meret-1);
+                *head=spawnMeteors_pos(*head , current->meteor.position.x-50 , current->meteor.position.y-50, current->meteor.meret-1);
+            }
+            free(current);
             return;
         }
-
+        prev = current;
         current = current->next;
     }
 }

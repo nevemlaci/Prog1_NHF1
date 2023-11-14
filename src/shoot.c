@@ -68,13 +68,13 @@ int check_hits(shot_node** head, node* meteor_head){
                     *head = current_shot->next;
                     free(current_shot);
                     current_shot=*head;
-                    deleteFromListIndex(meteor_head , current_meteor->meteor.index);
+                    //deleteFromListIndex(meteor_head , current_meteor->meteor.index);
                     return 0;
                 }else{
                     iw->next = current_shot->next;
                     free(current_shot);
                     current_shot=iw;
-                    deleteFromListIndex(meteor_head , current_meteor->meteor.index);
+                    //deleteFromListIndex(meteor_head , current_meteor->meteor.index);
                     return 0;
                 }
             }

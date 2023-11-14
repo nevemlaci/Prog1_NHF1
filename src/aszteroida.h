@@ -12,31 +12,12 @@
 typedef struct Meteor{
     SDL_FRect position;
     int meret;
-    int index;
 }Meteor;
 
 typedef struct node{
     Meteor meteor;
     struct node *next;
 }node;
-
-/**
- * @file
- * @brief A meteorokat tartalmazó láncolt lista végére illeszt be egy új elemet(meteort)
- * 
- * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
- * @param newMeteor az új meteort leíro Meteor típusú változót veszi át
- */
-void insertNode(struct node* head , Meteor newMeteor);
-
-/**
- * @file
- * @brief Inicializálja az elsõ meteort
- * @todo átírni úgy a programot, hogy ne kelljen ez a függvény
- * 
- * @return node* visszatér az inicializált meteorral
- */
-struct node* init_meteor_list(void);
 
 /**
  * @file
@@ -48,7 +29,7 @@ struct node* init_meteor_list(void);
  * @param maximum Y koordináta
  * \todo ne teremjen két meteor egymáson + a játékoson(while + collision check)
  */
-void spawnMeteors(struct node* head , int* index , int maxX , int maxY);
+node* spawnMeteors(struct node* head, int maxX , int maxY);
 
 /**
  * @brief Meteorokat hoz létre megadott pozíción
@@ -59,7 +40,7 @@ void spawnMeteors(struct node* head , int* index , int maxX , int maxY);
  * @param y Y pozíció
  * @param meret meteor mérete
  */
-void spawnMeteors_pos(struct node* head , int* index , int x , int y , int meret);
+node* spawnMeteors_pos(struct node* head , int x , int y , int meret);
 
 /**
  * @brief Rendereli a láncolt listában lévõ meteorokat
@@ -68,22 +49,7 @@ void spawnMeteors_pos(struct node* head , int* index , int x , int y , int meret
  * @param renderer a játék SDL_Renderer -jére mutató pointer
  * @param texture a meteorokhoz használt textúrára mutató pointer
  */
-void renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* texture);
-
-/**
- * @brief Kitörli az utolsó elemet a lista végérõl
- * @todo átírni úgy, hogy ne kelljen ez a fgv
- * @param head láncolt lista elsõ elemére mutató pointer
- */
-void deleteLastFromList(struct node* head);
-
-/**
- * @brief Egy adott indexû elemet töröl ki a listából
- * 
- * @param head láncolt lista elsõ elemére mutató pointer
- * @param index kitörlendõ elem(meteor) indexe
- */
-void deleteFromListIndex(struct node* head , int index);
+int renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* texture);
 
 /**
  * @brief kitörli az egész meteorlistát

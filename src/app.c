@@ -17,7 +17,7 @@ App init_App(int screenW , int screenH){
     reset_input(&app.input);
     init_player(100 , 100 , 1 , app.gameRenderer , "../materials/images/player.png" , &app.player);
     app.backround = IMG_LoadTexture(app.gameRenderer , "../materials/images/background.jpeg");
-    app.meteor_lista_head = init_meteor_list();
+    app.meteor_lista_head = NULL;
     app.meteor_texture = IMG_LoadTexture(app.gameRenderer , "../materials/images/meteor_1.png");
     app.latest_score = 0;
     app.shot_lista_head = NULL;
@@ -47,10 +47,10 @@ void runMenu(App* app){
                         //Ez a játék vége után fut már le.
                         reset_input(&app->input);
                         delete_meteor_list(app->meteor_lista_head);
+                        app->meteor_lista_head=NULL;
                         delete_shot_list(app->shot_lista_head);
                         app->shot_lista_head=NULL;
                         init_player(100 , 100 , 1 , app->gameRenderer , "../materials/images/player.png" , &app->player);
-                        app->meteor_lista_head = init_meteor_list();
                     }
             }
         }
@@ -68,8 +68,6 @@ int runGame(App* app){
     int frames = 0;
     // @brief lövés timer spammelés ellen
     int shot_timer=SHOT_TIME+1;
-    // @brief meteorok indexét tárolja(új létrehozásakor növekszik)
-    int meteorIndex = 1;
     // @brief pontszám
     int score = 0;
     SDL_Event e;
@@ -117,7 +115,7 @@ int runGame(App* app){
         move_player(&app->player , app->input);
         move_shots(app->shot_lista_head);
         //collision checkek
-        utkozes_ellenorzese(app->meteor_lista_head , &app->player, &meteorIndex);
+        utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
         check_hits(&app->shot_lista_head, app->meteor_lista_head);
         //renderelés
         SDL_RenderClear(app->gameRenderer);
@@ -136,7 +134,7 @@ int runGame(App* app){
         }
         //Meteor spawnolás
         if(frames >= BASE_SPAWN_RATE){
-            spawnMeteors(app->meteor_lista_head , &meteorIndex , app->screenW , app->screenH);
+            app->meteor_lista_head = spawnMeteors(app->meteor_lista_head, app->screenW , app->screenH);
             frames=0;       
         }
         //16 ms delay -> kb. 60 képkocka / másodperc
