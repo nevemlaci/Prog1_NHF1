@@ -41,6 +41,8 @@ void spawnMeteors_pos(struct node* head , int* index , int x , int y , int meret
 void renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
     node* current = head;
     while(current!=NULL){
+        //SDL_SetRenderDrawColor(renderer ,0 , 0 , 255 , 255);
+        //SDL_RenderFillRectF(renderer , &current->meteor.position);
         SDL_RenderCopyF(renderer , texture , NULL , &current->meteor.position);
         current = current->next;
     }

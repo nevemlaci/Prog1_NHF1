@@ -124,6 +124,7 @@ int runGame(App* app){
         move_shots(app->shot_lista_head);
         //collision checkek
         utkozes_ellenorzese(app->meteor_lista_head , &app->player, &meteorIndex);
+        check_hits(&app->shot_lista_head, app->meteor_lista_head);
         //renderelés
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
