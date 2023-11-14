@@ -26,7 +26,7 @@ typedef struct{
             node* meteor_lista_head;
             SDL_Texture* meteor_texture;
             int latest_score;
-            struct shot_node* shot_lista_head;
+            shot_node* shot_lista_head;
             SDL_Texture* shot_texture;
         }App;
 

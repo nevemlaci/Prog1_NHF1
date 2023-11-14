@@ -16,10 +16,10 @@ typedef struct{
     SDL_FRect position;
 }Shot;
 
-struct shot_node{
+typedef struct shot_node{
     Shot shot;
     struct shot_node* next;
-};
+}shot_node;
 
 /**
  * @brief kiszámolja egy kattintás és a játékos közti vektor hajlásszögét

@@ -16,7 +16,7 @@ double calculate_angle_for_shot(int shipX , int shipY){
     return -1;
 }
 
-struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX , int shipY){
+shot_node* add_new_shot(shot_node* head , double angle, int shipX , int shipY){
     Shot shot;
     shot.angle = angle;
     shot.position.x = shipX + 12; //+16-4
@@ -24,12 +24,12 @@ struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX 
     shot.position.w=8;
     shot.position.h=8;
     if(head==NULL){
-        struct shot_node* uj = (struct shot_node*) malloc(sizeof(struct shot_node));
+        shot_node* uj = (shot_node*) malloc(sizeof(shot_node));
         uj->shot=shot;
         uj->next = NULL;
         return uj;
     }else{
-        struct shot_node* uj = (struct shot_node*) malloc(sizeof(struct shot_node));
+        shot_node* uj = (shot_node*) malloc(sizeof(shot_node));
         uj->shot=shot;
         uj->next = head;
         return uj;
@@ -37,8 +37,8 @@ struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX 
     return NULL;
 }
 
-int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* texture){
-    struct shot_node* current = head;
+int render_shots(shot_node* head, SDL_Renderer* renderer, SDL_Texture* texture){
+    shot_node* current = head;
     if(head!=NULL){
         while(current!=NULL && current->next != NULL){
             SDL_SetRenderDrawColor(renderer ,255 , 0 , 0 , 255);
@@ -53,11 +53,11 @@ int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* te
     return -1;
 }
 
-int check_hits(struct shot_node** head, node* meteor_head){
+int check_hits(shot_node** head, node* meteor_head){
     if(*head==NULL || meteor_head==NULL) return -1;
 
-    struct shot_node* current_shot;
-    struct shot_node* iw=NULL;
+    shot_node* current_shot;
+    shot_node* iw=NULL;
     //struct shot_node* temp;
     node* current_meteor;
 
@@ -88,9 +88,9 @@ int check_hits(struct shot_node** head, node* meteor_head){
 
 
 
-int move_shots(struct shot_node* head){
+int move_shots(shot_node* head){
     if(head==NULL) return -1;
-    struct shot_node* current = head;
+    shot_node* current = head;
     while(current->next!=NULL){
         current->shot.position.x += cos( current->shot.angle) * SHOT_SPEED;
         current->shot.position.y -= sin(current->shot.angle) * SHOT_SPEED;
@@ -101,10 +101,10 @@ int move_shots(struct shot_node* head){
     return 0;
 }
 
-int delete_shot_list(struct shot_node* head){
+int delete_shot_list(shot_node* head){
     if(head==NULL) return -1;
-    struct shot_node* current = head;
-    struct shot_node* temp;
+    shot_node* current = head;
+    shot_node* temp;
     while(current->next != NULL){
         temp = current;
         current = current->next;
