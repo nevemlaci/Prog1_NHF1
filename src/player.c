@@ -1,9 +1,7 @@
 
 
-#include "aszteroida.h"
-#include "player.h"
 
-#define PLAYER_SPEED 3
+#include "player.h"
 
 void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player){
     player->health = health;
@@ -92,26 +90,28 @@ void reset_input(Input* input){
     input->menu = 0;
 }
 
-void utkozes_ellenorzese(struct node** head , Player *player){
+Meteor utkozes_ellenorzese(struct node** head , Player *player){
+    Meteor meteor;
     struct node* current = *head;
     struct node* prev = NULL;
     while(current!=NULL){
         if(SDL_HasIntersectionF(&player->position , &current->meteor.position)){
             player->health--;
             printf("Collision\n");
+            meteor = current->meteor;
+            //if(head==NULL) return -1;
             if(prev==NULL){
                 *head = current->next;
+                free(current);
             }else{
                 prev->next = current->next;
+                free(current);
             }
-            if(current->meteor.meret!=0){
-                *head=spawnMeteors_pos(*head , current->meteor.position.x+50 , current->meteor.position.y+50, current->meteor.meret-1);
-                *head=spawnMeteors_pos(*head , current->meteor.position.x-50 , current->meteor.position.y-50, current->meteor.meret-1);
-            }
-            free(current);
-            return;
+            return meteor;
         }
         prev = current;
         current = current->next;
     }
+    meteor.meret=-1;
+    return meteor;
 }

@@ -44,14 +44,14 @@ App init_App(int screenW , int screenH);
 /**
  * @brief Futtatja a menüt. Meghívja runGame() -t, ha a játékos a játékot indító jelet adja.
  * 
- * @param app a játék törzsét alkotó struktúrára mutató pointer 
+ * @param app a játék adatait tartalmazó struktúrára mutató pointer 
  */
 void runMenu(App* app);
 
 /**
  * @brief A játék futtatásáért felelõs. ha a játékos bezárja, visszatérés után a menüben folytatódik a játék.
  * 
- * @param app a játék törzsét alkotó struktúrára mutató pointer
+ * @param app a játék adatait tartalmazó struktúrára mutató pointer 
  * 
  * @return visszatér a játékos adott sessionben elért pontszámával
  */

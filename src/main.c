@@ -29,7 +29,7 @@ int main(int argc , char* argv[])
     App app = init_App(screenW , screenH);
     app.latest_score = load_latest_score("../saves/latestscores.txt");
     srand(time(0));
-    SDL_HideWindow(app.gameWindow);
+    
     runMenu(&app);
     delete_meteor_list(app.meteor_lista_head);
     delete_shot_list(app.shot_lista_head);

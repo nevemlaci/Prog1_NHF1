@@ -19,7 +19,7 @@ double calculate_angle_for_shot(int shipX , int shipY){
 shot_node* add_new_shot(shot_node* head , double angle, int shipX , int shipY){
     Shot shot;
     shot.angle = angle;
-    shot.position.x = shipX + 12; //+16-4
+    shot.position.x = shipX + 12; //+16-4 hajó közepérõl jönnek a lövések
     shot.position.y = shipY + 12;
     shot.position.w=8;
     shot.position.h=8;
@@ -53,36 +53,44 @@ int render_shots(shot_node* head, SDL_Renderer* renderer, SDL_Texture* texture){
     return -1;
 }
 
-int check_hits(shot_node** head, node* meteor_head){
-    if(*head==NULL || meteor_head==NULL) return -1;
-
+Meteor check_hits(shot_node** head, node** meteor_head){
+    Meteor meteor;
+    meteor.meret = -2; 
+    if(*head==NULL || meteor_head==NULL) return meteor; //meteor.meret==-2
     shot_node* current_shot;
     shot_node* iw=NULL;
-    //struct shot_node* temp;
     node* current_meteor;
+    node* prev_meteor=NULL;
 
     for(current_shot= *head ; current_shot!=NULL ; current_shot=current_shot->next){
-        for(current_meteor = meteor_head ; current_meteor!=NULL ; current_meteor=current_meteor->next){
+        for(current_meteor = *meteor_head ; current_meteor!=NULL ; current_meteor=current_meteor->next){
             if(SDL_HasIntersectionF(&current_meteor->meteor.position , &current_shot->shot.position)){
                 if(iw==NULL){
                     *head = current_shot->next;
                     free(current_shot);
                     current_shot=*head;
-                    //deleteFromListIndex(meteor_head , current_meteor->meteor.index);
-                    return 0;
                 }else{
                     iw->next = current_shot->next;
                     free(current_shot);
                     current_shot=iw;
-                    //deleteFromListIndex(meteor_head , current_meteor->meteor.index);
-                    return 0;
                 }
+                meteor = current_meteor->meteor;
+                if(prev_meteor==NULL){
+                    *meteor_head = current_meteor->next;
+                    free(current_meteor); 
+                }else{
+                    prev_meteor->next = current_meteor->next;
+                    free(current_meteor); 
+                }
+                return meteor; //törlés történt
             }
+            prev_meteor = current_meteor;
         }
-        current_meteor=meteor_head;
+        current_meteor=*meteor_head;
         iw=current_shot;
     }
-    return 0;
+    meteor.meret = -1;
+    return meteor; //meteor.meret==-1 => nem tortent torles
 
 }
 
