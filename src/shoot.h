@@ -9,17 +9,17 @@
 #include "aszteroida.h"
 #include "../lib/debugmalloc.h"
 
-#define SHOT_SPEED 10.0
+#define SHOT_SPEED 25.0
 
 typedef struct{
     double angle;
     SDL_FRect position;
 }Shot;
 
-struct shot_node{
+typedef struct shot_node{
     Shot shot;
     struct shot_node* next;
-};
+}shot_node;
 
 /**
  * @brief kiszámolja egy kattintás és a játékos közti vektor hajlásszögét
@@ -47,19 +47,18 @@ int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* te
  * @param angle lövés szöge
  * @param shipX játékos X pozíció
  * @param shipY játékos Y pozíció
- * @return struct shot_node* 
+ * @return struct shot_node* visszatér a hozzáadott lövés pointerjével
  */
 struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX , int shipY);
 
 /**
- * @brief 
- * @todo megcsinálni
- * @note ez jelenleg nem mûködik de elfelejtettem elõtte mergelni szóval ez most bent marad de nem hívjuk meg
- * @param head lövések listájának head-jére mutató pointer pointere(változtatni kell head-et a függvényen belül)
- * @param meteor_head meteorok listájának head-jére mutató pointer 
- * @return int hibajelzésre(nem 100% implementált)
+ * @brief ellenõrzi hogy a játékos eltalált -e egy meteort a lövéseivel
+ * 
+ * @param head lövések listájának head-jére mutató pointer pointere
+ * @param meteor_head meteorok listájának head-jére mutató pointer pointere
+ * @return Meteor visszatér az eltalált meteor adataival(meret=-1 ha nem volt találat, -2 ha valamelyik head NULL)
  */
-int check_hits(struct shot_node** head, node* meteor_head);
+Meteor check_hits(struct shot_node** head, node** meteor_head);
 
 /**
  * @brief lövések mozgatása
@@ -69,6 +68,12 @@ int check_hits(struct shot_node** head, node* meteor_head);
  */
 int move_shots(struct shot_node* head);
 
+/**
+ * @brief felszabadítja a lövések listáját
+ * 
+ * @param head lövések listájának head-jére pointer
+ * @return int int hibajelzéshez: -1 ha head==NULL | 0 ha sikeres
+ */
 int delete_shot_list(struct shot_node* head);
 
 #endif

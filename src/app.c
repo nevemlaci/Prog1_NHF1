@@ -17,7 +17,7 @@ App init_App(int screenW , int screenH){
     reset_input(&app.input);
     init_player(100 , 100 , 1 , app.gameRenderer , "../materials/images/player.png" , &app.player);
     app.backround = IMG_LoadTexture(app.gameRenderer , "../materials/images/background.jpeg");
-    app.meteor_lista_head = init_meteor_list();
+    app.meteor_lista_head = NULL;
     app.meteor_texture = IMG_LoadTexture(app.gameRenderer , "../materials/images/meteor_1.png");
     app.latest_score = 0;
     app.shot_lista_head = NULL;
@@ -26,6 +26,7 @@ App init_App(int screenW , int screenH){
 }
 
 void runMenu(App* app){
+    SDL_HideWindow(app->gameWindow);
     SDL_ShowWindow(app->menuWindow);
     SDL_Event e;
     while(true){
@@ -47,10 +48,10 @@ void runMenu(App* app){
                         //Ez a játék vége után fut már le.
                         reset_input(&app->input);
                         delete_meteor_list(app->meteor_lista_head);
+                        app->meteor_lista_head=NULL;
                         delete_shot_list(app->shot_lista_head);
                         app->shot_lista_head=NULL;
                         init_player(100 , 100 , 1 , app->gameRenderer , "../materials/images/player.png" , &app->player);
-                        app->meteor_lista_head = init_meteor_list();
                     }
             }
         }
@@ -68,11 +69,11 @@ int runGame(App* app){
     int frames = 0;
     // @brief lövés timer spammelés ellen
     int shot_timer=SHOT_TIME+1;
-    // @brief meteorok indexét tárolja(új létrehozásakor növekszik)
-    int meteorIndex = 1;
     // @brief pontszám
     int score = 0;
     SDL_Event e;
+    //
+    Meteor temp_meteor;
     while(app->isGame){
         //minden framen 1 pont
         score++;
@@ -86,30 +87,35 @@ int runGame(App* app){
             SDL_ShowWindow(app->menuWindow);
             return score;
         }
+        //Meteor spawnolás
+        if(frames >= BASE_SPAWN_RATE){
+            app->meteor_lista_head = spawnMeteors(app->meteor_lista_head, app->screenW , app->screenH);
+            frames=0;       
+        }
         //eventek
         while (SDL_PollEvent(&e)){
             switch (e.type) {
                 case SDL_WINDOWEVENT:
-                    if(e.window.event == SDL_WINDOWEVENT_CLOSE){
+                    if(e.window.event == SDL_WINDOWEVENT_CLOSE){ //ha bezárjuk az ablakot visszatérünk a menübe(alt+f4)
                         app->isGame=false;
                         app->isMenu=true;
                         SDL_HideWindow(app->gameWindow);
                         SDL_ShowWindow(app->menuWindow);
                         return score;
                     }
-                case SDL_KEYDOWN:
+                case SDL_KEYDOWN: //billentyûleütések kezelése
                     keyDown(&app->input , &e.key);
                     break;
                     
-                case SDL_KEYUP:
+                case SDL_KEYUP: //billentyûfelengedések kezelése
                     keyUp(&app->input , &e.key);
                     break;
-                case SDL_MOUSEBUTTONDOWN:
-                if(shot_timer>SHOT_TIME){
-                    angle = calculate_angle_for_shot(app->player.position.x , app->player.position.y);
-                    app->shot_lista_head=add_new_shot(app->shot_lista_head , angle , app->player.position.x , app->player.position.y);
-                    shot_timer=0;
-                    break;                   
+                case SDL_MOUSEBUTTONDOWN: //kattintás
+                    if(shot_timer>SHOT_TIME){
+                        angle = calculate_angle_for_shot(app->player.position.x , app->player.position.y);
+                        app->shot_lista_head=add_new_shot(app->shot_lista_head , angle , app->player.position.x , app->player.position.y);
+                        shot_timer=0;
+                        break;                   
                 }
             }
         }
@@ -117,8 +123,17 @@ int runGame(App* app){
         move_player(&app->player , app->input);
         move_shots(app->shot_lista_head);
         //collision checkek
-        utkozes_ellenorzese(app->meteor_lista_head , &app->player, &meteorIndex);
-        check_hits(&app->shot_lista_head, app->meteor_lista_head);
+        temp_meteor=utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
+        //meteor kettéválasztása ha az eltalált meteor nem a legkisebb méretû
+        if(temp_meteor.meret>=1){
+            app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x+50 , temp_meteor.position.y+50 , temp_meteor.meret-1);
+            app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x-50 , temp_meteor.position.y-50 , temp_meteor.meret-1);
+        }
+        temp_meteor=check_hits(&app->shot_lista_head, &app->meteor_lista_head);
+        if(temp_meteor.meret>=1){
+            app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x+50 , temp_meteor.position.y+50 , temp_meteor.meret-1);
+            app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x-50 , temp_meteor.position.y-50 , temp_meteor.meret-1);
+        }
         //renderelés
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
@@ -134,15 +149,11 @@ int runGame(App* app){
             SDL_ShowWindow(app->menuWindow);
             return score;
         }
-        //Meteor spawnolás
-        if(frames >= BASE_SPAWN_RATE){
-            spawnMeteors(app->meteor_lista_head , &meteorIndex , app->screenW , app->screenH);
-            frames=0;       
-        }
         //16 ms delay -> kb. 60 képkocka / másodperc
         SDL_Delay(16);
         //frame számlálót léptetem
         frames++;
     }
+    //warning elkerülése
     return score;
 }

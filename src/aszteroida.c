@@ -1,108 +1,43 @@
 #include "aszteroida.h"
+    
 
-
-
-void insertNode(node* head , Meteor newMeteor){
-    struct node* current = head;
-    while(current->next!=NULL){
-        current = current->next;
-    }
-    current->next = (node*) malloc(sizeof(node));
-    current->next->meteor = newMeteor;
-    current->next->next = NULL;
-}
-
-void spawnMeteors(struct node* head , int* index , int maxX , int maxY){
-    (*index)++;
+node* spawnMeteors(struct node* head, int maxX , int maxY){
     Meteor meteor;
     meteor.position.x = rand() % (maxX-0+1) + 0;
     meteor.position.y = rand() % (maxY-0+1) + 0;
     meteor.meret = rand() % (2-0+1) + 0;
     meteor.position.h = 32*pow(2 , meteor.meret);
     meteor.position.w = 32*pow(2 , meteor.meret);
-    meteor.index= *index;
-    
-    insertNode(head , meteor);
+    node* uj = (node*) malloc(sizeof(node));
+    uj->meteor = meteor;
+    uj->next=head;
+    return uj;
 }
 
-void spawnMeteors_pos(struct node* head , int* index , int x , int y , int meret){
-    (*index)++;
+node* spawnMeteors_pos(struct node* head, int x , int y , int meret){
     Meteor meteor;
     meteor.position.x = x;
     meteor.position.y = y;
     meteor.meret = meret;
     meteor.position.h = 32*pow(2 , meteor.meret);
     meteor.position.w = 32*pow(2 , meteor.meret);
-    meteor.index=*index;
-    
-    insertNode(head , meteor);
+    node* uj = (node*) malloc(sizeof(node));
+    uj->meteor = meteor;
+    uj->next=head;
+    return uj;
 }
 
-void renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
-    node* current = head;
-    while(current!=NULL){
-        //SDL_SetRenderDrawColor(renderer ,0 , 0 , 255 , 255);
-        //SDL_RenderFillRectF(renderer , &current->meteor.position);
+int renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
+    if(head==NULL) return -1;
+    node* current;
+    for(current = head ; current!=NULL ; current = current->next){
         SDL_RenderCopyF(renderer , texture , NULL , &current->meteor.position);
-        current = current->next;
     }
-}
-
-void deleteLastFromList(struct node* head){
-    node* current = head;
-    while(current->next->next!=NULL){
-        current = current->next;
-    }
-    free(current->next);
-    current->next = NULL;
-}
-
-void deleteFromListIndex(struct node* head , int index){
-    if(index==0){
-        node * next_node = head->next;
-        free(head);
-        head = next_node;
-        return;
-    }
-    node* current = head;
-    node* temp = NULL;
-
-    while(current->next->meteor.index!=index){
-        if(current->next==NULL){
-            break;
-        }
-        current=current->next;
-        
-    }
-    if (current->next == NULL) {
-        deleteLastFromList(head);
-        printf("Deleted item with index(last):%d\n" , index);
-        return;
-    }
-    temp = current->next;
-    current->next = temp->next;
-
-    free(temp);
-    printf("Deleted item with index:%d\n" , index);
-}
-
-
-struct node* init_meteor_list(void){
-    Meteor kezdo_meteor;
-    kezdo_meteor.meret=0;
-    kezdo_meteor.position.x = 3000;
-    kezdo_meteor.position.y = 3000;
-    kezdo_meteor.position.w = 0;
-    kezdo_meteor.position.h = 0;
-    kezdo_meteor.index = 0;
-    node* head = (node*) malloc(sizeof(node));
-    head->meteor = kezdo_meteor;
-    head->next = NULL;
-
-    return head;
+    return 0;
 }
 
 void delete_meteor_list(node* head){
+    if(head==NULL) return;
     node* current = head;
     node* temp;
     while(current->next != NULL){
