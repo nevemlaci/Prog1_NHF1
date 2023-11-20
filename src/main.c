@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <time.h>
+#include <dirent.h>
 
 #include "player.h"
 #include "aszteroida.h"
@@ -15,6 +16,14 @@
 
 int main(int argc , char* argv[])
 {
+
+    //ha nem létezik saves mappa akkor létrehozzuk
+    DIR* dir;
+    dir = opendir("../saves");
+    if(dir==NULL) system("mkdir \"../saves\"");
+    closedir(dir);
+
+
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     debugmalloc_log_file("../log/log.txt");

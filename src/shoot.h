@@ -8,8 +8,9 @@
 #include <stdlib.h>
 #include "aszteroida.h"
 #include "../lib/debugmalloc.h"
+#include "defines.h"
 
-#define SHOT_SPEED 25.0
+
 
 typedef struct{
     double angle;

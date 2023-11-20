@@ -1,6 +1,7 @@
 #include "file.h"
 
 
+
 int load_latest_score(char* path){
     FILE* file;
     file = fopen(path , "w+");
@@ -13,6 +14,8 @@ int load_latest_score(char* path){
 }
 
 int write_latest_score(char* path , int latest_score){
+    
+    
     FILE* file;
     file = fopen(path , "w");
     if(file==NULL) return -1;
@@ -21,20 +24,6 @@ int write_latest_score(char* path , int latest_score){
     return 0;
 }
 
-ranglista_node* read_ranglista(char* path){
-    ranglista_node* head=NULL;
-    ranglista_node* prev=NULL;
-    FILE* file;
-    file = fopen(path, "w+");
-    rekord temp;
-    if(feof(file)) return head;
-    while(!feof(file)){
-        if(fscanf(file ,"%s %d" , temp.nev , &temp.pontszam)!=2) return NULL;
-            
-        head->next=prev;
-        prev=head;
-    }
-    return head;
-}
+
 
 

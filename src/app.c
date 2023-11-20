@@ -3,6 +3,7 @@
 #include "defines.h"
 
 
+
 App init_App(int screenW , int screenH){
     App app;
     app.menuWindow = SDL_CreateWindow("Menu" , 600 , 300 , 400 , 400, 0);
@@ -22,7 +23,7 @@ App init_App(int screenW , int screenH){
     app.latest_score = 0;
     app.shot_lista_head = NULL;
     app.shot_texture = IMG_LoadTexture(app.gameRenderer , "..//materials/images/shot.png");
-    app.ranglista_head = NULL;
+    app.ranglista_head = read_ranglista_from_file();
     return app;
 }
 
@@ -36,6 +37,7 @@ void runMenu(App* app){
                 //Az egész játék bezárása
                 case SDL_WINDOWEVENT:
                     if(e.window.event == SDL_WINDOWEVENT_CLOSE){
+                        print_ranglista_to_file(app->ranglista_head);
                         return;
                     }
                 case SDL_KEYDOWN:
@@ -46,6 +48,7 @@ void runMenu(App* app){
                         SDL_ShowWindow(app->gameWindow);
                         SDL_HideWindow(app->menuWindow);
                         app->latest_score=runGame(app);
+                        insert_ranking(&app->ranglista_head , "TESTUSR" , app->latest_score);
                         //Ez a játék vége után fut már le.
                         reset_input(&app->input);
                         delete_meteor_list(app->meteor_lista_head);

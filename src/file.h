@@ -20,6 +20,5 @@ int load_latest_score(char* path);
  */
 int write_latest_score(char* path, int latest_score);
 
-ranglista_node* read_ranglista(char* path);
 
 #endif

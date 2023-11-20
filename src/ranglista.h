@@ -15,4 +15,8 @@ typedef struct ranglista_node{
 
 void insert_ranking(ranglista_node** head , char* nev , int pont);
 
+ranglista_node* read_ranglista_from_file();
+
+int print_ranglista_to_file(ranglista_node* head);
+
 #endif
