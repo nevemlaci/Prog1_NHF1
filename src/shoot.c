@@ -58,21 +58,21 @@ Meteor check_hits(shot_node** head, node** meteor_head){
     meteor.meret = -2; 
     if(*head==NULL || meteor_head==NULL) return meteor; //meteor.meret==-2
     shot_node* current_shot;
-    shot_node* iw=NULL;
+    shot_node* prev_shot=NULL;
     node* current_meteor;
     node* prev_meteor=NULL;
 
     for(current_shot= *head ; current_shot!=NULL ; current_shot=current_shot->next){
         for(current_meteor = *meteor_head ; current_meteor!=NULL ; current_meteor=current_meteor->next){
             if(SDL_HasIntersectionF(&current_meteor->meteor.position , &current_shot->shot.position)){
-                if(iw==NULL){
+                if(prev_shot==NULL){
                     *head = current_shot->next;
                     free(current_shot);
                     current_shot=*head;
                 }else{
-                    iw->next = current_shot->next;
+                    prev_shot->next = current_shot->next;
                     free(current_shot);
-                    current_shot=iw;
+                    current_shot=prev_shot;
                 }
                 meteor = current_meteor->meteor;
                 if(prev_meteor==NULL){
@@ -87,7 +87,8 @@ Meteor check_hits(shot_node** head, node** meteor_head){
             prev_meteor = current_meteor;
         }
         current_meteor=*meteor_head;
-        iw=current_shot;
+        prev_shot=current_shot;
+        prev_meteor=NULL;
     }
     meteor.meret = -1;
     return meteor; //meteor.meret==-1 => nem tortent torles

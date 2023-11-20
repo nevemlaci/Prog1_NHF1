@@ -22,6 +22,7 @@ App init_App(int screenW , int screenH){
     app.latest_score = 0;
     app.shot_lista_head = NULL;
     app.shot_texture = IMG_LoadTexture(app.gameRenderer , "..//materials/images/shot.png");
+    app.ranglista_head = NULL;
     return app;
 }
 
@@ -123,17 +124,20 @@ int runGame(App* app){
         move_player(&app->player , app->input);
         move_shots(app->shot_lista_head);
         //collision checkek
-        temp_meteor=utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
+        //temp_meteor=utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
         //meteor kettéválasztása ha az eltalált meteor nem a legkisebb méretû
+        /*
         if(temp_meteor.meret>=1){
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x+50 , temp_meteor.position.y+50 , temp_meteor.meret-1);
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x-50 , temp_meteor.position.y-50 , temp_meteor.meret-1);
-        }
+        }*/
         temp_meteor=check_hits(&app->shot_lista_head, &app->meteor_lista_head);
         if(temp_meteor.meret>=1){
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x+50 , temp_meteor.position.y+50 , temp_meteor.meret-1);
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x-50 , temp_meteor.position.y-50 , temp_meteor.meret-1);
         }
+        //if(app->meteor_lista_head!=NULL && app->meteor_lista_head->next!=NULL) printf("%d\n" , app->meteor_lista_head->next->meteor.meret);
+        
         //renderelés
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);

@@ -58,7 +58,7 @@ struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX 
  * @param meteor_head meteorok listájának head-jére mutató pointer pointere
  * @return Meteor visszatér az eltalált meteor adataival(meret=-1 ha nem volt találat, -2 ha valamelyik head NULL)
  */
-Meteor check_hits(struct shot_node** head, node** meteor_head);
+Meteor check_hits(shot_node** head, node** meteor_head);
 
 /**
  * @brief lövések mozgatása

@@ -29,6 +29,8 @@ typedef struct node{
  */
 node* spawnMeteors(struct node* head, int maxX , int maxY);
 
+node* replace_node(node* replace, int x , int y , int meret);
+
 /**
  * @brief Meteorokat hoz létre megadott pozíción és megadott mérettel
  * 

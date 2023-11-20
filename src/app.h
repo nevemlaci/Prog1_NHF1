@@ -9,6 +9,7 @@
 #include "aszteroida.h"
 #include "player.h"
 #include "shoot.h"
+#include "ranglista.h"
 
 typedef struct{
             SDL_Window *menuWindow;
@@ -28,6 +29,7 @@ typedef struct{
             int latest_score;
             shot_node* shot_lista_head;
             SDL_Texture* shot_texture;
+            ranglista_node* ranglista_head;
         }App;
 
 /**

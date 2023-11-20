@@ -14,6 +14,19 @@ node* spawnMeteors(struct node* head, int maxX , int maxY){
     return uj;
 }
 
+node* replace_node(node* replace, int x , int y , int meret){
+    Meteor meteor;
+    meteor.position.x = x;
+    meteor.position.y = y;
+    meteor.meret = meret;
+    meteor.position.h = 32*pow(2 , meteor.meret);
+    meteor.position.w = 32*pow(2 , meteor.meret);
+    node* uj = (node*) malloc(sizeof(node));
+    uj->meteor = meteor;
+    uj->next=replace->next;
+    return uj;
+}
+
 node* spawnMeteors_pos(struct node* head, int x , int y , int meret){
     Meteor meteor;
     meteor.position.x = x;
