@@ -1,7 +1,9 @@
 #ifndef FILE_H
 #define FILE_H
 #include <stdio.h>
+#include <dirent.h>
 #include "ranglista.h"
+
 
 /**
  * @brief betölti a legutóbbi sessionben elért pontszámot
@@ -20,5 +22,5 @@ int load_latest_score(char* path);
  */
 int write_latest_score(char* path, int latest_score);
 
-
+void check_for_saves_folder(void);
 #endif

@@ -1,18 +1,18 @@
 #include "app.h"
-#include "shoot.h"
-#include "defines.h"
+
 
 
 
 App init_App(int screenW , int screenH){
     App app;
-    app.menuWindow = SDL_CreateWindow("Menu" , 600 , 300 , 400 , 400, 0);
+    SDL_Texture* play_button;
+    app.menuWindow = SDL_CreateWindow("Asteroids - Menu" , (screenW/2) - (MENU_W/2) , (screenH/2) - (MENU_H/2) , MENU_W , MENU_H, 0);
     app.menuRenderer = SDL_CreateRenderer(app.menuWindow , -1 , SDL_RENDERER_ACCELERATED);
     app.gameWindow = SDL_CreateWindow("" , screenW/2 - 816/2 , screenH/2 - 480/2 , 816 , 480 , SDL_WINDOW_FULLSCREEN_DESKTOP); 
     app.gameRenderer = SDL_CreateRenderer(app.gameWindow , -1 , SDL_RENDERER_ACCELERATED);
     app.screenW = screenW;
     app.screenH = screenH;
-    app.font = TTF_OpenFont("../materials/font/comic.ttf" , 13);
+    app.font = TTF_OpenFont("../materials/font/comic.ttf" , 25);
     app.isGame = false , 
     app.isMenu = true;
     reset_input(&app.input);
@@ -23,14 +23,25 @@ App init_App(int screenW , int screenH){
     app.latest_score = 0;
     app.shot_lista_head = NULL;
     app.shot_texture = IMG_LoadTexture(app.gameRenderer , "..//materials/images/shot.png");
-    app.ranglista_head = read_ranglista_from_file();
+    app.ranglista_head = read_ranglista_from_file();  
     return app;
 }
 
 void runMenu(App* app){
     SDL_HideWindow(app->gameWindow);
     SDL_ShowWindow(app->menuWindow);
+    //megkérjük a felhasználót hogy adjon meg egy nevet
+    szoveg username_text;
     SDL_Event e;
+    username_text.texture = text_to_texture(app->font , "Írj be egy nevet a terminálba! Ne használj ékezetes karaktereket!" , app->menuRenderer , &username_text.pos);
+    username_text.pos.x = 0;
+    username_text.pos.y = 0;
+    SDL_SetRenderDrawColor(app->menuRenderer , MENU_COLOR);
+    SDL_RenderClear(app->menuRenderer);
+    SDL_RenderCopy(app->menuRenderer , username_text.texture , NULL , &username_text.pos);
+    SDL_RenderPresent(app->menuRenderer);
+    scanf("%s" , app->username);
+    
     while(true){
         while (SDL_PollEvent(&e)){
             switch (e.type){
@@ -48,7 +59,7 @@ void runMenu(App* app){
                         SDL_ShowWindow(app->gameWindow);
                         SDL_HideWindow(app->menuWindow);
                         app->latest_score=runGame(app);
-                        insert_ranking(&app->ranglista_head , "TESTUSR" , app->latest_score);
+                        insert_ranking(&app->ranglista_head , app->username , app->latest_score);
                         //Ez a játék vége után fut már le.
                         reset_input(&app->input);
                         delete_meteor_list(app->meteor_lista_head);
@@ -59,8 +70,10 @@ void runMenu(App* app){
                     }
             }
         }
+        //rendereljük a menü tartalmát
         SDL_RenderClear(app->menuRenderer);
-        SDL_SetRenderDrawColor(app->menuRenderer , 252, 111, 68, 0);
+        renderRanglista(app->menuRenderer , app->font, app->ranglista_head);
+        renderCopyMenuContents(app->menuRenderer , app->font , app->username , app->latest_score);
         SDL_RenderPresent(app->menuRenderer);
     }
     return;
@@ -76,7 +89,7 @@ int runGame(App* app){
     // @brief pontszám
     int score = 0;
     SDL_Event e;
-    //
+    //@brief temp meteor amiben az eltalált meteor adatai vannak
     Meteor temp_meteor;
     while(app->isGame){
         //minden framen 1 pont
@@ -127,17 +140,17 @@ int runGame(App* app){
         move_player(&app->player , app->input);
         move_shots(app->shot_lista_head);
         //collision checkek
-        //temp_meteor=utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
+        utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
         //meteor kettéválasztása ha az eltalált meteor nem a legkisebb méretû
-        /*
-        if(temp_meteor.meret>=1){
-            app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x+50 , temp_meteor.position.y+50 , temp_meteor.meret-1);
-            app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x-50 , temp_meteor.position.y-50 , temp_meteor.meret-1);
-        }*/
+        
         temp_meteor=check_hits(&app->shot_lista_head, &app->meteor_lista_head);
         if(temp_meteor.meret>=1){
+            
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x+50 , temp_meteor.position.y+50 , temp_meteor.meret-1);
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x-50 , temp_meteor.position.y-50 , temp_meteor.meret-1);
+        }
+        if(temp_meteor.meret>=0){
+            score+=200;
         }
         //if(app->meteor_lista_head!=NULL && app->meteor_lista_head->next!=NULL) printf("%d\n" , app->meteor_lista_head->next->meteor.meret);
         

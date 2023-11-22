@@ -10,8 +10,13 @@
 #include "player.h"
 #include "shoot.h"
 #include "ranglista.h"
+#include "defines.h"
+#include "font.h"
+#include "../lib/debugmalloc.h"
+#include "menu.h"
 
 typedef struct{
+            char username[51];
             SDL_Window *menuWindow;
             SDL_Renderer *menuRenderer;
             SDL_Window *gameWindow;

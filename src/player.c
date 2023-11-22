@@ -1,6 +1,3 @@
-
-
-
 #include "player.h"
 
 void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player){
@@ -97,17 +94,6 @@ Meteor utkozes_ellenorzese(struct node** head , Player *player){
     while(current!=NULL){
         if(SDL_HasIntersectionF(&player->position , &current->meteor.position)){
             player->health--;
-            printf("Collision\n");
-            meteor = current->meteor;
-            //if(head==NULL) return -1;
-            if(prev==NULL){
-                *head = current->next;
-                free(current);
-            }else{
-                prev->next = current->next;
-                free(current);
-            }
-            return meteor;
         }
         prev = current;
         current = current->next;

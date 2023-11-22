@@ -1,9 +1,17 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#define BASE_SPAWN_RATE 0
-#define SHOT_TIME 0
-#define DIE 0
-#define SHOT_SPEED 25.0
+#define BASE_SPAWN_RATE 140
+#define SHOT_TIME 10
+#define DIE 1
+#define SHOT_SPEED 17.0
+
+#define MENU_W 800
+#define MENU_H 400
+
+#define RANGLISTA_SIZE 5
+#define REKORD_SIZE 59 //50+1+7+1 50= max nev hossza , 1= szokoz , 7= INT_MAX karakterszama , 1= '\0'
+
+#define MENU_COLOR 150, 222, 255, 0
 
 #endif

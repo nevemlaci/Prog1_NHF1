@@ -24,6 +24,9 @@ int write_latest_score(char* path , int latest_score){
     return 0;
 }
 
-
-
-
+void check_for_saves_folder(void){
+    DIR* dir;
+    dir = opendir("../saves");
+    if(dir==NULL) system("mkdir \"../saves\"");
+    closedir(dir);
+}

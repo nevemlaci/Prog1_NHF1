@@ -75,4 +75,5 @@ void reset_input(Input* input);
  * @return Meteor visszatér a meteorral ami eltalálta a játékost
  */
 Meteor utkozes_ellenorzese(struct node** head , Player *player);
+
 #endif

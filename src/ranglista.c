@@ -1,7 +1,5 @@
 #include "ranglista.h"
-#include "stdlib.h"
-#include "string.h"
-#include "stdio.h"
+
 
 void insert_ranking(ranglista_node** head , char* nev , int pont){
 
@@ -70,5 +68,29 @@ int print_ranglista_to_file(ranglista_node* head){
         fprintf(file , "%s %d\n" , current->adat.nev , current->adat.pontszam);
     }
     fclose(file);
+    return 0;
+}
+
+int renderRanglista(SDL_Renderer* renderer, TTF_Font* font , ranglista_node* head){
+    
+    ranglista_node* current = head;
+    SDL_Rect pos;
+    pos.x = 530;
+    SDL_Texture* texture;
+    char temp_szoveg[REKORD_SIZE];
+    //530 , 45: ranglista címe
+    sprintf(temp_szoveg , "Ranglista:");
+    texture = text_to_texture(font , temp_szoveg , renderer , &pos);
+    pos.y=45;
+    SDL_RenderCopy(renderer , texture , NULL , &pos);
+    pos.x=540;
+    for(int i = 0 ; i < RANGLISTA_SIZE ; i++){
+        if(current==NULL) return -1;
+        pos.y = (i+1)*30 + 45;
+        sprintf(temp_szoveg , "%s %d" , current->adat.nev , current->adat.pontszam);
+        texture = text_to_texture(font , temp_szoveg , renderer , &pos);
+        SDL_RenderCopy(renderer , texture , NULL , &pos);
+        current=current->next;
+    }
     return 0;
 }
