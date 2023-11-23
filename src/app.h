@@ -14,6 +14,7 @@
 #include "font.h"
 #include "../lib/debugmalloc.h"
 #include "menu.h"
+#include "file.h"
 
 typedef struct{
             char username[51];
@@ -24,6 +25,7 @@ typedef struct{
             int screenW;
             int screenH;
             TTF_Font* font;
+            TTF_Font* font_big;
             bool isGame;
             bool isMenu;
             Player player;
@@ -64,5 +66,6 @@ void runMenu(App* app);
  */
 int runGame(App* app);
 
+void resetGame(App* app);
 
 #endif

@@ -72,10 +72,9 @@ int print_ranglista_to_file(ranglista_node* head){
 }
 
 int renderRanglista(SDL_Renderer* renderer, TTF_Font* font , ranglista_node* head){
-    
     ranglista_node* current = head;
     SDL_Rect pos;
-    pos.x = 530;
+    pos.x = 430;
     SDL_Texture* texture;
     char temp_szoveg[REKORD_SIZE];
     //530 , 45: ranglista címe
@@ -83,7 +82,7 @@ int renderRanglista(SDL_Renderer* renderer, TTF_Font* font , ranglista_node* hea
     texture = text_to_texture(font , temp_szoveg , renderer , &pos);
     pos.y=45;
     SDL_RenderCopy(renderer , texture , NULL , &pos);
-    pos.x=540;
+    pos.x=440;
     for(int i = 0 ; i < RANGLISTA_SIZE ; i++){
         if(current==NULL) return -1;
         pos.y = (i+1)*30 + 45;

@@ -13,6 +13,7 @@ App init_App(int screenW , int screenH){
     app.screenW = screenW;
     app.screenH = screenH;
     app.font = TTF_OpenFont("../materials/font/comic.ttf" , 25);
+    app.font_big = TTF_OpenFont("../materials/font/comic.ttf" , 55);
     app.isGame = false , 
     app.isMenu = true;
     reset_input(&app.input);
@@ -23,24 +24,22 @@ App init_App(int screenW , int screenH){
     app.latest_score = 0;
     app.shot_lista_head = NULL;
     app.shot_texture = IMG_LoadTexture(app.gameRenderer , "..//materials/images/shot.png");
-    app.ranglista_head = read_ranglista_from_file();  
+    app.ranglista_head = read_ranglista_from_file();
+    app.latest_score = load_latest_score("../saves/latestscores.txt");
+    SDL_SetRenderDrawColor(app.menuRenderer , MENU_COLOR);
     return app;
 }
 
 void runMenu(App* app){
     SDL_HideWindow(app->gameWindow);
     SDL_ShowWindow(app->menuWindow);
+    
     //megkérjük a felhasználót hogy adjon meg egy nevet
-    szoveg username_text;
+    render_get_username(app->menuRenderer , app->font , app->username);
+
+    SDL_Rect play_pos = calculatePlayButtonSize(app->menuRenderer , app->font_big);
+
     SDL_Event e;
-    username_text.texture = text_to_texture(app->font , "Írj be egy nevet a terminálba! Ne használj ékezetes karaktereket!" , app->menuRenderer , &username_text.pos);
-    username_text.pos.x = 0;
-    username_text.pos.y = 0;
-    SDL_SetRenderDrawColor(app->menuRenderer , MENU_COLOR);
-    SDL_RenderClear(app->menuRenderer);
-    SDL_RenderCopy(app->menuRenderer , username_text.texture , NULL , &username_text.pos);
-    SDL_RenderPresent(app->menuRenderer);
-    scanf("%s" , app->username);
     
     while(true){
         while (SDL_PollEvent(&e)){
@@ -54,24 +53,24 @@ void runMenu(App* app){
                 case SDL_KEYDOWN:
                     if(e.key.keysym.scancode == SDL_SCANCODE_T){
                         //Menübõl játékba váltás
-                        app->isGame = true;
-                        app->isMenu = false;
-                        SDL_ShowWindow(app->gameWindow);
-                        SDL_HideWindow(app->menuWindow);
                         app->latest_score=runGame(app);
-                        insert_ranking(&app->ranglista_head , app->username , app->latest_score);
                         //Ez a játék vége után fut már le.
-                        reset_input(&app->input);
-                        delete_meteor_list(app->meteor_lista_head);
-                        app->meteor_lista_head=NULL;
-                        delete_shot_list(app->shot_lista_head);
-                        app->shot_lista_head=NULL;
-                        init_player(100 , 100 , 1 , app->gameRenderer , "../materials/images/player.png" , &app->player);
+                        resetGame(app);
                     }
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    if(checkPlayButton(&play_pos)){
+                        //Menübõl játékba váltás
+                        app->latest_score=runGame(app);
+                        //Ez a játék vége után fut már le.
+                        resetGame(app);
+                    }
+                    break;
             }
         }
         //rendereljük a menü tartalmát
         SDL_RenderClear(app->menuRenderer);
+        renderPlayButton(app->menuRenderer , app->font_big);
         renderRanglista(app->menuRenderer , app->font, app->ranglista_head);
         renderCopyMenuContents(app->menuRenderer , app->font , app->username , app->latest_score);
         SDL_RenderPresent(app->menuRenderer);
@@ -80,6 +79,10 @@ void runMenu(App* app){
 }
 
 int runGame(App* app){
+    app->isGame = true;
+    app->isMenu = false;
+    SDL_ShowWindow(app->gameWindow);
+    SDL_HideWindow(app->menuWindow);
     // @brief temp változó az adott framen való kattintást és a játékost összekötõ szakasz szöge 
     double angle;
     // @brief frame számláló
@@ -176,4 +179,14 @@ int runGame(App* app){
     }
     //warning elkerülése
     return score;
+}
+
+void resetGame(App* app){
+    insert_ranking(&app->ranglista_head , app->username , app->latest_score);
+    reset_input(&app->input);
+    delete_meteor_list(app->meteor_lista_head);
+    app->meteor_lista_head=NULL;
+    delete_shot_list(app->shot_lista_head);
+    app->shot_lista_head=NULL;
+    init_player(100 , 100 , 1 , app->gameRenderer , "../materials/images/player.png" , &app->player);
 }

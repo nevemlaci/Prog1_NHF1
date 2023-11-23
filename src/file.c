@@ -4,7 +4,7 @@
 
 int load_latest_score(char* path){
     FILE* file;
-    file = fopen(path , "w+");
+    file = fopen(path , "r");
     int retval;
     if(fscanf(file,"%d" , &retval)!=1){
         return 0;
