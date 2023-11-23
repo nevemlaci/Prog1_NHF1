@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <stdio.h>
+#include "defines.h"
 #include "../lib/debugmalloc.h"
 
 
@@ -25,7 +26,7 @@ typedef struct node{
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * @param maxX maximum X pozíció
  * @param maxY maximum Y pozíció
- * @return node* az új elemre mutató pointer 
+ * @return node* az új elemre mutató pointer (új elsõ elem)
  */
 node* spawnMeteors(struct node* head, int maxX , int maxY);
 
@@ -49,6 +50,8 @@ node* spawnMeteors_pos(struct node* head , int x , int y , int meret);
  * @return int hibakezeléshez, -1 ha head==NULL
  */
 int renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* texture);
+
+int moveMeteors(node* head);
 
 /**
  * @brief kitörli az egész meteorlistát

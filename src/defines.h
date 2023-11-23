@@ -14,4 +14,6 @@
 
 #define MENU_COLOR 150, 222, 255, 0
 
+#define METEOR_SPEED 2
+
 #endif

@@ -79,19 +79,25 @@ void runMenu(App* app){
 }
 
 int runGame(App* app){
+    
     app->isGame = true;
     app->isMenu = false;
     SDL_ShowWindow(app->gameWindow);
     SDL_HideWindow(app->menuWindow);
+
     // @brief temp változó az adott framen való kattintást és a játékost összekötõ szakasz szöge 
     double angle;
+
     // @brief frame számláló
     int frames = 0;
+
     // @brief lövés timer spammelés ellen
     int shot_timer=SHOT_TIME+1;
+
     // @brief pontszám
     int score = 0;
     SDL_Event e;
+
     //@brief temp meteor amiben az eltalált meteor adatai vannak
     Meteor temp_meteor;
     while(app->isGame){
@@ -107,11 +113,13 @@ int runGame(App* app){
             SDL_ShowWindow(app->menuWindow);
             return score;
         }
+
         //Meteor spawnolás
         if(frames >= BASE_SPAWN_RATE){
             app->meteor_lista_head = spawnMeteors(app->meteor_lista_head, app->screenW , app->screenH);
             frames=0;       
         }
+
         //eventek
         while (SDL_PollEvent(&e)){
             switch (e.type) {
@@ -139,13 +147,16 @@ int runGame(App* app){
                 }
             }
         }
+
         //mozgató függvények       
         move_player(&app->player , app->input);
         move_shots(app->shot_lista_head);
+        moveMeteors(app->meteor_lista_head);
+
         //collision checkek
         utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
-        //meteor kettéválasztása ha az eltalált meteor nem a legkisebb méretû
-        
+
+        //meteor kettéválasztása ha az eltalált meteor nem a legkisebb méretû(egybe kerül néha 2 meteor de m1)
         temp_meteor=check_hits(&app->shot_lista_head, &app->meteor_lista_head);
         if(temp_meteor.meret>=1){
             
@@ -155,7 +166,6 @@ int runGame(App* app){
         if(temp_meteor.meret>=0){
             score+=200;
         }
-        //if(app->meteor_lista_head!=NULL && app->meteor_lista_head->next!=NULL) printf("%d\n" , app->meteor_lista_head->next->meteor.meret);
         
         //renderelés
         SDL_RenderClear(app->gameRenderer);
@@ -164,6 +174,7 @@ int runGame(App* app){
         renderMeteors(app->meteor_lista_head , app->gameRenderer, app->meteor_texture);
         render_shots(app->shot_lista_head , app->gameRenderer , app->shot_texture);
         SDL_RenderPresent(app->gameRenderer);
+
         //játékos halála, DIE define debug miatt
         if(app->player.health<=0 && DIE != 0){
             app->isGame=false;
@@ -172,11 +183,14 @@ int runGame(App* app){
             SDL_ShowWindow(app->menuWindow);
             return score;
         }
+
         //16 ms delay -> kb. 60 képkocka / másodperc
         SDL_Delay(16);
+        
         //frame számlálót léptetem
         frames++;
     }
+    
     //warning elkerülése
     return score;
 }

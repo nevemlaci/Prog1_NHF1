@@ -40,9 +40,9 @@ typedef struct{
         }App;
 
 /**
- * @brief Inicializálja a játék fõ struktúráját, létrehozza a renderereket,
+ * @brief Inicializálja a játékadatok struktúráját, létrehozza a renderereket,
  *ablakokat, megnyitja a textúrákat és a fontot. Inicializálja a láncolt listák fejét és
- *a legutóbbi pontszámot 0-ra állítja.
+ *a legutóbbi pontszámot 0-ra állítja stb.
  * 
  * @param screenW a képernyõ szélessége (nem fullscreen mûködéshez szükséges)
  * @param screenH a képernyõ magassága (nem fullscreen mûködéshez szükséges)

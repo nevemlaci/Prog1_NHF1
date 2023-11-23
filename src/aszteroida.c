@@ -36,6 +36,15 @@ int renderMeteors(node* head , SDL_Renderer* renderer , SDL_Texture* texture){
     return 0;
 }
 
+int moveMeteors(node* head){
+    if(head==NULL) return -1;
+    node* current;
+    for(current = head ; current!=NULL ; current = current->next){
+        current->meteor.position.x-=METEOR_SPEED;
+    }
+    return 0;
+}
+
 void delete_meteor_list(node* head){
     if(head==NULL) return;
     node* current = head;
