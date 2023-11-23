@@ -22,5 +22,9 @@ int load_latest_score(char* path);
  */
 int write_latest_score(char* path, int latest_score);
 
+/**
+ * @brief leelenõrzi, hogy létezik e 'saves' mappa, ha nem akkor létrehozza *mkdir "../saves"* paranccsal.
+ * 
+ */
 void check_for_saves_folder(void);
 #endif
