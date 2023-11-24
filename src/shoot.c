@@ -37,16 +37,14 @@ shot_node* add_new_shot(shot_node* head , double angle, int shipX , int shipY){
     return NULL;
 }
 
-int render_shots(shot_node* head, SDL_Renderer* renderer, SDL_Texture* texture){
+int render_shots(shot_node* head, SDL_Renderer* renderer){
     shot_node* current = head;
     if(head!=NULL){
         while(current!=NULL && current->next != NULL){
             SDL_SetRenderDrawColor(renderer ,255 , 0 , 0 , 255);
             SDL_RenderFillRectF(renderer , &current->shot.position);
-            //SDL_RenderCopyF(renderer , texture, NULL, &current->shot.position);
             current=current->next;
         }
-        SDL_RenderCopyF(renderer , texture, NULL, &current->shot.position);
         return 0;
     }
 

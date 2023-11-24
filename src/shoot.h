@@ -43,7 +43,7 @@ double calculate_angle_for_shot(int shipX , int shipY);
  * @param texture lövések textúrája
  * @return int: 0 ha sikeres | -1 ha sikertelen
  */
-int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* texture);
+int render_shots(struct shot_node* head, SDL_Renderer* renderer);
 
 /**
  * @brief hozzáad egy lövést a lista elejéhez

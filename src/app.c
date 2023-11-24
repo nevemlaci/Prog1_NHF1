@@ -183,7 +183,7 @@ int runGame(App* app){
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
         SDL_RenderCopyF(app->gameRenderer , app->player.texture , NULL , &app->player.position);
         renderMeteors(app->meteor_lista_head , app->gameRenderer, app->meteor_texture);
-        render_shots(app->shot_lista_head , app->gameRenderer , app->shot_texture);
+        render_shots(app->shot_lista_head , app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , text_to_texture_white(app->font , pont_szoveg , app->gameRenderer , &score_pos) , NULL , &score_pos);
         SDL_RenderPresent(app->gameRenderer);
 
