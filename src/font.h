@@ -19,5 +19,6 @@ typedef struct szoveg{
  * @return SDL_Texture* 
  */
 SDL_Texture* text_to_texture(TTF_Font* font, char* text, SDL_Renderer* renderer, SDL_Rect* pos);
+SDL_Texture* text_to_texture_white(TTF_Font* font, char* text, SDL_Renderer* renderer, SDL_Rect* pos);
 
 #endif

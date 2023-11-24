@@ -3,8 +3,8 @@
 
 #define BASE_SPAWN_RATE 140
 #define SHOT_TIME 10
-#define DIE 1
-#define SHOT_SPEED 17.0
+#define DIE 0
+#define SHOT_SPEED 2100
 
 #define MENU_W 800
 #define MENU_H 400
@@ -14,6 +14,8 @@
 
 #define MENU_COLOR 150, 222, 255, 0
 
-#define METEOR_SPEED 2
+#define METEOR_SPEED 270
+
+#define PLAYER_SPEED 500
 
 #endif

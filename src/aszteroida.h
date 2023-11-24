@@ -51,13 +51,7 @@ node* spawnMeteors_pos(struct node* head , int x , int y , int meret);
  */
 int renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* texture);
 
-/**
- * @brief mozgatja a meteorokat
- * 
- * @param head meteor lista fejére pointer
- * @return int hibakezeléshez, -1 ha head==NULL 
- */
-int moveMeteors(node* head);
+int moveMeteors(node* head , float deltaTime);
 
 /**
  * @brief kitörli az egész meteorlistát

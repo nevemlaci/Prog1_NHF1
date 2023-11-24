@@ -9,7 +9,7 @@ App init_App(int screenW , int screenH){
     app.menuWindow = SDL_CreateWindow("Asteroids - Menu" , (screenW/2) - (MENU_W/2) , (screenH/2) - (MENU_H/2) , MENU_W , MENU_H, 0);
     app.menuRenderer = SDL_CreateRenderer(app.menuWindow , -1 , SDL_RENDERER_ACCELERATED);
     app.gameWindow = SDL_CreateWindow("" , screenW/2 - 816/2 , screenH/2 - 480/2 , 816 , 480 , SDL_WINDOW_FULLSCREEN_DESKTOP); 
-    app.gameRenderer = SDL_CreateRenderer(app.gameWindow , -1 , SDL_RENDERER_ACCELERATED);
+    app.gameRenderer = SDL_CreateRenderer(app.gameWindow , -1 , SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     app.screenW = screenW;
     app.screenH = screenH;
     app.font = TTF_OpenFont("../materials/font/comic.ttf" , 25);
@@ -27,6 +27,9 @@ App init_App(int screenW , int screenH){
     app.ranglista_head = read_ranglista_from_file();
     app.latest_score = load_latest_score("../saves/latestscores.txt");
     SDL_SetRenderDrawColor(app.menuRenderer , MENU_COLOR);
+
+    init_clock(&app.clock);
+    
     return app;
 }
 
@@ -79,12 +82,17 @@ void runMenu(App* app){
 }
 
 int runGame(App* app){
-    
+    init_spawn_clock(&app->spawn_clock);
     app->isGame = true;
     app->isMenu = false;
     SDL_ShowWindow(app->gameWindow);
     SDL_HideWindow(app->menuWindow);
+    SDL_Rect score_pos = {3 ,3 ,0 ,0};
+    char pont_szoveg[8];
 
+    //@brief ennyi másodpercig tartott a frame
+    float deltaTime;
+    
     // @brief temp változó az adott framen való kattintást és a játékost összekötõ szakasz szöge 
     double angle;
 
@@ -101,8 +109,14 @@ int runGame(App* app){
     //@brief temp meteor amiben az eltalált meteor adatai vannak
     Meteor temp_meteor;
     while(app->isGame){
+        //órák mozgatása
+        tick_clock(&app->clock);
+        tick_spawn_clock(&app->spawn_clock);
+        
+        deltaTime = calculate_delta_time(&app->clock);
         //minden framen 1 pont
         score++;
+        sprintf(pont_szoveg , "%d" , score);
         //shot timer léptetése ha szükséges
         if(shot_timer<=SHOT_TIME) shot_timer++;
         //ha az elõzõ framen menü parancsot ad a játékos akkor kilép a menübe
@@ -115,9 +129,9 @@ int runGame(App* app){
         }
 
         //Meteor spawnolás
-        if(frames >= BASE_SPAWN_RATE){
-            app->meteor_lista_head = spawnMeteors(app->meteor_lista_head, app->screenW , app->screenH);
-            frames=0;       
+        if(calculate_spawn_time(&app->spawn_clock) > 4){
+            app->meteor_lista_head = spawnMeteors(app->meteor_lista_head, app->screenW , app->screenH);     
+            resetSpawnClock(&app->spawn_clock);
         }
 
         //eventek
@@ -149,9 +163,9 @@ int runGame(App* app){
         }
 
         //mozgató függvények       
-        move_player(&app->player , app->input);
-        move_shots(app->shot_lista_head);
-        moveMeteors(app->meteor_lista_head);
+        move_player(&app->player , app->input , deltaTime);
+        move_shots(app->shot_lista_head , deltaTime);
+        moveMeteors(app->meteor_lista_head , deltaTime);
 
         //collision checkek
         utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
@@ -159,12 +173,12 @@ int runGame(App* app){
         //meteor kettéválasztása ha az eltalált meteor nem a legkisebb méretû(egybe kerül néha 2 meteor de m1)
         temp_meteor=check_hits(&app->shot_lista_head, &app->meteor_lista_head);
         if(temp_meteor.meret>=1){
-            
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x+50 , temp_meteor.position.y+50 , temp_meteor.meret-1);
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x-50 , temp_meteor.position.y-50 , temp_meteor.meret-1);
         }
+        //meteor szétlövéséért pont
         if(temp_meteor.meret>=0){
-            score+=200;
+            score+=800;
         }
         
         //renderelés
@@ -173,6 +187,7 @@ int runGame(App* app){
         SDL_RenderCopyF(app->gameRenderer , app->player.texture , NULL , &app->player.position);
         renderMeteors(app->meteor_lista_head , app->gameRenderer, app->meteor_texture);
         render_shots(app->shot_lista_head , app->gameRenderer , app->shot_texture);
+        SDL_RenderCopy(app->gameRenderer , text_to_texture_white(app->font , pont_szoveg , app->gameRenderer , &score_pos) , NULL , &score_pos);
         SDL_RenderPresent(app->gameRenderer);
 
         //játékos halála, DIE define debug miatt
@@ -183,9 +198,6 @@ int runGame(App* app){
             SDL_ShowWindow(app->menuWindow);
             return score;
         }
-
-        //16 ms delay -> kb. 60 képkocka / másodperc
-        SDL_Delay(16);
         
         //frame számlálót léptetem
         frames++;
@@ -203,4 +215,5 @@ void resetGame(App* app){
     delete_shot_list(app->shot_lista_head);
     app->shot_lista_head=NULL;
     init_player(100 , 100 , 1 , app->gameRenderer , "../materials/images/player.png" , &app->player);
+    init_clock(&app->clock);
 }

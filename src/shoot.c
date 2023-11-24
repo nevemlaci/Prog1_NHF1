@@ -97,16 +97,16 @@ Meteor check_hits(shot_node** head, node** meteor_head){
 
 
 
-int move_shots(shot_node* head){
+int move_shots(shot_node* head , float deltaTime){
     if(head==NULL) return -1;
     shot_node* current = head;
     while(current->next!=NULL){
-        current->shot.position.x += cos( current->shot.angle) * SHOT_SPEED;
-        current->shot.position.y -= sin(current->shot.angle) * SHOT_SPEED;
+        current->shot.position.x += cos( current->shot.angle) * SHOT_SPEED * deltaTime;
+        current->shot.position.y -= sin(current->shot.angle) * SHOT_SPEED * deltaTime;
         current = current->next;
     }
-    current->shot.position.x += cos( current->shot.angle) * SHOT_SPEED;
-    current->shot.position.y -= sin(current->shot.angle) * SHOT_SPEED;
+    current->shot.position.x += cos( current->shot.angle) * SHOT_SPEED * deltaTime;
+    current->shot.position.y -= sin(current->shot.angle) * SHOT_SPEED * deltaTime;
     return 0;
 }
 

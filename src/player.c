@@ -10,18 +10,18 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
     player->position.w=32;
 }
 
-void move_player(Player* player , Input input){
+void move_player(Player* player , Input input , float deltaTime){
         if (input.up == 1) {
-			player->position.y -= PLAYER_SPEED;		
+			player->position.y -= PLAYER_SPEED*deltaTime;		
 		}
 		if (input.down == 1) {
-			player->position.y += PLAYER_SPEED;			
+			player->position.y += PLAYER_SPEED*deltaTime;			
 		}
 		if (input.left == 1) {
-			player->position.x -= PLAYER_SPEED;			
+			player->position.x -= PLAYER_SPEED*deltaTime;			
 		}
 		if (input.right == 1) {
-			player->position.x += PLAYER_SPEED;
+			player->position.x += PLAYER_SPEED*deltaTime;
 		}
 }
 

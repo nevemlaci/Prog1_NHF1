@@ -1,13 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#define PLAYER_SPEED 15
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include "aszteroida.h"
 #include "../lib/debugmalloc.h"
+#include "defines.h"
 
 struct node;
 
@@ -41,7 +41,7 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
  * @param player inicializált, mozgatandó játékosra mutató pointer
  * @param input bemeneteket kezelõ struct
  */
-void move_player(Player* player , Input input);
+void move_player(Player* player , Input input , float deltaTime);
 /**
  * @file
  * @brief Kezeli a billentyûk lenyomását
