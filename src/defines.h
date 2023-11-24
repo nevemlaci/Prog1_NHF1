@@ -18,4 +18,6 @@
 
 #define PLAYER_SPEED 500
 
+#define PLAYER_SIZE 32
+
 #endif

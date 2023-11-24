@@ -48,6 +48,7 @@ int main(int argc , char* argv[])
 
     delete_meteor_list(app.meteor_lista_head);
     delete_shot_list(app.shot_lista_head);
+    delete_ranglista(app.ranglista_head);
 
     if(write_latest_score("../saves/latestscores.txt" , app.latest_score)==-1) return -1;
     

@@ -28,4 +28,6 @@ int print_ranglista_to_file(ranglista_node* head);
 
 int renderRanglista(SDL_Renderer* renderer, TTF_Font* font , ranglista_node* head);
 
+void delete_ranglista(ranglista_node* head);
+
 #endif

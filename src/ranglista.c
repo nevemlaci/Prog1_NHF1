@@ -93,3 +93,13 @@ int renderRanglista(SDL_Renderer* renderer, TTF_Font* font , ranglista_node* hea
     }
     return 0;
 }
+
+void delete_ranglista(ranglista_node* head){
+    ranglista_node* current;
+    ranglista_node* temp;
+    for(current = head; current!=NULL; ){
+        temp = current;
+        current = current->next;
+        free(temp);
+    }
+}

@@ -10,19 +10,19 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
     player->position.w=32;
 }
 
-void move_player(Player* player , Input input , float deltaTime){
-        if (input.up == 1) {
-			player->position.y -= PLAYER_SPEED*deltaTime;		
-		}
-		if (input.down == 1) {
-			player->position.y += PLAYER_SPEED*deltaTime;			
-		}
-		if (input.left == 1) {
-			player->position.x -= PLAYER_SPEED*deltaTime;			
-		}
-		if (input.right == 1) {
-			player->position.x += PLAYER_SPEED*deltaTime;
-		}
+void move_player(Player* player , Input input , float deltaTime , int maxX , int maxY){
+            if (input.up == 1 && player->position.y - PLAYER_SPEED*deltaTime > 0) {
+                player->position.y -= PLAYER_SPEED*deltaTime;		
+            }
+            if (input.down == 1 && player->position.y  + PLAYER_SIZE + PLAYER_SPEED*deltaTime < maxY) {
+                player->position.y += PLAYER_SPEED*deltaTime;			
+            }
+            if (input.left == 1 && player->position.x - PLAYER_SPEED*deltaTime > 0) {
+                player->position.x -= PLAYER_SPEED*deltaTime;			
+            }
+            if (input.right == 1 && player->position.x  + PLAYER_SIZE + PLAYER_SPEED*deltaTime < maxX) {
+                player->position.x += PLAYER_SPEED*deltaTime;
+            }       
 }
 
 void keyDown(Input* input , SDL_KeyboardEvent* event){

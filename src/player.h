@@ -41,7 +41,7 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
  * @param player inicializált, mozgatandó játékosra mutató pointer
  * @param input bemeneteket kezelõ struct
  */
-void move_player(Player* player , Input input , float deltaTime);
+void move_player(Player* player , Input input , float deltaTime , int maxX , int maxY);
 /**
  * @file
  * @brief Kezeli a billentyûk lenyomását

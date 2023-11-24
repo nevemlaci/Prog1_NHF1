@@ -163,7 +163,7 @@ int runGame(App* app){
         }
 
         //mozgató függvények       
-        move_player(&app->player , app->input , deltaTime);
+        move_player(&app->player , app->input , deltaTime , app->screenW , app->screenH);
         move_shots(app->shot_lista_head , deltaTime);
         moveMeteors(app->meteor_lista_head , deltaTime);
 
