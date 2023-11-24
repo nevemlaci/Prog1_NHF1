@@ -9,17 +9,25 @@
 #include "../lib/debugmalloc.h"
 #include "defines.h"
 
+//elõre deklaráció(valószínûleg eltávolítható, will fix)
 struct node;
 
+/// @brief jtáékos adatait tároló struktúra
 typedef struct{
+    /// @brief játékos mérete és koordinátái
     SDL_FRect position;
+    /// @brief játékos textúrája
     SDL_Texture *texture;
+    /// @brief játékos életereje
+    /// @note currently partly unused 
     int health;
 }Player;
 
+/// @brief a játékbeli bemeneteket tároló struktúra
 typedef struct{
     int up , down , left , right , menu;
 }Input;
+
 /**
  * 
  * @brief Inicializálja a játékost.
@@ -29,7 +37,7 @@ typedef struct{
  * @param health a játékos kezdõ életereje
  * @param renderer a játék SDL_Renderer -jére mutató pointer
  * @param path a játékos textúrájának elérési útja(string)
- * @return Player visszatér player-el, értékak inicializálva.
+ * @return Player | visszatér az inicializált játékossal
  */
 void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player);
 
@@ -37,7 +45,7 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
  * @brief Játékos mozgatásáért felelõs függvény
  * 
  * @param player inicializált, mozgatandó játékosra mutató pointer
- * @param input bemeneteket kezelõ struct
+ * @param input bemeneteket tároló struct
  */
 void move_player(Player* player , Input input , float deltaTime , int maxX , int maxY);
 /**
@@ -66,9 +74,10 @@ void reset_input(Input* input);
 /**
  * @brief ellenõrzi hogy a játékost eltalálja -e egy aszteroida
  * 
- * @param head aszteroida lista fejére mutató pointer pointere (a függvény változtathatja head-et)
- * @param player játékos adatait tároló struktúra pointere 
+ * @param head aszteroida lista fejére mutató pointer pointere
+ * @param player játékos adatait tároló struktúra pointere
  * @return Meteor visszatér a meteorral ami eltalálta a játékost
+ * @note jelenleg sok felesleges dolog van ebben a függvényben de késõbb tervem van velük
  */
 Meteor utkozes_ellenorzese(struct node** head , Player *player);
 

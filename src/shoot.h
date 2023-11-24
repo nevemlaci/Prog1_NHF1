@@ -10,13 +10,19 @@
 #include "../lib/debugmalloc.h"
 #include "defines.h"
 
+/// @brief egy lövés adatait tárolja
 typedef struct{
+    /// @brief a lövés vízszinteshez képest vett szöge
     double angle;
+    /// @brief a lövés mérete és koordinátái
     SDL_FRect position;
 }Shot;
 
+/// @brief a lövések listájának egy eleme
 typedef struct shot_node{
+    ///@brief lövés adatait tárolja
     Shot shot;
+    /// @brief következõ listaelem
     struct shot_node* next;
 }shot_node;
 
@@ -35,7 +41,7 @@ double calculate_angle_for_shot(int shipX , int shipY);
  * @param head lövések listájának head-jére mutató pointer
  * @param renderer gameRenderer
  * @param texture lövések textúrája
- * @return int hibajelzésre: 0 ha sikeres | -1 ha sikertelen
+ * @return int: 0 ha sikeres | -1 ha sikertelen
  */
 int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* texture);
 
@@ -46,7 +52,7 @@ int render_shots(struct shot_node* head, SDL_Renderer* renderer, SDL_Texture* te
  * @param angle lövés szöge
  * @param shipX játékos X pozíció
  * @param shipY játékos Y pozíció
- * @return struct shot_node* visszatér a hozzáadott lövés pointerjével
+ * @return struct shot_node* visszatér a hozzáadott lövés pointerjével(dinamikusan foglalt, az egész lista felszabadítására van függvény)
  */
 struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX , int shipY);
 
@@ -63,7 +69,7 @@ Meteor check_hits(shot_node** head, node** meteor_head);
  * @brief lövések mozgatása
  * 
  * @param head lövések listájának head-jére mutató pointer
- * @return int hibajelzéshez: -1 ha head==NULL | 0 ha sikeres
+ * @return int: -1 ha head==NULL | 0 ha sikeres
  */
 int move_shots(struct shot_node* head , float deltaTime);
 
@@ -71,7 +77,7 @@ int move_shots(struct shot_node* head , float deltaTime);
  * @brief felszabadítja a lövések listáját
  * 
  * @param head lövések listájának head-jére pointer
- * @return int int hibajelzéshez: -1 ha head==NULL | 0 ha sikeres
+ * @return int: -1 ha head==NULL | 0 ha sikeres
  */
 int delete_shot_list(struct shot_node* head);
 

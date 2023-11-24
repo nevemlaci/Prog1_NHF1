@@ -20,7 +20,6 @@ App init_App(int screenW , int screenH){
     app.meteor_texture = IMG_LoadTexture(app.gameRenderer , "../materials/images/meteor_1.png");
     app.latest_score = 0;
     app.shot_lista_head = NULL;
-    app.shot_texture = IMG_LoadTexture(app.gameRenderer , "..//materials/images/shot.png");
     app.ranglista_head = read_ranglista_from_file();
     app.latest_score = load_latest_score("../saves/latestscores.txt");
     SDL_SetRenderDrawColor(app.menuRenderer , MENU_COLOR);

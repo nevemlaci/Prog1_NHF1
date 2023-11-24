@@ -10,6 +10,7 @@ int renderCopyMenuContents(SDL_Renderer* renderer , TTF_Font* font , char* usern
     pos.y=315;
     sprintf(text , "Legutóbbi pontszám: %d" , latestpoint);
     texture = text_to_texture(font, text , renderer , &pos);
+    if(texture == NULL) return -1;
     SDL_RenderCopy(renderer , texture , NULL , &pos);
     return 0;
 }

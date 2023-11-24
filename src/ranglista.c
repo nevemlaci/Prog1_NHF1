@@ -72,6 +72,7 @@ int print_ranglista_to_file(ranglista_node* head){
 }
 
 int renderRanglista(SDL_Renderer* renderer, TTF_Font* font , ranglista_node* head){
+    if(head==NULL) return -1;
     ranglista_node* current = head;
     SDL_Rect pos;
     pos.x = 430;

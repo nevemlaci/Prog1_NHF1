@@ -11,12 +11,16 @@
 
 
 typedef struct Meteor{
+    /// @brief meteor koordinátáit és méreteit tárolja
     SDL_FRect position;
+    /// @brief meteor mérete: 0-2
     int meret;
 }Meteor;
 
 typedef struct node{
+    /// @brief adott listaelemben tárolt meteor adatai
     Meteor meteor;
+    /// @brief következõ listaelem
     struct node *next;
 }node;
 
@@ -26,7 +30,7 @@ typedef struct node{
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * @param maxX maximum X pozíció
  * @param maxY maximum Y pozíció
- * @return node* az új elemre mutató pointer (új elsõ elem)
+ * @return node* az új elemre mutató pointer (új elsõ elem lesz)
  */
 node* spawnMeteors(struct node* head, int maxX , int maxY);
 
@@ -36,18 +40,18 @@ node* spawnMeteors(struct node* head, int maxX , int maxY);
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * @param x X pozíció
  * @param y Y pozíció
- * @param meret meteor mérete
- * @return node* az új elemre mutató pointer
+ * @param meret az újmeteor mérete
+ * @return node* az új elemre mutató pointer (új elsõ elem lesz)
  */
 node* spawnMeteors_pos(struct node* head , int x , int y , int meret);
 
 /**
- * @brief Rendereli a láncolt listában lévõ meteorokat
+ * @brief A rendererre másolja a láncolt listában lévõ meteorokat
  * 
  * @param head a meteorokat tartalmazó láncolt lista elsõ elemére mutató pointer
  * @param renderer a játék SDL_Renderer -jére mutató pointer
  * @param texture a meteorokhoz használt textúrára mutató pointer
- * @return int hibakezeléshez, -1 ha head==NULL
+ * @return int -1 ha head==NULL
  */
 int renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* texture);
 
@@ -63,7 +67,7 @@ int moveMeteors(node* head , float deltaTime);
 /**
  * @brief kitörli a pályán kívülre kerülõ meteorokat
  * 
- * @param head 
+ * @param head meteorok láncolt listájának fejére mutató pointer pointere (kell, mivel head is törlésre kerülhet)
  */
 void delete_out_of_bounds_meteors(node** head);
 
