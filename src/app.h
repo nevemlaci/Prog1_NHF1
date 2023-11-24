@@ -15,29 +15,35 @@
 #include "../lib/debugmalloc.h"
 #include "menu.h"
 #include "file.h"
+#include "clock.h"
 
 typedef struct{
-            char username[51];
-            SDL_Window *menuWindow;
-            SDL_Renderer *menuRenderer;
-            SDL_Window *gameWindow;
-            SDL_Renderer *gameRenderer;
-            int screenW;
-            int screenH;
-            TTF_Font* font;
-            TTF_Font* font_big;
-            bool isGame;
-            bool isMenu;
-            Player player;
-            Input input;
-            SDL_Texture *backround;
-            node* meteor_lista_head;
-            SDL_Texture* meteor_texture;
-            int latest_score;
-            shot_node* shot_lista_head;
-            SDL_Texture* shot_texture;
-            ranglista_node* ranglista_head;
-        }App;
+    char username[51];
+    SDL_Window *menuWindow;
+    SDL_Renderer *menuRenderer;
+    SDL_Window *gameWindow;
+    SDL_Renderer *gameRenderer;
+    int screenW;
+    int screenH;
+    TTF_Font* font;
+    TTF_Font* font_big;
+    bool isMenu;
+    bool isGame;
+    Player player;
+    Input input;
+    SDL_Texture *backround;
+    node* meteor_lista_head;
+    SDL_Texture* meteor_texture;
+    int latest_score;
+    shot_node* shot_lista_head;
+    SDL_Texture* shot_texture;
+    ranglista_node* ranglista_head;
+
+    Clock clock;
+    Spawn_clock spawn_clock;
+
+    int targetFPS;
+}App;
 
 /**
  * @brief Inicializálja a játékadatok struktúráját, létrehozza a renderereket,

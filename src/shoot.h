@@ -10,8 +10,6 @@
 #include "../lib/debugmalloc.h"
 #include "defines.h"
 
-
-
 typedef struct{
     double angle;
     SDL_FRect position;
@@ -67,7 +65,7 @@ Meteor check_hits(shot_node** head, node** meteor_head);
  * @param head lövések listájának head-jére mutató pointer
  * @return int hibajelzéshez: -1 ha head==NULL | 0 ha sikeres
  */
-int move_shots(struct shot_node* head);
+int move_shots(struct shot_node* head , float deltaTime);
 
 /**
  * @brief felszabadítja a lövések listáját
