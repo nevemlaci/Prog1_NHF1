@@ -1,8 +1,5 @@
 #include "app.h"
 
-
-
-
 App init_App(int screenW , int screenH){
     App app;
     SDL_Texture* play_button;
@@ -170,6 +167,7 @@ int runGame(App* app){
         //collision checkek
         utkozes_ellenorzese(&app->meteor_lista_head , &app->player);
 
+        delete_out_of_bounds_meteors(&app->meteor_lista_head);
         //meteor kettéválasztása ha az eltalált meteor nem a legkisebb méretû(egybe kerül néha 2 meteor de m1)
         temp_meteor=check_hits(&app->shot_lista_head, &app->meteor_lista_head);
         if(temp_meteor.meret>=1){
@@ -216,4 +214,11 @@ void resetGame(App* app){
     app->shot_lista_head=NULL;
     init_player(100 , 100 , 1 , app->gameRenderer , "../materials/images/player.png" , &app->player);
     init_clock(&app->clock);
+}
+
+void getDisplaySize(int* w , int* h){
+    SDL_DisplayMode dm;
+    SDL_GetDesktopDisplayMode(0 , &dm);
+    *w= dm.w;
+    *h= dm.h;
 }

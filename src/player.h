@@ -21,9 +21,8 @@ typedef struct{
     int up , down , left , right , menu;
 }Input;
 /**
- * @file
- * @brief Inicializálja a játékost.
  * 
+ * @brief Inicializálja a játékost.
  * 
  * @param x a játékos kezdõ x koordinátája
  * @param y a játékos kezdõ y koordinátája
@@ -35,7 +34,6 @@ typedef struct{
 void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path , Player* player);
 
 /**
- * @file
  * @brief Játékos mozgatásáért felelõs függvény
  * 
  * @param player inicializált, mozgatandó játékosra mutató pointer
@@ -43,7 +41,6 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
  */
 void move_player(Player* player , Input input , float deltaTime , int maxX , int maxY);
 /**
- * @file
  * @brief Kezeli a billentyûk lenyomását
  * 
  * @param input bemeneteket kezelõ structra pointer
@@ -52,7 +49,6 @@ void move_player(Player* player , Input input , float deltaTime , int maxX , int
 void keyDown(Input* input , SDL_KeyboardEvent* event);
 
 /**
- * @file
  * @brief Kezeli a billentyûk felengedését
  * 
  * @param input bemeneteket kezelõ structra pointer

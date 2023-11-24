@@ -51,7 +51,21 @@ node* spawnMeteors_pos(struct node* head , int x , int y , int meret);
  */
 int renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* texture);
 
+/**
+ * @brief mozgatja jobbról balra a meteorokat
+ * 
+ * @param head meteorok láncolt listájának feje
+ * @param deltaTime deltaTime, eddig tartott a frame (s = v*t mozgatás mértékének számításához kell)
+ * @return int -1 ha head==NULL
+ */
 int moveMeteors(node* head , float deltaTime);
+
+/**
+ * @brief kitörli a pályán kívülre kerülõ meteorokat
+ * 
+ * @param head 
+ */
+void delete_out_of_bounds_meteors(node** head);
 
 /**
  * @brief kitörli az egész meteorlistát

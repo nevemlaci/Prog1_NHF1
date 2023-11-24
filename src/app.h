@@ -74,4 +74,6 @@ int runGame(App* app);
 
 void resetGame(App* app);
 
+void getDisplaySize(int* w , int* h);
+
 #endif

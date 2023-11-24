@@ -23,12 +23,7 @@ int init_sdl(void){
     return 0;
 }
 
-void getDisplaySize(int* w , int* h){
-    SDL_DisplayMode dm;
-    SDL_GetDesktopDisplayMode(0 , &dm);
-    *w= dm.w;
-    *h= dm.h;
-}
+
 
 int main(int argc , char* argv[])
 {

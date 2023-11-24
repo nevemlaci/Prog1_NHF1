@@ -45,6 +45,30 @@ int moveMeteors(node* head , float deltaTime){
     return 0;
 }
 
+void delete_out_of_bounds_meteors(node** head){
+    node* current = *head;
+    node* prev = NULL;
+    if(*head == NULL) return;
+    for(current = *head ; current!=NULL ; ){
+        if(current->meteor.position.x  < -32 * pow(2 , current->meteor.meret))
+        {
+            if(prev==NULL){
+                *head = current->next;
+                free(current);
+                current = *head;
+            }else{
+                prev->next = current->next;
+                free(current);
+                current = prev->next;
+            }
+        }else{
+            prev=current;
+            current=current->next;
+        }
+
+    }
+}
+
 void delete_meteor_list(node* head){
     if(head==NULL) return;
     node* current = head;
