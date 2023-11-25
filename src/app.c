@@ -161,7 +161,7 @@ int runGame(App* app){
         }
 
         //Meteor spawnolás
-        if(calculate_spawn_time(&app->spawn_clock) > BASE_SPAWN_RATE){
+        if(calculate_spawn_time(&app->spawn_clock) >= BASE_SPAWN_RATE){
             app->meteor_lista_head = spawnMeteors(app->meteor_lista_head, app->screenW , app->screenH);     
             resetSpawnClock(&app->spawn_clock);
         }
