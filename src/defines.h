@@ -4,7 +4,7 @@
 #define DEFINES_H
 
 ///@brief ennyi másodpercenként spawnol egy meteor
-#define BASE_SPAWN_RATE 4
+#define BASE_SPAWN_RATE 2
 ///@brief két lövés közt legalább ennyi idõnek kell eltelnie
 #define SHOT_TIME 10
 ///@brief ha 0 akkor a játékos nem halhat meg
