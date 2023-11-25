@@ -9,7 +9,7 @@
 #define SHOT_TIME 10
 ///@brief ha 0 akkor a játékos nem halhat meg
 ///@note for debug purposes
-#define DIE 0
+#define DIE 1
 ///@brief a lövések sebessége
 #define SHOT_SPEED 2100
 
@@ -32,7 +32,10 @@
 ///@brief a játékos sebessége
 #define PLAYER_SPEED 500
 
-///a játékos szélessége és magassága
-#define PLAYER_SIZE 32
+///@brief a játékos szélessége és magassága
+///@note a legjobb eredményhez elõnyös 2 hatványára állítani
+#define PLAYER_SIZE 64
+
+#define DEFINITELY_AN_ERROR_MESSAGE system("..\\materials\\Error.url");
 
 #endif

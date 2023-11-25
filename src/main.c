@@ -29,14 +29,19 @@ int main(int argc , char* argv[])
 {
     //ha nem létezik saves mappa akkor létrehozzuk
     void check_for_saves_folder(void);
-
+    
     if(init_sdl() != 0) return 1;
     
     int screenW , screenH;
     getDisplaySize(&screenW , &screenH);
     
     App app = init_App(screenW , screenH);
-    
+    if(!app.succesful_init){
+        printf("Hiba tortent az alkalmazas inicializalasa kozben!");
+        DEFINITELY_AN_ERROR_MESSAGE
+        return 69;
+    }
+
     srand(time(0));
     
     runMenu(&app);
