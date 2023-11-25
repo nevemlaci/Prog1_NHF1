@@ -19,8 +19,8 @@ double calculate_angle_for_shot(int shipX , int shipY){
 shot_node* add_new_shot(shot_node* head , double angle, int shipX , int shipY){
     Shot shot;
     shot.angle = angle;
-    shot.position.x = shipX + 12; //+16-4 hajó közepérõl jönnek a lövések
-    shot.position.y = shipY + 12;
+    shot.position.x = shipX + PLAYER_SIZE/2 - 4; 
+    shot.position.y = shipY + PLAYER_SIZE/2 - 4;
     shot.position.w=8;
     shot.position.h=8;
     if(head==NULL){

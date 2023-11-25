@@ -6,8 +6,8 @@ void init_player(int x , int y, int health , SDL_Renderer *renderer , char* path
     player->position.y = y;
     SDL_Texture *texture = IMG_LoadTexture(renderer , path);
     player->texture = texture;
-    player->position.h=32;
-    player->position.w=32;
+    player->position.h=PLAYER_SIZE;
+    player->position.w=PLAYER_SIZE;
 }
 
 void move_player(Player* player , Input input , float deltaTime , int maxX , int maxY){

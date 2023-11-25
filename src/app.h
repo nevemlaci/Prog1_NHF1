@@ -22,6 +22,8 @@ typedef struct App{
     /// @brief játékos által megadott név
     char username[51];
 
+    SDL_Surface* icon;
+
     SDL_Window *menuWindow;
 
     SDL_Renderer *menuRenderer;
@@ -63,6 +65,7 @@ typedef struct App{
     Spawn_clock spawn_clock;
     /// @note nem használt
     int targetFPS;
+    bool succesful_init;
 }App;
 
 /**

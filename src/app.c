@@ -1,16 +1,52 @@
 #include "app.h"
 
 App init_App(int screenW , int screenH){
+    
     App app;
+    app.succesful_init=false;
+
+    app.icon = IMG_Load("../materials/images/player.png");
+    
+
+    if(!app.icon){
+        printf("%s\n" , SDL_GetError());
+        return app;
+    }
     SDL_Texture* play_button;
     app.menuWindow = SDL_CreateWindow("Asteroids - Menu" , (screenW/2) - (MENU_W/2) , (screenH/2) - (MENU_H/2) , MENU_W , MENU_H, 0);
+    if(!app.menuWindow){
+        printf("%s\n" , SDL_GetError());
+        return app;
+    }
+    SDL_SetWindowIcon(app.menuWindow , app.icon);
     app.menuRenderer = SDL_CreateRenderer(app.menuWindow , -1 , SDL_RENDERER_ACCELERATED);
+    if(!app.menuRenderer){
+        printf("%s\n" , SDL_GetError());
+        return app;
+    }
     app.gameWindow = SDL_CreateWindow("" , screenW/2 - 816/2 , screenH/2 - 480/2 , 816 , 480 , SDL_WINDOW_FULLSCREEN_DESKTOP); 
+    if(!app.gameWindow){
+        printf("%s\n" , SDL_GetError());
+        return app;
+    }
+    SDL_SetWindowIcon(app.gameWindow , app.icon);
     app.gameRenderer = SDL_CreateRenderer(app.gameWindow , -1 , SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if(!app.gameRenderer){
+        printf("%s\n" , SDL_GetError());
+        return app;
+    }
     app.screenW = screenW;
     app.screenH = screenH;
     app.font = TTF_OpenFont("../materials/font/comic.ttf" , 25);
+    if(!app.font){
+        printf("%s\n" , SDL_GetError());
+        return app;
+    }
     app.font_big = TTF_OpenFont("../materials/font/comic.ttf" , 55);
+    if(!app.font_big){
+        printf("%s\n" , TTF_GetError()); 
+        return app;
+    }
     app.isGame = false , 
     app.isMenu = true;
     reset_input(&app.input);
@@ -25,7 +61,7 @@ App init_App(int screenW , int screenH){
     SDL_SetRenderDrawColor(app.menuRenderer , MENU_COLOR);
 
     init_clock(&app.clock);
-    
+    app.succesful_init=true;
     return app;
 }
 
@@ -125,7 +161,7 @@ int runGame(App* app){
         }
 
         //Meteor spawnolás
-        if(calculate_spawn_time(&app->spawn_clock) > 4){
+        if(calculate_spawn_time(&app->spawn_clock) >= BASE_SPAWN_RATE){
             app->meteor_lista_head = spawnMeteors(app->meteor_lista_head, app->screenW , app->screenH);     
             resetSpawnClock(&app->spawn_clock);
         }
