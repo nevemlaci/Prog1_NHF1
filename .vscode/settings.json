@@ -1,0 +1,28 @@
+{
+    "cmake.configureOnOpen": true,
+    "files.exclude": {
+        "**/*.exe": true,
+        "**/Zipek": true
+    },
+    "files.associations": {
+        "stdbool.h": "c",
+        "math.h": "c",
+        "sdl.h": "c",
+        "xiosbase": "c",
+        "xlocale": "c",
+        "xutility": "c",
+        "aszteroida.h": "c",
+        "stdio.h": "c",
+        "time.h": "c",
+        "sdl_image.h": "c",
+        "sdl_main.h": "c",
+        "sdl_ttf.h": "c",
+        "sdl_version.h": "c",
+        "player.h": "c",
+        "debugmalloc.h": "c",
+        "lista.h": "c",
+        "app.h": "c",
+        "random": "cpp"
+    },
+    "files.encoding": "windows1250"
+}
