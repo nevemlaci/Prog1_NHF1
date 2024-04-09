@@ -10,7 +10,7 @@
 #include "defines.h"
 
 //elõre deklaráció(valószínûleg eltávolítható, will fix)
-struct node;
+struct meteor_node;
 
 /// @brief jtáékos adatait tároló struktúra
 typedef struct{
@@ -78,6 +78,6 @@ void init_Input(Input* input);
  * @return Meteor visszatér a meteorral ami eltalálta a játékost
  * @note jelenleg sok felesleges dolog van ebben a függvényben de késõbb tervem van velük
  */
-Meteor checkPlayerMeteorHits(struct node** head , Player *player);
+Meteor checkPlayerMeteorHits(struct meteor_node** head , Player *player);
 
 #endif

@@ -87,10 +87,10 @@ void init_Input(Input* input){
     input->menu = 0;
 }
 
-Meteor checkPlayerMeteorHits(struct node** head , Player *player){
+Meteor checkPlayerMeteorHits(struct meteor_node** head , Player *player){
     Meteor meteor;
-    struct node* current = *head;
-    struct node* prev = NULL;
+    struct meteor_node* current = *head;
+    struct meteor_node* prev = NULL;
     while(current!=NULL){
         if(SDL_HasIntersectionF(&player->position , &current->meteor.position)){
             player->health--;

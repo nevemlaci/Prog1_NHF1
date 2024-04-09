@@ -50,14 +50,14 @@ int render_shots(shot_node* head, SDL_Renderer* renderer , SDL_Texture* texture)
     return -1;
 }
 
-Meteor check_hits(shot_node** head, node** meteor_head){
+Meteor check_hits(shot_node** head, meteor_node** meteor_head){
     Meteor meteor;
     meteor.meret = -2; 
     if(*head==NULL || meteor_head==NULL) return meteor; //meteor.meret==-2
     shot_node* current_shot;
     shot_node* prev_shot=NULL;
-    node* current_meteor;
-    node* prev_meteor=NULL;
+    meteor_node* current_meteor;
+    meteor_node* prev_meteor=NULL;
 
     for(current_shot= *head ; current_shot!=NULL ; current_shot=current_shot->next){
         for(current_meteor = *meteor_head ; current_meteor!=NULL ; current_meteor=current_meteor->next){

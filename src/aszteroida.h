@@ -21,12 +21,12 @@ typedef struct Meteor{
 }Meteor;
 
 /// @brief meteorok láncolt listájában egy elem
-typedef struct node{
+typedef struct meteor_node{
     /// @brief adott listaelemben tárolt meteor adatai
     Meteor meteor;
     /// @brief következõ listaelem
-    struct node *next;
-}node;
+    struct meteor_node *next;
+}meteor_node;
 
 /**
  * @brief Meteorokat hoz létre
@@ -36,7 +36,7 @@ typedef struct node{
  * @param maxY maximum Y pozíció
  * @return node* az új elemre mutató pointer (új elsõ elem lesz)
  */
-node* spawnMeteors(struct node* head, int maxX , int maxY);
+meteor_node* spawnMeteors(struct meteor_node* head, int maxX , int maxY);
 
 /**
  * @brief Meteorokat hoz létre megadott pozíción és megadott mérettel
@@ -47,7 +47,7 @@ node* spawnMeteors(struct node* head, int maxX , int maxY);
  * @param meret az újmeteor mérete
  * @return node* az új elemre mutató pointer (új elsõ elem lesz)
  */
-node* spawnMeteors_pos(struct node* head , int x , int y , int meret);
+meteor_node* spawnMeteors_pos(struct meteor_node* head , int x , int y , int meret);
 
 /**
  * @brief A rendererre másolja a láncolt listában lévõ meteorokat
@@ -57,7 +57,7 @@ node* spawnMeteors_pos(struct node* head , int x , int y , int meret);
  * @param texture a meteorokhoz használt textúrára mutató pointer
  * @return int -1 ha head==NULL
  */
-int renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* texture);
+int renderMeteors(struct meteor_node* head , SDL_Renderer* renderer , SDL_Texture* texture);
 
 /**
  * @brief mozgatja jobbról balra a meteorokat
@@ -66,20 +66,20 @@ int renderMeteors(struct node* head , SDL_Renderer* renderer , SDL_Texture* text
  * @param deltaTime deltaTime, eddig tartott a frame (s = v*t mozgatás mértékének számításához kell)
  * @return int -1 ha head==NULL
  */
-int moveMeteors(node* head , float deltaTime);
+int moveMeteors(meteor_node* head , float deltaTime);
 
 /**
  * @brief kitörli a pályán kívülre kerülõ meteorokat
  * 
  * @param head meteorok láncolt listájának fejére mutató pointer pointere (kell, mivel head is törlésre kerülhet)
  */
-void deleteOutOfBoundsMeteors(node** head);
+void deleteOutOfBoundsMeteors(meteor_node** head);
 
 /**
  * @brief kitörli az egész meteorlistát
  * 
  * @param head láncolt lista elsõ elemére mutató pointer
  */
-void deleteMeteorList(node* head);
+void deleteMeteorList(meteor_node* head);
 
 #endif

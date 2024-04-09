@@ -38,9 +38,9 @@ typedef struct App{
     int screenW;
     /// @brief a képernyõ magassága
     int screenH;
-    /// @brief a játékban használt normál méretû font
+    /// @brief a játékban használt normál méretÿ font
     TTF_Font* font;
-    /// @brief a játékban használt nagy méretû font
+    /// @brief a játékban használt nagy méretÿ font
     TTF_Font* font_big;
     
     bool isMenu;
@@ -53,7 +53,7 @@ typedef struct App{
     /// @brief háttér textúrája
     SDL_Texture *backround;
     /// @brief meteorokat tároló láncolt lista feje
-    node* meteor_lista_head;
+    meteor_node* meteor_lista_head;
     /// @brief meteorok textúrája
     SDL_Texture* meteor_texture;
     /// @brief legutóbb elért pontszám
@@ -88,14 +88,14 @@ typedef struct App{
 App init_App(int screenW , int screenH);
 
 /**
- * @brief Futtatja a menüt. Meghívja runGame() -t, ha a játékos a játékot indító jelet adja.
+ * @brief Futtatja a menÿt. Meghívja runGame() -t, ha a játékos a játékot indító jelet adja.
  * 
  * @param app a játék adatait tartalmazó struktúrára mutató pointer 
  */
 void runMenu(App* app);
 
 /**
- * @brief A játék futtatásáért felelõs. ha a játékos bezárja, visszatérés után a menüben folytatódik a játék.
+ * @brief A játék futtatásáért felelõs. ha a játékos bezárja, visszatérés után a menÿben folytatódik a játék.
  * 
  * @param app a játék adatait tartalmazó struktúrára mutató pointer 
  * 
