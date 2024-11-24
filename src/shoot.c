@@ -79,7 +79,7 @@ Meteor check_hits(shot_node** head, meteor_node** meteor_head){
                     prev_meteor->next = current_meteor->next;
                     free(current_meteor); 
                 }
-                return meteor; //törlés történt
+                return meteor; //tÃ¶rlÃ©s tÃ¶rtÃ©nt
             }
             prev_meteor = current_meteor;
         }

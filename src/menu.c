@@ -1,14 +1,14 @@
 #include "menu.h"
 
-//nem túl optimális függvények de egy mai gép azért kibírja és cba újraírni most mindent:'D
+//nem tÃºl optimÃ¡lis fÃ¼ggvÃ©nyek de egy mai gÃ©p azÃ©rt kibÃ­rja Ã©s cba ÃºjraÃ­rni most mindent:'D
 
 int renderCopyMenuContents(SDL_Renderer* renderer , TTF_Font* font , char* username , int latestpoint){
     SDL_Rect pos;
     char text[19+REKORD_SIZE+1]; //20 + 59
-    //Legutóbbi pontszám szöveg
+    //LegutÃ³bbi pontszÃ¡m szÃ¶veg
     pos.x=175;
     pos.y=315;
-    sprintf(text , "Legutóbbi pontszám: %d" , latestpoint);
+    sprintf(text , "LegutÃ³bbi pontszÃ¡m: %d" , latestpoint);
     SDL_Texture* texture = text_to_texture(font, text , renderer , &pos);
     SDL_RenderCopy(renderer , texture , NULL , &pos);
     SDL_DestroyTexture(texture);
@@ -19,7 +19,7 @@ void render_GetUsername(SDL_Renderer* renderer , TTF_Font* font , char* username
     SDL_Rect pos;
     pos.x=0;
     pos.y=0;
-    SDL_Texture* texture = text_to_texture(font, "Írj be egy nevet a terminálba! Ne használj ékezetes karaktereket!" , renderer , &pos);
+    SDL_Texture* texture = text_to_texture(font, "Ãrj be egy nevet a terminÃ¡lba! Ne hasznÃ¡lj Ã©kezetes karaktereket!" , renderer , &pos);
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer , texture , NULL , &pos);
     SDL_RenderPresent(renderer);
@@ -61,7 +61,7 @@ int renderHardButton(SDL_Renderer* renderer , TTF_Font* font , bool* hardmode){
     char text[16]; 
     pos.x=50;
     pos.y=110;
-    sprintf(text , "Nehéz mód: %s" , *hardmode? "Igen" : "Nem");
+    sprintf(text , "NehÃ©z mÃ³d: %s" , *hardmode? "Igen" : "Nem");
     SDL_Texture* texture = text_to_texture(font, text , renderer , &pos);
     SDL_RenderCopy(renderer , texture , NULL , &pos);
     SDL_DestroyTexture(texture);
@@ -73,8 +73,8 @@ SDL_Rect calculateHardButtonSize(SDL_Renderer* renderer , TTF_Font* font , bool*
     SDL_Rect pos;
     pos.x = 50;
     pos.y = 90; 
-    char szoveg[16]; //Nehéz mód: Igen
-    sprintf(szoveg , "Nehéz mód: %s" , *hardmode? "Igen" : "Nem");
+    char szoveg[16]; //NehÃ©z mÃ³d: Igen
+    sprintf(szoveg , "NehÃ©z mÃ³d: %s" , *hardmode? "Igen" : "Nem");
     SDL_Surface* surf = TTF_RenderText_Blended(font , szoveg , black);
     pos.h = surf->h;
     pos.w = surf->w;

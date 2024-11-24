@@ -18,9 +18,9 @@
 #include "clock.h"
 #include "reticle.h"
 
-/// @brief a játék legtöbb helyen használt változóit fogja össze
+/// @brief a jÃ¡tÃ©k legtÃ¶bb helyen hasznÃ¡lt vÃ¡ltozÃ³it fogja Ã¶ssze
 typedef struct App{
-    /// @brief játékos által megadott név
+    /// @brief jÃ¡tÃ©kos Ã¡ltal megadott nÃ©v
     char username[51];
 
     SDL_Surface* icon;
@@ -34,82 +34,82 @@ typedef struct App{
     SDL_Renderer *gameRenderer;
 
     SDL_Texture* reticle;
-    /// @brief a képernyõ szélessége
+    /// @brief a kÃ©pernyÃµ szÃ©lessÃ©ge
     int screenW;
-    /// @brief a képernyõ magassága
+    /// @brief a kÃ©pernyÃµ magassÃ¡ga
     int screenH;
-    /// @brief a játékban használt normál méretÿ font
+    /// @brief a jÃ¡tÃ©kban hasznÃ¡lt normÃ¡l mÃ©retÃ¿ font
     TTF_Font* font;
-    /// @brief a játékban használt nagy méretÿ font
+    /// @brief a jÃ¡tÃ©kban hasznÃ¡lt nagy mÃ©retÃ¿ font
     TTF_Font* font_big;
     
     bool isMenu;
     
     bool isGame;
-    /// @brief játékos adatait tartalmazó struktúra
+    /// @brief jÃ¡tÃ©kos adatait tartalmazÃ³ struktÃºra
     Player player;
-    /// @brief a bemeneteket tároló struktúra
+    /// @brief a bemeneteket tÃ¡rolÃ³ struktÃºra
     Input input;
-    /// @brief háttér textúrája
+    /// @brief hÃ¡ttÃ©r textÃºrÃ¡ja
     SDL_Texture *backround;
-    /// @brief meteorokat tároló láncolt lista feje
+    /// @brief meteorokat tÃ¡rolÃ³ lÃ¡ncolt lista feje
     meteor_node* meteor_lista_head;
-    /// @brief meteorok textúrája
+    /// @brief meteorok textÃºrÃ¡ja
     SDL_Texture* meteor_texture;
-    /// @brief legutóbb elért pontszám
+    /// @brief legutÃ³bb elÃ©rt pontszÃ¡m
     int latest_score;
-    /// @brief lövéseket tároló lista feje
+    /// @brief lÃ¶vÃ©seket tÃ¡rolÃ³ lista feje
     shot_node* shot_lista_head;
-    /// @brief lövés textúrája
+    /// @brief lÃ¶vÃ©s textÃºrÃ¡ja
     SDL_Texture* shot_texture;
     /// @brief ranglista feje
     ranglista_node* ranglista_head;
-    /// @brief a játék deltaTime számláló órája
+    /// @brief a jÃ¡tÃ©k deltaTime szÃ¡mlÃ¡lÃ³ Ã³rÃ¡ja
     Clock clock;
-    /// @brief a játékban meteorok létrehozásának idõzítéséért felelõs óra
+    /// @brief a jÃ¡tÃ©kban meteorok lÃ©trehozÃ¡sÃ¡nak idÃµzÃ­tÃ©sÃ©Ã©rt felelÃµs Ã³ra
     Spawn_clock spawn_clock;
-    /// @note nem használt
+    /// @note nem hasznÃ¡lt
     int targetFPS;
-    /// @brief nehéz mód állása
+    /// @brief nehÃ©z mÃ³d Ã¡llÃ¡sa
     bool hardmode;
-    /// @brief sikeres inicializálás esetén true
+    /// @brief sikeres inicializÃ¡lÃ¡s esetÃ©n true
     bool succesful_init;
 }App;
 
 /**
- * @brief Inicializálja a játékadatok struktúráját, létrehozza a renderereket,
- *ablakokat, megnyitja a textúrákat és a fontot. Inicializálja a láncolt listák fejét és
- *a legutóbbi pontszámot 0-ra állítja stb.
+ * @brief InicializÃ¡lja a jÃ¡tÃ©kadatok struktÃºrÃ¡jÃ¡t, lÃ©trehozza a renderereket,
+ *ablakokat, megnyitja a textÃºrÃ¡kat Ã©s a fontot. InicializÃ¡lja a lÃ¡ncolt listÃ¡k fejÃ©t Ã©s
+ *a legutÃ³bbi pontszÃ¡mot 0-ra Ã¡llÃ­tja stb.
  * 
- * @param screenW a képernyõ szélessége
- * @param screenH a képernyõ magassága
- * @return App visszatér az inicializált struktúrával
+ * @param screenW a kÃ©pernyÃµ szÃ©lessÃ©ge
+ * @param screenH a kÃ©pernyÃµ magassÃ¡ga
+ * @return App visszatÃ©r az inicializÃ¡lt struktÃºrÃ¡val
  */
 App init_App(int screenW , int screenH);
 
 /**
- * @brief Futtatja a menÿt. Meghívja runGame() -t, ha a játékos a játékot indító jelet adja.
+ * @brief Futtatja a menÃ¿t. MeghÃ­vja runGame() -t, ha a jÃ¡tÃ©kos a jÃ¡tÃ©kot indÃ­tÃ³ jelet adja.
  * 
- * @param app a játék adatait tartalmazó struktúrára mutató pointer 
+ * @param app a jÃ¡tÃ©k adatait tartalmazÃ³ struktÃºrÃ¡ra mutatÃ³ pointer 
  */
 void runMenu(App* app);
 
 /**
- * @brief A játék futtatásáért felelõs. ha a játékos bezárja, visszatérés után a menÿben folytatódik a játék.
+ * @brief A jÃ¡tÃ©k futtatÃ¡sÃ¡Ã©rt felelÃµs. ha a jÃ¡tÃ©kos bezÃ¡rja, visszatÃ©rÃ©s utÃ¡n a menÃ¿ben folytatÃ³dik a jÃ¡tÃ©k.
  * 
- * @param app a játék adatait tartalmazó struktúrára mutató pointer 
+ * @param app a jÃ¡tÃ©k adatait tartalmazÃ³ struktÃºrÃ¡ra mutatÃ³ pointer 
  * 
- * @return visszatér a játékos adott sessionben elért pontszámával
+ * @return visszatÃ©r a jÃ¡tÃ©kos adott sessionben elÃ©rt pontszÃ¡mÃ¡val
  */
 int runGame(App* app);
 
-/// @brief alaphelyzetbe állítja a játékot: kitörli a meteorokat, lövéseket, visszateszi a játékost a kezdõpozícióra
-/// @param app a játék adatait tartalmazó struktúrára mutató pointer 
+/// @brief alaphelyzetbe Ã¡llÃ­tja a jÃ¡tÃ©kot: kitÃ¶rli a meteorokat, lÃ¶vÃ©seket, visszateszi a jÃ¡tÃ©kost a kezdÃµpozÃ­ciÃ³ra
+/// @param app a jÃ¡tÃ©k adatait tartalmazÃ³ struktÃºrÃ¡ra mutatÃ³ pointer 
 void resetGame(App* app);
 
-/// @brief lekérdezi majd letárolja a képernyõ méretét
-/// @param w a képernyõ szélességét tároló változóra pointer
-/// @param h a képernyõ magasságát tároló változóra pointer
+/// @brief lekÃ©rdezi majd letÃ¡rolja a kÃ©pernyÃµ mÃ©retÃ©t
+/// @param w a kÃ©pernyÃµ szÃ©lessÃ©gÃ©t tÃ¡rolÃ³ vÃ¡ltozÃ³ra pointer
+/// @param h a kÃ©pernyÃµ magassÃ¡gÃ¡t tÃ¡rolÃ³ vÃ¡ltozÃ³ra pointer
 void getDisplaySize(int* w , int* h);
 
 #endif

@@ -27,7 +27,7 @@ int init_sdl(void){
 
 int main(int argc , char* argv[])
 {
-    //ha nem létezik saves mappa akkor létrehozzuk
+    //ha nem lï¿½tezik saves mappa akkor lï¿½trehozzuk
     check_for_saves_folder();
     
     if(init_sdl() != 0) return 1;

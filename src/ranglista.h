@@ -10,46 +10,46 @@
 #include <SDL.h>
 #include "../lib/debugmalloc.h"
 
-/// @brief egy eredmény(rekord) adatai a ranglistán
+/// @brief egy eredmÃ©ny(rekord) adatai a ranglistÃ¡n
 typedef struct rekord{
-    /// @brief játékos neve(50 karakter + '\0')
+    /// @brief jÃ¡tÃ©kos neve(50 karakter + '\0')
     char nev[51];
-    /// @brief elért pontszám
-    int pontszam;
+    /// @brief elÃ©rt pontszÃ¡m
+    long long int pontszam;
 }rekord;
 
-/// @brief ranglista láncolt listájában egy elem
+/// @brief ranglista lÃ¡ncolt listÃ¡jÃ¡ban egy elem
 typedef struct ranglista_node{
-    /// @brief adott elem rekordját tartalmazza
+    /// @brief adott elem rekordjÃ¡t tartalmazza
     rekord adat;
-    /// @brief következõ listaelem
+    /// @brief kÃ¶vetkezÃµ listaelem
     struct ranglista_node* next;
 }ranglista_node;
 
-/// @brief beilleszt egy eredményt a listába, megtartva annak csökkenõ sorrendjét
+/// @brief beilleszt egy eredmÃ©nyt a listÃ¡ba, megtartva annak csÃ¶kkenÃµ sorrendjÃ©t
 /// @param head ranglista fej pointer pointere
-/// @param nev játékos neve
-/// @param pont elért pontszám
-void insert_Ranking(ranglista_node** head , char* nev , int pont);
+/// @param nev jÃ¡tÃ©kos neve
+/// @param pont elÃ©rt pontszÃ¡m
+void insert_Ranking(ranglista_node** head , char* nev , long long int pont);
 
-/// @brief beolvassa a ranglistát fileból
-/// @return a lista legelsõ elemére pointer (az egész lista dinamikusan foglalt, felsazabdítására van külön függvény)
+/// @brief beolvassa a ranglistÃ¡t filebÃ³l
+/// @return a lista legelsÃµ elemÃ©re pointer (az egÃ©sz lista dinamikusan foglalt, felsazabdÃ­tÃ¡sÃ¡ra van kÃ¼lÃ¶n fÃ¼ggvÃ©ny)
 ranglista_node* read_Ranglista_from_file();
 
-/// @brief kiírja a ranglistát fájlba
-/// @param head lista legelsõ elemére pointer
-/// @return -1 ha a kiírás sikertelen, 0 ha sikeres
+/// @brief kiÃ­rja a ranglistÃ¡t fÃ¡jlba
+/// @param head lista legelsÃµ elemÃ©re pointer
+/// @return -1 ha a kiÃ­rÃ¡s sikertelen, 0 ha sikeres
 int print_Ranglista_to_file(ranglista_node* head);
 
-/// @brief rendereli a listát
-/// @param renderer használt renderer
-/// @param font használt font
-/// @param head lista legelsõ elemére pointer
+/// @brief rendereli a listÃ¡t
+/// @param renderer hasznÃ¡lt renderer
+/// @param font hasznÃ¡lt font
+/// @param head lista legelsÃµ elemÃ©re pointer
 /// @return -1 ha head==NULL, 0 ha sikeres
 int renderRanglista(SDL_Renderer* renderer, TTF_Font* font , ranglista_node* head);
 
-/// @brief felszabadítja az egész ranglistát
-/// @param head lista legelsõ elemére pointer
+/// @brief felszabadÃ­tja az egÃ©sz ranglistÃ¡t
+/// @param head lista legelsÃµ elemÃ©re pointer
 void delete_Ranglista(ranglista_node* head);
 
 #endif

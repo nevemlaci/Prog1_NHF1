@@ -24,5 +24,6 @@
         "app.h": "c",
         "random": "cpp"
     },
-    "files.encoding": "windows1250"
+    "files.encoding": "windows1250",
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

@@ -1,42 +1,42 @@
-///@file a konstansok ebben a fájlban vannak definiálva
+///@file a konstansok ebben a fÃ¡jlban vannak definiÃ¡lva
 
 #ifndef DEFINES_H
 #define DEFINES_H
 
 #define PI 3.14159265358
 
-///@brief ennyi másodpercenként spawnol egy meteor
+///@brief ennyi mÃ¡sodpercenkÃ©nt spawnol egy meteor
 #define BASE_SPAWN_RATE 2
-///@brief két lövés közt legalább ennyi idõnek kell eltelnie
+///@brief kÃ©t lÃ¶vÃ©s kÃ¶zt legalÃ¡bb ennyi idÃµnek kell eltelnie
 #define SHOT_TIME 10
-///@brief ha 0 akkor a játékos nem halhat meg
+///@brief ha 0 akkor a jÃ¡tÃ©kos nem halhat meg
 ///@note for debug purposes
 #define DIE 1
-///@brief a lövések sebessége
+///@brief a lÃ¶vÃ©sek sebessÃ©ge
 #define SHOT_SPEED 2100
 
-///@brief a menü ablakának szélessége
+///@brief a menÃ¼ ablakÃ¡nak szÃ©lessÃ©ge
 #define MENU_W 800
-///@brief a menü ablakának magassága
+///@brief a menÃ¼ ablakÃ¡nak magassÃ¡ga
 #define MENU_H 400
 
-///@brief ennyi rekord jelenik meg a ranglistáról a menüben
-///@note 8 fölé nem érdemes vinni mert belelóg a többi menürészbe
+///@brief ennyi rekord jelenik meg a ranglistÃ¡rÃ³l a menÃ¼ben
+///@note 8 fÃ¶lÃ© nem Ã©rdemes vinni mert belelÃ³g a tÃ¶bbi menÃ¼rÃ©szbe
 #define RANGLISTA_SIZE 7
-///@brief ilyen hosszú maximum egy rekord stringje a ranglistán
+///@brief ilyen hosszÃº maximum egy rekord stringje a ranglistÃ¡n
 #define REKORD_SIZE 59 //50+1+7+1 50= max nev hossza , 1 = szokoz , 7 = INT_MAX karakterszama , 1 = '\0'
 
-///@brief a menü háttérszíne
+///@brief a menÃ¼ hÃ¡ttÃ©rszÃ­ne
 #define MENU_COLOR 150, 222, 255, 0
 
-///@brief meteorok sebessége
+///@brief meteorok sebessÃ©ge
 #define METEOR_SPEED 270
 
-///@brief a játékos sebessége
+///@brief a jÃ¡tÃ©kos sebessÃ©ge
 #define PLAYER_SPEED 500
 
-///@brief a játékos szélessége és magassága
-///@note a legjobb eredményhez elõnyös 2 hatványára állítani
+///@brief a jÃ¡tÃ©kos szÃ©lessÃ©ge Ã©s magassÃ¡ga
+///@note a legjobb eredmÃ©nyhez elÃµnyÃ¶s 2 hatvÃ¡nyÃ¡ra Ã¡llÃ­tani
 #define PLAYER_SIZE 64
 
 /// What could this be

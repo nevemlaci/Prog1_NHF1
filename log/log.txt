@@ -30,3 +30,55 @@
 * Debugmalloc: nincs memoriaszivargas a programban.
 * Osszes foglalas: 9 blokk, 576 bajt.
 ****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 152 blokk, 5184 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 102 blokk, 3616 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 11 blokk, 704 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 182 blokk, 6240 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 13 blokk, 832 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 356 blokk, 11872 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 949 blokk, 30912 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 1 blokk, 64 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 1 blokk, 72 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 16 blokk, 592 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 2 blokk, 144 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 2 blokk, 144 bajt.
+****************************************************
+****************************************************
+* Debugmalloc: nincs memoriaszivargas a programban.
+* Osszes foglalas: 0 blokk, 0 bajt.
+****************************************************

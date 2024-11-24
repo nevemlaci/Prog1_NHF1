@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/app.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/app.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/aszteroida.h" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/defines.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/menu.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ranglista.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/shoot.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/shoot.h" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,68 @@
+[
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\app.c.obj -c C:\\dev\\Prog1_NHF1\\src\\app.c",
+  "file": "C:/dev/Prog1_NHF1/src/app.c",
+  "output": "CMakeFiles/NHF.dir/src/app.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\aszteroida.c.obj -c C:\\dev\\Prog1_NHF1\\src\\aszteroida.c",
+  "file": "C:/dev/Prog1_NHF1/src/aszteroida.c",
+  "output": "CMakeFiles/NHF.dir/src/aszteroida.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\clock.c.obj -c C:\\dev\\Prog1_NHF1\\src\\clock.c",
+  "file": "C:/dev/Prog1_NHF1/src/clock.c",
+  "output": "CMakeFiles/NHF.dir/src/clock.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\file.c.obj -c C:\\dev\\Prog1_NHF1\\src\\file.c",
+  "file": "C:/dev/Prog1_NHF1/src/file.c",
+  "output": "CMakeFiles/NHF.dir/src/file.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\font.c.obj -c C:\\dev\\Prog1_NHF1\\src\\font.c",
+  "file": "C:/dev/Prog1_NHF1/src/font.c",
+  "output": "CMakeFiles/NHF.dir/src/font.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\main.c.obj -c C:\\dev\\Prog1_NHF1\\src\\main.c",
+  "file": "C:/dev/Prog1_NHF1/src/main.c",
+  "output": "CMakeFiles/NHF.dir/src/main.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\menu.c.obj -c C:\\dev\\Prog1_NHF1\\src\\menu.c",
+  "file": "C:/dev/Prog1_NHF1/src/menu.c",
+  "output": "CMakeFiles/NHF.dir/src/menu.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\player.c.obj -c C:\\dev\\Prog1_NHF1\\src\\player.c",
+  "file": "C:/dev/Prog1_NHF1/src/player.c",
+  "output": "CMakeFiles/NHF.dir/src/player.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\ranglista.c.obj -c C:\\dev\\Prog1_NHF1\\src\\ranglista.c",
+  "file": "C:/dev/Prog1_NHF1/src/ranglista.c",
+  "output": "CMakeFiles/NHF.dir/src/ranglista.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\reticle.c.obj -c C:\\dev\\Prog1_NHF1\\src\\reticle.c",
+  "file": "C:/dev/Prog1_NHF1/src/reticle.c",
+  "output": "CMakeFiles/NHF.dir/src/reticle.c.obj"
+},
+{
+  "directory": "C:/dev/Prog1_NHF1/Build",
+  "command": "C:\\PROGRA~1\\mingw64\\bin\\gcc.exe  @CMakeFiles/NHF.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\NHF.dir\\src\\shoot.c.obj -c C:\\dev\\Prog1_NHF1\\src\\shoot.c",
+  "file": "C:/dev/Prog1_NHF1/src/shoot.c",
+  "output": "CMakeFiles/NHF.dir/src/shoot.c.obj"
+}
+]

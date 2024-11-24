@@ -1,7 +1,7 @@
 #include "ranglista.h"
 
 
-void insert_Ranking(ranglista_node** head , char* nev , int pont){
+void insert_Ranking(ranglista_node** head , char* nev , long long int pont){
 
     ranglista_node* uj = malloc(sizeof(ranglista_node));
     strcpy(uj->adat.nev , nev);
@@ -77,7 +77,7 @@ int renderRanglista(SDL_Renderer* renderer, TTF_Font* font , ranglista_node* hea
     SDL_Rect pos;
     pos.x = 510;
     char temp_szoveg[REKORD_SIZE];
-    //430 , 45: ranglista címe
+    //430 , 45: ranglista cï¿½me
     sprintf(temp_szoveg , "Ranglista:");
     pos.y=45;
     SDL_Texture* texture = text_to_texture(font , temp_szoveg , renderer , &pos);

@@ -5,14 +5,14 @@ App init_App(int screenW , int screenH){
     App app;
     app.succesful_init=false;
 
-    app.icon = IMG_Load("..\\materials\\images\\player.png");
+    app.icon = IMG_Load("..\\materials\\images\\playe.png");
 
     if(!app.icon){
         printf("%s\n" , SDL_GetError());
         return app;
     }
     SDL_Texture* play_button;
-    app.menuWindow = SDL_CreateWindow("Asteroids - Menu" , (screenW/2) - (MENU_W/2) , (screenH/2) - (MENU_H/2) , MENU_W , MENU_H, 0);
+    app.menuWindow = SDL_CreateWindow("Asteroids - Menu" , (screenW) - (MENU_W/2) , (screenH/2) - (MENU_H/2) , screenW , screenH, SDL_WINDOW_RESIZABLE);
     if(!app.menuWindow){
         printf("%s\n" , SDL_GetError());
         return app;
@@ -89,7 +89,7 @@ void runMenu(App* app){
     SDL_HideWindow(app->gameWindow);
     SDL_ShowWindow(app->menuWindow);
     
-    //megkérjük a felhasználót hogy adjon meg egy nevet
+    //megkÃ©rjÃ¿k a felhasznÃ¡lÃ³t hogy adjon meg egy nevet
     render_GetUsername(app->menuRenderer , app->font , app->username);
 
     SDL_Rect play_pos = calculatePlayButtonSize(app->menuRenderer , app->font_big);
@@ -100,7 +100,7 @@ void runMenu(App* app){
     while(true){
         while (SDL_PollEvent(&e)){
             switch (e.type){
-                //Az egész játék bezárása
+                //Az egÃ©sz jÃ¡tÃ©k bezÃ¡rÃ¡sa
                 case SDL_WINDOWEVENT:
                     if(e.window.event == SDL_WINDOWEVENT_CLOSE){
                         print_Ranglista_to_file(app->ranglista_head);
@@ -108,9 +108,9 @@ void runMenu(App* app){
                     }
                 case SDL_KEYDOWN:
                     if(e.key.keysym.scancode == SDL_SCANCODE_T){
-                        //Menübõl játékba váltás
+                        //MenÃ¿bÃµl jÃ¡tÃ©kba vÃ¡ltÃ¡s
                         app->latest_score=runGame(app);
-                        //Ez a játék vége után fut már le.
+                        //Ez a jÃ¡tÃ©k vÃ©ge utÃ¡n fut mÃ¡r le.
                         resetGame(app);
                     }
                     if(e.key.keysym.scancode == SDL_SCANCODE_H){
@@ -119,9 +119,9 @@ void runMenu(App* app){
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     if(checkPlayButton(&play_pos)){
-                        //Menübõl játékba váltás
+                        //MenÃ¿bÃµl jÃ¡tÃ©kba vÃ¡ltÃ¡s
                         app->latest_score=runGame(app);
-                        //Ez a játék vége után fut már le.
+                        //Ez a jÃ¡tÃ©k vÃ©ge utÃ¡n fut mÃ¡r le.
                         resetGame(app);
                     }
                     if(checkHardButton(&hard_pos)){
@@ -130,7 +130,7 @@ void runMenu(App* app){
                     break;
             }
         }
-        //rendereljük a menü tartalmát
+        //rendereljÃ¿k a menÃ¿ tartalmÃ¡t
         SDL_RenderClear(app->menuRenderer);
         renderPlayButton(app->menuRenderer , app->font_big);
         renderHardButton(app->menuRenderer , app->font_big , &app->hardmode);
@@ -151,36 +151,36 @@ int runGame(App* app){
     SDL_Rect score_pos = {3 ,3 ,0 ,0};
     char pont_szoveg[8];
 
-    //@brief ennyi másodpercig tartott a frame
+    //@brief ennyi mÃ¡sodpercig tartott a frame
     float deltaTime;
     
-    // @brief temp változó az adott framen való kattintást és a játékost összekötõ szakasz szöge 
+    // @brief temp vÃ¡ltozÃ³ az adott framen valÃ³ kattintÃ¡st Ã©s a jÃ¡tÃ©kost Ã¶sszekÃ¶tÃµ szakasz szÃ¶ge 
     double angle;
 
-    // @brief frame számláló
+    // @brief frame szÃ¡mlÃ¡lÃ³
     int frames = 0;
 
-    // @brief lövés timer spammelés ellen
+    // @brief lÃ¶vÃ©s timer spammelÃ©s ellen
     int shot_timer=SHOT_TIME+1;
 
-    // @brief pontszám
+    // @brief pontszÃ¡m
     int score = 0;
     SDL_Event e;
 
-    //@brief temp meteor amiben az eltalált meteor adatai vannak
+    //@brief temp meteor amiben az eltalÃ¡lt meteor adatai vannak
     Meteor temp_meteor;
     while(app->isGame){
-        //órák mozgatása
+        //Ã³rÃ¡k mozgatÃ¡sa
         tickGameClock(&app->clock);
         tickSpawnClock(&app->spawn_clock);
         
         deltaTime = calculate_DeltaTime(&app->clock);
-        //minden framen 2/1 pont nehézségtõl függõen
+        //minden framen 2/1 pont nehÃ©zsÃ©gtÃµl fÃ¿ggÃµen
         score+= app->hardmode? 2 : 1 ;
         sprintf(pont_szoveg , "%d" , score);
-        //shot timer léptetése ha szükséges
+        //shot timer lÃ©ptetÃ©se ha szÃ¿ksÃ©ges
         if(shot_timer<=SHOT_TIME) shot_timer++;
-        //ha az elõzõ framen menü parancsot ad a játékos akkor kilép a menübe
+        //ha az elÃµzÃµ framen menÃ¿ parancsot ad a jÃ¡tÃ©kos akkor kilÃ©p a menÃ¿be
         if(app->input.menu == 1){
             app->isGame=false;
             app->isMenu=true;
@@ -189,7 +189,7 @@ int runGame(App* app){
             return score;
         }
 
-        //Meteor spawnolás
+        //Meteor spawnolÃ¡s
         if(calculate_SpawnTime(&app->spawn_clock) >= (app->hardmode ? BASE_SPAWN_RATE/2 : BASE_SPAWN_RATE)){
             app->meteor_lista_head = spawnMeteors(app->meteor_lista_head, app->screenW , app->screenH);     
             resetSpawnClock(&app->spawn_clock);
@@ -199,21 +199,21 @@ int runGame(App* app){
         while (SDL_PollEvent(&e)){
             switch (e.type) {
                 case SDL_WINDOWEVENT:
-                    if(e.window.event == SDL_WINDOWEVENT_CLOSE){ //ha bezárjuk az ablakot visszatérünk a menübe(alt+f4)
+                    if(e.window.event == SDL_WINDOWEVENT_CLOSE){ //ha bezÃ¡rjuk az ablakot visszatÃ©rÃ¿nk a menÃ¿be(alt+f4)
                         app->isGame=false;
                         app->isMenu=true;
                         SDL_HideWindow(app->gameWindow);
                         SDL_ShowWindow(app->menuWindow);
                         return score;
                     }
-                case SDL_KEYDOWN: //billentyûleütések kezelése
+                case SDL_KEYDOWN: //billentyÃ¿leÃ¿tÃ©sek kezelÃ©se
                     keyDown(&app->input , &e.key);
                     break;
                     
-                case SDL_KEYUP: //billentyûfelengedések kezelése
+                case SDL_KEYUP: //billentyÃ¿felengedÃ©sek kezelÃ©se
                     keyUp(&app->input , &e.key);
                     break;
-                case SDL_MOUSEBUTTONDOWN: //kattintás
+                case SDL_MOUSEBUTTONDOWN: //kattintÃ¡s
                     if(shot_timer>SHOT_TIME){
                         angle = calculate_angle_for_shot(app->player.position.x , app->player.position.y);
                         app->shot_lista_head=add_new_shot(app->shot_lista_head , angle , app->player.position.x , app->player.position.y);
@@ -223,7 +223,7 @@ int runGame(App* app){
             }
         }
 
-        //mozgató függvények       
+        //mozgatÃ³ fÃ¿ggvÃ©nyek       
         movePlayer(&app->player , app->input , deltaTime , app->screenW , app->screenH);
         moveShots(app->shot_lista_head , deltaTime);
         moveMeteors(app->meteor_lista_head , deltaTime);
@@ -232,18 +232,18 @@ int runGame(App* app){
         checkPlayerMeteorHits(&app->meteor_lista_head , &app->player);
 
         deleteOutOfBoundsMeteors(&app->meteor_lista_head);
-        //meteor kettéválasztása ha az eltalált meteor nem a legkisebb méretû(egybe kerül néha 2 meteor de m1)
+        //meteor kettÃ©vÃ¡lasztÃ¡sa ha az eltalÃ¡lt meteor nem a legkisebb mÃ©retÃ¿(egybe kerÃ¿l nÃ©ha 2 meteor de m1)
         temp_meteor=check_hits(&app->shot_lista_head, &app->meteor_lista_head);
         if(temp_meteor.meret>=1){
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x+50 , temp_meteor.position.y+50 , temp_meteor.meret-1);
             app->meteor_lista_head=spawnMeteors_pos(app->meteor_lista_head , temp_meteor.position.x-50 , temp_meteor.position.y-50 , temp_meteor.meret-1);
         }
-        //meteor szétlövéséért pont
+        //meteor szÃ©tlÃ¶vÃ©sÃ©Ã©rt pont
         if(temp_meteor.meret>=0){
             score+=800;
         }
         
-        //renderelés
+        //renderelÃ©s
         SDL_RenderClear(app->gameRenderer);
         SDL_RenderCopy(app->gameRenderer , app->backround , NULL , NULL);
         SDL_RenderCopyF(app->gameRenderer , app->player.texture , NULL , &app->player.position);
@@ -253,7 +253,7 @@ int runGame(App* app){
         renderReticle(app->gameRenderer , app->reticle);
         SDL_RenderPresent(app->gameRenderer);
 
-        //játékos halála, DIE define debug miatt
+        //jÃ¡tÃ©kos halÃ¡la, DIE define debug miatt
         if(app->player.health<=0 && DIE != 0){
             app->isGame=false;
             app->isMenu=true;
@@ -262,11 +262,11 @@ int runGame(App* app){
             return score;
         }
         
-        //frame számlálót léptetem
+        //frame szÃ¡mlÃ¡lÃ³t lÃ©ptetem
         frames++;
     }
     
-    //warning elkerülése
+    //warning elkerÃ¿lÃ©se
     return score;
 }
 

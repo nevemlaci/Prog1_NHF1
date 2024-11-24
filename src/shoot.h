@@ -10,73 +10,73 @@
 #include "../lib/debugmalloc.h"
 #include "defines.h"
 
-/// @brief egy lövés adatait tárolja
+/// @brief egy lÃ¶vÃ©s adatait tÃ¡rolja
 typedef struct{
-    /// @brief a lövés vízszinteshez képest vett szöge
+    /// @brief a lÃ¶vÃ©s vÃ­zszinteshez kÃ©pest vett szÃ¶ge
     double angle;
-    /// @brief a lövés mérete és koordinátái
+    /// @brief a lÃ¶vÃ©s mÃ©rete Ã©s koordinÃ¡tÃ¡i
     SDL_FRect position;
 }Shot;
 
-/// @brief a lövések listájának egy eleme
+/// @brief a lÃ¶vÃ©sek listÃ¡jÃ¡nak egy eleme
 typedef struct shot_node{
-    ///@brief lövés adatait tárolja
+    ///@brief lÃ¶vÃ©s adatait tÃ¡rolja
     Shot shot;
-    /// @brief következõ listaelem
+    /// @brief kÃ¶vetkezÃµ listaelem
     struct shot_node* next;
 }shot_node;
 
 /**
- * @brief kiszámolja egy kattintás és a játékos közti vektor hajlásszögét
+ * @brief kiszÃ¡molja egy kattintÃ¡s Ã©s a jÃ¡tÃ©kos kÃ¶zti vektor hajlÃ¡sszÃ¶gÃ©t
  * 
- * @param shipX játékos X pozíció
- * @param shipY játékos Y pozíció
- * @return double hajlászög radiánban x: [-pi/2 ; 3pi/2]
+ * @param shipX jÃ¡tÃ©kos X pozÃ­ciÃ³
+ * @param shipY jÃ¡tÃ©kos Y pozÃ­ciÃ³
+ * @return double hajlÃ¡szÃ¶g radiÃ¡nban x: [-pi/2 ; 3pi/2]
  */
 double calculate_angle_for_shot(int shipX , int shipY);
 
 /**
- * @brief lövések másolása rendererre
+ * @brief lÃ¶vÃ©sek mÃ¡solÃ¡sa rendererre
  * 
- * @param head lövések listájának head-jére mutató pointer
+ * @param head lÃ¶vÃ©sek listÃ¡jÃ¡nak head-jÃ©re mutatÃ³ pointer
  * @param renderer gameRenderer
- * @param texture lövések textúrája
+ * @param texture lÃ¶vÃ©sek textÃºrÃ¡ja
  * @return int: 0 ha sikeres | -1 ha sikertelen
  */
 int render_shots(shot_node* head, SDL_Renderer* renderer , SDL_Texture* texture);
 
 /**
- * @brief hozzáad egy lövést a lista elejéhez
+ * @brief hozzÃ¡ad egy lÃ¶vÃ©st a lista elejÃ©hez
  * 
- * @param head lövések listájának head-jére mutató pointer
- * @param angle lövés szöge
- * @param shipX játékos X pozíció
- * @param shipY játékos Y pozíció
- * @return struct shot_node* visszatér a hozzáadott lövés pointerjével(dinamikusan foglalt, az egész lista felszabadítására van függvény)
+ * @param head lÃ¶vÃ©sek listÃ¡jÃ¡nak head-jÃ©re mutatÃ³ pointer
+ * @param angle lÃ¶vÃ©s szÃ¶ge
+ * @param shipX jÃ¡tÃ©kos X pozÃ­ciÃ³
+ * @param shipY jÃ¡tÃ©kos Y pozÃ­ciÃ³
+ * @return struct shot_node* visszatÃ©r a hozzÃ¡adott lÃ¶vÃ©s pointerjÃ©vel(dinamikusan foglalt, az egÃ©sz lista felszabadÃ­tÃ¡sÃ¡ra van fÃ¼ggvÃ©ny)
  */
 struct shot_node* add_new_shot(struct shot_node* head , double angle, int shipX , int shipY);
 
 /**
- * @brief ellenõrzi hogy a játékos eltalált -e egy meteort a lövéseivel
+ * @brief ellenÃµrzi hogy a jÃ¡tÃ©kos eltalÃ¡lt -e egy meteort a lÃ¶vÃ©seivel
  * 
- * @param head lövések listájának head-jére mutató pointer pointere
- * @param meteor_head meteorok listájának head-jére mutató pointer pointere
- * @return Meteor visszatér az eltalált meteor adataival(meret=-1 ha nem volt találat, -2 ha valamelyik head NULL)
+ * @param head lÃ¶vÃ©sek listÃ¡jÃ¡nak head-jÃ©re mutatÃ³ pointer pointere
+ * @param meteor_head meteorok listÃ¡jÃ¡nak head-jÃ©re mutatÃ³ pointer pointere
+ * @return Meteor visszatÃ©r az eltalÃ¡lt meteor adataival(meret=-1 ha nem volt talÃ¡lat, -2 ha valamelyik head NULL)
  */
 Meteor check_hits(shot_node** head, meteor_node** meteor_head);
 
 /**
- * @brief lövések mozgatása
+ * @brief lÃ¶vÃ©sek mozgatÃ¡sa
  * 
- * @param head lövések listájának head-jére mutató pointer
+ * @param head lÃ¶vÃ©sek listÃ¡jÃ¡nak head-jÃ©re mutatÃ³ pointer
  * @return int: -1 ha head==NULL | 0 ha sikeres
  */
 int moveShots(struct shot_node* head , float deltaTime);
 
 /**
- * @brief felszabadítja a lövések listáját
+ * @brief felszabadÃ­tja a lÃ¶vÃ©sek listÃ¡jÃ¡t
  * 
- * @param head lövések listájának head-jére pointer
+ * @param head lÃ¶vÃ©sek listÃ¡jÃ¡nak head-jÃ©re pointer
  * @return int: -1 ha head==NULL | 0 ha sikeres
  */
 int delete_shot_list(struct shot_node* head);
