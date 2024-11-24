@@ -1,1 +1,0 @@
- "C:/Program Files/SDL2-2.30.8/cmake/../lib/x64/SDL2main.lib" "C:/Program Files/SDL2-2.30.8/cmake/../lib/x64/SDL2.lib" "C:/Program Files/SDL2_image-2.8.2/cmake/../lib/x64/SDL2_image.lib" "C:/Program Files/SDL2_ttf-2.22.0/cmake/../lib/x64/SDL2_ttf.lib" -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
