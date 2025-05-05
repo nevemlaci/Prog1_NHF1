@@ -5,7 +5,7 @@ App init_App(int screenW , int screenH){
     App app;
     app.succesful_init=false;
 
-    app.icon = IMG_Load("..\\materials\\images\\playe.png");
+    app.icon = IMG_Load("..\\materials\\images\\player.png");
 
     if(!app.icon){
         printf("%s\n" , SDL_GetError());
@@ -138,7 +138,6 @@ void runMenu(App* app){
         renderCopyMenuContents(app->menuRenderer , app->font , app->username , app->latest_score);
         SDL_RenderPresent(app->menuRenderer);
     }
-    return;
 }
 
 int runGame(App* app){
@@ -265,9 +264,6 @@ int runGame(App* app){
         //frame számlálót léptetem
         frames++;
     }
-    
-    //warning elkerÿlése
-    return score;
 }
 
 void resetGame(App* app){

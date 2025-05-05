@@ -1,9 +1,6 @@
 #include <stdio.h>
-#include <stdbool.h>
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
-#include <SDL_main.h>
-#include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <time.h>
 
@@ -32,10 +29,7 @@ int main(int argc , char* argv[])
     
     if(init_sdl() != 0) return 1;
     
-    int screenW , screenH;
-    getDisplaySize(&screenW , &screenH);
-    
-    App app = init_App(screenW , screenH);
+    App app = init_App(800 , 600);
     if(!app.succesful_init){
         printf("Hiba tortent az alkalmazas inicializalasa kozben!");
         DEFINITELY_AN_ERROR_MESSAGE

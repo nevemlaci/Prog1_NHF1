@@ -4,6 +4,8 @@ project(NHF LANGUAGES C)
 
 set(CMAKE_C_STANDARD 11)
 
+add_compile_options(-fdump-rtl-expand)
+
 find_package(SDL2 REQUIRED CONFIG)
 find_package(SDL2_image REQUIRED CONFIG)
 find_package(SDL2_ttf REQUIRED CONFIG)
